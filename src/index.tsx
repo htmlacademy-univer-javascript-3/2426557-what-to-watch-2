@@ -6,7 +6,7 @@ const initialProps = {
   filmName: 'The Grand Budapest Hotel',
   genre: 'Drama',
   releaseDate: '2014',
-} as const;
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
