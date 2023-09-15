@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from '../../components/card/card';
 
 type MainProps = {
@@ -10,7 +11,7 @@ export default function MainPage({
   filmName,
   genre,
   releaseDate,
-}: MainProps): JSX.Element {
+}: MainProps): React.JSX.Element {
   return (
     <>
       <section className="film-card">
