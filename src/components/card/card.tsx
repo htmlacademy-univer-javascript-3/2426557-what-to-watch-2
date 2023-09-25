@@ -1,4 +1,4 @@
-export default function Card(): JSX.Element {
+export default function Card(): React.JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">

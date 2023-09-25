@@ -10,7 +10,7 @@ export default function App({
   filmName,
   genre,
   releaseDate,
-}: AppProps): JSX.Element {
+}: AppProps): React.JSX.Element {
   return (
     <MainPage filmName={filmName} genre={genre} releaseDate={releaseDate} />
   );
