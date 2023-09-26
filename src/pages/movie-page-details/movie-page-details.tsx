@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { Link } from 'react-router-dom';
 
 export default function MoviePageDetails(): React.JSX.Element {
   return (
@@ -42,9 +43,9 @@ export default function MoviePageDetails(): React.JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">
+                <Link to="/films/:id/review" className="btn film-card__button">
                   Add review
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -146,9 +147,9 @@ export default function MoviePageDetails(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films/:id">
                   Fantastic Beasts: The Crimes of Grindelwald
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -161,9 +162,9 @@ export default function MoviePageDetails(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films/:id">
                   Bohemian Rhapsody
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -176,9 +177,9 @@ export default function MoviePageDetails(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films/:id">
                   Macbeth
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -191,9 +192,9 @@ export default function MoviePageDetails(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films/:id">
                   Aviator
-                </a>
+                </Link>
               </h3>
             </article>
           </div>

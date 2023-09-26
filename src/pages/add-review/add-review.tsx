@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
 export default function AddReview(): React.JSX.Element {
-  const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const defaultValue = 8;
+  const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const DEFAULT_RATING = 8;
 
   return (
     <section className="film-card film-card--full">
@@ -26,7 +26,7 @@ export default function AddReview(): React.JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to="/films:id/review" className="breadcrumbs__link">
+                <Link to="//films/:id/review" className="breadcrumbs__link">
                   Add review
                 </Link>
               </li>
@@ -63,7 +63,7 @@ export default function AddReview(): React.JSX.Element {
         <form action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
-              {ratings.map((rating) => (
+              {RATINGS.map((rating) => (
                 <>
                   <input
                     key={rating}
@@ -72,7 +72,7 @@ export default function AddReview(): React.JSX.Element {
                     type="radio"
                     name="rating"
                     value={rating}
-                    defaultChecked={rating === defaultValue}
+                    defaultChecked={rating === DEFAULT_RATING}
                   />
                   <label className="rating__label" htmlFor={`star-${rating}`}>
                     Rating {rating}
