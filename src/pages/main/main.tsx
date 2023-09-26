@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../../components/card/card';
 import Logo from '../../components/logo/logo';
-import { Link } from 'react-router-dom';
+import Footer from '../../components/footer/footer';
 
 type MainProps = {
   filmName: string;
@@ -149,18 +149,7 @@ export default function MainPage({
             </button>
           </div>
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to="/" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
