@@ -1,16 +1,12 @@
 import React from 'react';
+import Logo from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
 
 export default function MyList(): React.JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo />
         <h1 className="page-title user-page__title">
           My list <span className="user-page__film-count">9</span>
         </h1>
@@ -26,7 +22,9 @@ export default function MyList(): React.JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <Link className="user-block__link" to="/login">
+              Sign out
+            </Link>
           </li>
         </ul>
       </header>
@@ -43,9 +41,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Fantastic Beasts: The Crimes of Grindelwald
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -58,9 +56,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Bohemian Rhapsody
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -73,9 +71,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Macbeth
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -88,9 +86,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Aviator
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -103,9 +101,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 We need to talk about Kevin
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -118,9 +116,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 What We Do in the Shadows
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -133,9 +131,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Revenant
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -148,9 +146,9 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Johnny English
-              </a>
+              </Link>
             </h3>
           </article>
           <article className="small-film-card catalog__films-card">
@@ -163,20 +161,20 @@ export default function MyList(): React.JSX.Element {
               />
             </div>
             <h3 className="small-film-card__title">
-              <a className="small-film-card__link" href="film-page.html">
+              <Link className="small-film-card__link" to="/films:id">
                 Shutter Island
-              </a>
+              </Link>
             </h3>
           </article>
         </div>
       </section>
       <footer className="page-footer">
         <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
+          <Link to="/" className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>

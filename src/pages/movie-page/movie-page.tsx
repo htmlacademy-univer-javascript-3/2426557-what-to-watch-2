@@ -1,4 +1,6 @@
 import React from 'react';
+import Logo from '../../components/logo/logo';
+import { Link } from 'react-router-dom';
 
 export default function MoviePage(): React.JSX.Element {
   return (
@@ -13,13 +15,7 @@ export default function MoviePage(): React.JSX.Element {
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+            <Logo />
             <ul className="user-block">
               <li className="user-block__item">
                 <div className="user-block__avatar">
@@ -63,9 +59,9 @@ export default function MoviePage(): React.JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">
+                <Link to="films:id/review" className="btn film-card__button">
                   Add review
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -149,9 +145,9 @@ export default function MoviePage(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="films:id">
                   Fantastic Beasts: The Crimes of Grindelwald
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -164,9 +160,9 @@ export default function MoviePage(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films:id">
                   Bohemian Rhapsody
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -179,9 +175,9 @@ export default function MoviePage(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films:id">
                   Macbeth
-                </a>
+                </Link>
               </h3>
             </article>
             <article className="small-film-card catalog__films-card">
@@ -194,20 +190,20 @@ export default function MoviePage(): React.JSX.Element {
                 />
               </div>
               <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
+                <Link className="small-film-card__link" to="/films:id">
                   Aviator
-                </a>
+                </Link>
               </h3>
             </article>
           </div>
         </section>
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
