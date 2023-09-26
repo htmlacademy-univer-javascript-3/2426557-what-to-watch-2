@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
 type Props = {
-  color?: string;
+  isLight?: boolean;
 };
 
-export default function Logo({ color = '' }: Props): React.JSX.Element {
-  const computedClass = `logo__link ${color ? 'logo__link--light' : ''}`;
+export default function Logo({ isLight = false }: Props): React.JSX.Element {
+  const computedClass = `logo__link ${isLight ? 'logo__link--light' : ''}`;
 
   return (
     <div className="logo">
