@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
@@ -64,9 +64,8 @@ export default function AddReview(): React.JSX.Element {
           <div className="rating">
             <div className="rating__stars">
               {RATINGS.map((rating) => (
-                <>
+                <Fragment key={rating}>
                   <input
-                    key={rating}
                     className="rating__input"
                     id={`star-${rating}`}
                     type="radio"
@@ -77,7 +76,7 @@ export default function AddReview(): React.JSX.Element {
                   <label className="rating__label" htmlFor={`star-${rating}`}>
                     Rating {rating}
                   </label>
-                </>
+                </Fragment>
               ))}
             </div>
           </div>
