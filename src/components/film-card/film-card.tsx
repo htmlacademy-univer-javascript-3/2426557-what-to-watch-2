@@ -1,5 +1,7 @@
 import FilmCardButtons from '../film-card-buttons/film-card-buttons';
 import Header from '../header/header';
+import React from 'react';
+import FilmCardPoster from '../film-card-poster/film-card-poster';
 
 type FilmProps = {
   filmName: string;
@@ -24,14 +26,7 @@ export default function FilmCard({
       <Header />
       <div className="film-card__wrap">
         <div className="film-card__info">
-          <div className="film-card__poster">
-            <img
-              src="img/the-grand-budapest-hotel-poster.jpg"
-              alt="The Grand Budapest Hotel poster"
-              width={218}
-              height={327}
-            />
-          </div>
+          <FilmCardPoster />
           <div className="film-card__desc">
             <h2 className="film-card__title">{filmName}</h2>
             <p className="film-card__meta">

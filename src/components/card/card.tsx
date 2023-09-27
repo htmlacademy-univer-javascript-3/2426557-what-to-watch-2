@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './card.css';
 
 export default function Card(): React.JSX.Element {
   return (
@@ -7,8 +8,6 @@ export default function Card(): React.JSX.Element {
         <img
           src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
           alt="Fantastic Beasts: The Crimes of Grindelwald"
-          width={280}
-          height={175}
         />
       </div>
       <h3 className="small-film-card__title">

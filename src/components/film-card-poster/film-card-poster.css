@@ -1,0 +1,14 @@
+.film-card__poster > img {
+  width: 218px;
+  height: 327px;
+}
+
+.film-card__poster--small img {
+  width: 132px;
+  height: 198px;
+}
+
+.film-card__poster--big img {
+  width: 273px;
+  height: 410px;
+}

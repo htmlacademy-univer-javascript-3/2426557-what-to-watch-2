@@ -1,11 +1,12 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
+import React from 'react';
 
 type PrivateRouteProps = {
-  children: JSX.Element;
+  children: React.JSX.Element;
 };
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+function PrivateRoute(props: PrivateRouteProps): React.JSX.Element {
   const { children } = props;
 
   const isAuth = true;

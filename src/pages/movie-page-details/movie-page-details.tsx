@@ -2,6 +2,8 @@ import React from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { Link } from 'react-router-dom';
+import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
+import Card from '../../components/card/card';
 
 export default function MoviePageDetails(): React.JSX.Element {
   return (
@@ -52,14 +54,7 @@ export default function MoviePageDetails(): React.JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
-                width={218}
-                height={327}
-              />
-            </div>
+            <FilmCardPoster />
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
@@ -137,66 +132,9 @@ export default function MoviePageDetails(): React.JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                  alt="Fantastic Beasts: The Crimes of Grindelwald"
-                  width={280}
-                  height={175}
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/:id">
-                  Fantastic Beasts: The Crimes of Grindelwald
-                </Link>
-              </h3>
-            </article>
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src="img/bohemian-rhapsody.jpg"
-                  alt="Bohemian Rhapsody"
-                  width={280}
-                  height={175}
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/:id">
-                  Bohemian Rhapsody
-                </Link>
-              </h3>
-            </article>
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src="img/macbeth.jpg"
-                  alt="Macbeth"
-                  width={280}
-                  height={175}
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/:id">
-                  Macbeth
-                </Link>
-              </h3>
-            </article>
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src="img/aviator.jpg"
-                  alt="Aviator"
-                  width={280}
-                  height={175}
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <Link className="small-film-card__link" to="/films/:id">
-                  Aviator
-                </Link>
-              </h3>
-            </article>
+            {Array.from({ length: 4 }, (_, index) => (
+              <Card key={index} />
+            ))}
           </div>
         </section>
         <Footer />
