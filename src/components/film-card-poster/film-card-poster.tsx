@@ -1,12 +1,12 @@
 import './film-card-poster.css';
 
-type PosterProps = {
+type FilmCardPosterProps = {
   size?: string;
 };
 
 export default function FilmCardPoster({
   size = '',
-}: PosterProps): React.JSX.Element {
+}: FilmCardPosterProps): React.JSX.Element {
   const computedClass = `film-card__poster ${
     size ? `film-card__poster--${size}` : ''
   }`;

@@ -3,7 +3,7 @@ import Header from '../header/header';
 import React from 'react';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 
-type FilmProps = {
+type FilmCardProps = {
   filmName: string;
   genre: string;
   releaseDate: string;
@@ -13,7 +13,7 @@ export default function FilmCard({
   filmName,
   genre,
   releaseDate,
-}: FilmProps): React.JSX.Element {
+}: FilmCardProps): React.JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">

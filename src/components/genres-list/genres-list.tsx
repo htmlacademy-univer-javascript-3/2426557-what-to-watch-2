@@ -1,5 +1,5 @@
 import React from 'react';
-import {GENRES} from '../../consts/genres.tsx';
+import { GENRES } from '../../consts/genres.ts';
 import GenreItem from '../genre-item/genre-item.tsx';
 
 export default function GenresList(): React.JSX.Element {

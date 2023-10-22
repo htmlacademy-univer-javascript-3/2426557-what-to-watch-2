@@ -8,6 +8,7 @@ import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 export default function AddReview(): React.JSX.Element {
   const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const DEFAULT_RATING = 8;
+  const id = 1;
 
   return (
     <section className="film-card film-card--full">
@@ -29,7 +30,7 @@ export default function AddReview(): React.JSX.Element {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to="//films/:id/review" className="breadcrumbs__link">
+                <Link to={`/films/${id}/review`} className="breadcrumbs__link">
                   Add review
                 </Link>
               </li>
