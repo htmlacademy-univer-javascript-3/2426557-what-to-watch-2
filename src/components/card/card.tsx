@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import './card.css';
+
 export default function Card(): React.JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">
@@ -5,14 +8,12 @@ export default function Card(): React.JSX.Element {
         <img
           src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
           alt="Fantastic Beasts: The Crimes of Grindelwald"
-          width={280}
-          height={175}
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">
+        <Link className="small-film-card__link" to="/films:id">
           Fantastic Beasts: The Crimes of Grindelwald
-        </a>
+        </Link>
       </h3>
     </article>
   );
