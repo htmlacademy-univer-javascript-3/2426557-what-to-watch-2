@@ -9,32 +9,18 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import Player from '../../pages/player/player';
 import { AppRoute } from '../../enums/AppRoute';
 import PrivateRoute from '../private-route/private-route';
+import { FilmInfoProps } from '../../types/film-types';
 
 type AppProps = {
-  filmName: string;
-  genre: string;
-  releaseDate: string;
+  films: FilmInfoProps[];
 };
 
-export default function App({
-  filmName,
-  genre,
-  releaseDate,
-}: AppProps): React.JSX.Element {
+export default function App({ films }: AppProps): React.JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}>
-          <Route
-            index
-            element={
-              <MainPage
-                filmName={filmName}
-                genre={genre}
-                releaseDate={releaseDate}
-              />
-            }
-          />
+          <Route index element={<MainPage films={films} />} />
           <Route path={AppRoute.Login} element={<SignIn />} />
           <Route
             path={AppRoute.MyList}
@@ -45,7 +31,7 @@ export default function App({
             }
           />
           <Route path={AppRoute.Films}>
-            <Route path=":id" element={<MoviePage />} />
+            <Route path=":id" element={<MoviePage films={films} />} />
             <Route
               path={AppRoute.Review}
               element={

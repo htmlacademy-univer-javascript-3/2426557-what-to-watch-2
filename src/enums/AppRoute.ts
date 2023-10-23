@@ -3,6 +3,6 @@ export const enum AppRoute {
   Login = '/login',
   MyList = '/mylist',
   Films = '/films',
-  Review = ':id/review',
-  Player = '/player/:id'
+  Review = '/review',
+  Player = '/player'
 }

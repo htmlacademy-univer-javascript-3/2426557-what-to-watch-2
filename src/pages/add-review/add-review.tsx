@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 
 export default function AddReview(): React.JSX.Element {
+  const { id = 0 } = useParams();
+
   const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const DEFAULT_RATING = 8;
-  const id = 1;
 
   return (
     <section className="film-card film-card--full">
@@ -25,7 +26,7 @@ export default function AddReview(): React.JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to="/films:id" className="breadcrumbs__link">
+                <Link to={`/films/${id}`} className="breadcrumbs__link">
                   The Grand Budapest Hotel
                 </Link>
               </li>

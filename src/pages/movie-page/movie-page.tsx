@@ -1,11 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import Card from '../../components/card/card';
+import FilmsList from '../../components/films-list/films-list';
+import { FilmInfoProps } from '../../types/film-types';
 
-export default function MoviePage(): React.JSX.Element {
+type MoviePageProps = {
+  films: FilmInfoProps[];
+};
+
+export default function MoviePage({
+  films,
+}: MoviePageProps): React.JSX.Element {
+  const { id = 0 } = useParams();
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -49,7 +58,10 @@ export default function MoviePage(): React.JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to="/films/:id/review" className="btn film-card__button">
+                <Link
+                  to={`/films/${id}/review`}
+                  className="btn film-card__button"
+                >
                   Add review
                 </Link>
               </div>
@@ -117,11 +129,7 @@ export default function MoviePage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
-            {Array.from({ length: 4 }, (_, index) => (
-              <Card key={index} />
-            ))}
-          </div>
+          <FilmsList films={films} />
         </section>
         <Footer />
       </div>
