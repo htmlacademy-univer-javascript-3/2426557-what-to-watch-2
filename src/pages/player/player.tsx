@@ -1,12 +1,26 @@
 import React from 'react';
+import { filmsList } from '../../mocks/fims';
+import { Link, useParams } from 'react-router-dom';
 
 export default function Player(): React.JSX.Element {
+  const { id = 0 } = useParams();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const film = filmsList.find((f) => f.id === id)!;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">
+      <video
+        src={film.videoLink}
+        className="player__video"
+        poster={film.posterImage}
+      />
+      <Link
+        type="button"
+        className="player__exit"
+        to={`/films/${film?.id || ''}`}
+      >
         Exit
-      </button>
+      </Link>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">

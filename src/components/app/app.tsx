@@ -26,22 +26,22 @@ export default function App({ films }: AppProps): React.JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyList />
+                <MyList films={films} />
               </PrivateRoute>
             }
           />
           <Route path={AppRoute.Films}>
             <Route path=":id" element={<MoviePage films={films} />} />
             <Route
-              path={AppRoute.Review}
+              path={`:id${AppRoute.Review}`}
               element={
                 <PrivateRoute>
-                  <AddReview />
+                  <AddReview films={films} />
                 </PrivateRoute>
               }
             />
           </Route>
-          <Route path={AppRoute.Player} element={<Player />} />
+          <Route path={`${AppRoute.Player}/:id`} element={<Player />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

@@ -1,6 +1,6 @@
 export interface ReviewProps {
   id: string;
-  date: string;
+  date: string | Date;
   user: string;
   comment: string;
   rating: number;

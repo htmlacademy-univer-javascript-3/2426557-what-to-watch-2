@@ -2,10 +2,14 @@ import './film-card-poster.css';
 
 type FilmCardPosterProps = {
   size?: string;
+  src?: string;
+  alt?: string;
 };
 
 export default function FilmCardPoster({
   size = '',
+  src = '',
+  alt = '',
 }: FilmCardPosterProps): React.JSX.Element {
   const computedClass = `film-card__poster ${
     size ? `film-card__poster--${size}` : ''
@@ -13,10 +17,7 @@ export default function FilmCardPoster({
 
   return (
     <div className={computedClass}>
-      <img
-        src="img/the-grand-budapest-hotel-poster.jpg"
-        alt="The Grand Budapest Hotel poster"
-      />
+      <img src={src} alt={alt} />
     </div>
   );
 }

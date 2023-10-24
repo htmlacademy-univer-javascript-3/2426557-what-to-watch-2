@@ -13,7 +13,10 @@ type MoviePageProps = {
 export default function MoviePage({
   films,
 }: MoviePageProps): React.JSX.Element {
-  const { id = 0 } = useParams();
+  const { id = 1 } = useParams();
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const film = films.find((f) => f.id === Number(id))!;
 
   return (
     <>
@@ -29,10 +32,10 @@ export default function MoviePage({
           <Header />
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
               <div className="film-card__buttons">
                 <button
@@ -59,7 +62,7 @@ export default function MoviePage({
                   <span className="film-card__count">9</span>
                 </button>
                 <Link
-                  to={`/films/${id}/review`}
+                  to={`/films/${film.id}/review`}
                   className="btn film-card__button"
                 >
                   Add review
@@ -70,7 +73,7 @@ export default function MoviePage({
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster />
+            <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
@@ -92,34 +95,19 @@ export default function MoviePage({
                 </ul>
               </nav>
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">240 ratings</span>
                 </p>
               </div>
               <div className="film-card__text">
-                <p>
-                  In the 1930s, the Grand Budapest Hotel is a popular European
-                  ski resort, presided over by concierge Gustave H. (Ralph
-                  Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend
-                  and protege.
-                </p>
-                <p>
-                  Gustave prides himself on providing first-class service to the
-                  hotel`s guests, including satisfying the sexual needs of the
-                  many elderly women who stay there. When one of Gustave`s
-                  lovers dies mysteriously, Gustave finds himself the recipient
-                  of a priceless painting and the chief suspect in her murder.
-                </p>
+                <p>{film.description}</p>
                 <p className="film-card__director">
-                  <strong>Director: Wes Anderson</strong>
+                  <strong>Director: {film.director}</strong>
                 </p>
                 <p className="film-card__starring">
-                  <strong>
-                    Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-                    and other
-                  </strong>
+                  <strong>Starring:{film.starring.join(', ')}</strong>
                 </p>
               </div>
             </div>

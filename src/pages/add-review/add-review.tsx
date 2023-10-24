@@ -1,15 +1,23 @@
-import React, { Fragment } from 'react';
+/* eslint-disable no-console */
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
+import { FilmInfoProps } from '../../types/film-types';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
 
-export default function AddReview(): React.JSX.Element {
+type AddReviewProps = {
+  films: FilmInfoProps[];
+};
+
+export default function AddReview({
+  films,
+}: AddReviewProps): React.JSX.Element {
   const { id = 0 } = useParams();
-
-  const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const DEFAULT_RATING = 8;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const film = films.find((f) => f.id === Number(id))!;
 
   return (
     <section className="film-card film-card--full">
@@ -26,12 +34,15 @@ export default function AddReview(): React.JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${id}`} className="breadcrumbs__link">
-                  The Grand Budapest Hotel
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
+                  {film.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to={`/films/${id}/review`} className="breadcrumbs__link">
+                <Link
+                  to={`/films/${film.id}/review`}
+                  className="breadcrumbs__link"
+                >
                   Add review
                 </Link>
               </li>
@@ -39,45 +50,13 @@ export default function AddReview(): React.JSX.Element {
           </nav>
           <UserBlock />
         </header>
-        <FilmCardPoster size={'small'} />
+        <FilmCardPoster
+          size={'small'}
+          src={film.backgroundImage}
+          alt={film.alt}
+        />
       </div>
-      <div className="add-review">
-        <form action="#" className="add-review__form">
-          <div className="rating">
-            <div className="rating__stars">
-              {RATINGS.map((rating) => (
-                <Fragment key={rating}>
-                  <input
-                    className="rating__input"
-                    id={`star-${rating}`}
-                    type="radio"
-                    name="rating"
-                    value={rating}
-                    defaultChecked={rating === DEFAULT_RATING}
-                  />
-                  <label className="rating__label" htmlFor={`star-${rating}`}>
-                    Rating {rating}
-                  </label>
-                </Fragment>
-              ))}
-            </div>
-          </div>
-          <div className="add-review__text">
-            <textarea
-              className="add-review__textarea"
-              name="review-text"
-              id="review-text"
-              placeholder="Review text"
-              defaultValue={''}
-            />
-            <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">
-                Post
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <AddReviewForm onSubmit={() => console.log('!!!!!')} />
     </section>
   );
 }
