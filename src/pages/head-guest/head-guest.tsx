@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { AppRoute } from '../../enums/AppRoute';
 
 export default function HeadGuest(): React.JSX.Element {
   return (
@@ -12,7 +13,7 @@ export default function HeadGuest(): React.JSX.Element {
       <header className="page-header">
         <Logo />
         <div className="user-block">
-          <Link to="/login" className="user-block__link">
+          <Link to={`${AppRoute.Login}`} className="user-block__link">
             Sign in
           </Link>
         </div>

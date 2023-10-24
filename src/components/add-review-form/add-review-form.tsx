@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { DEFAULT_FORM_VALUE } from '../../consts/default-form';
 
 type ReviewFormProps = {
   onSubmit: () => void;
@@ -10,11 +11,7 @@ export default function AddReviewForm({
   const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const [review, setReview] = useState({
-    id: '',
-    comment: '',
-    user: 'Kate Muir',
-    date: new Date(),
-    rating: 7.2,
+    ...DEFAULT_FORM_VALUE,
   });
 
   function handleRatingChange(evt: ChangeEvent<HTMLInputElement>) {

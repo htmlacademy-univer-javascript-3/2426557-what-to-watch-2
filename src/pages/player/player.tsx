@@ -1,11 +1,15 @@
 import React from 'react';
 import { filmsList } from '../../mocks/fims';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { AppRoute } from '../../enums/AppRoute';
 
 export default function Player(): React.JSX.Element {
-  const { id = 0 } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const film = filmsList.find((f) => f.id === id)!;
+  const { id = '' } = useParams();
+  const film = filmsList.find((f) => f.id === Number(id));
+
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <div className="player">
@@ -17,7 +21,7 @@ export default function Player(): React.JSX.Element {
       <Link
         type="button"
         className="player__exit"
-        to={`/films/${film?.id || ''}`}
+        to={`${AppRoute.Films}/${film.id}`}
       >
         Exit
       </Link>

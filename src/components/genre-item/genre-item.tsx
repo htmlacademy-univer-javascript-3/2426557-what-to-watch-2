@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../enums/AppRoute';
 
 type GenreItemProps = {
   name: string;
@@ -15,7 +16,7 @@ export default function GenreItem({
 
   return (
     <li className={computedClass}>
-      <Link to="/" className="catalog__genres-link">
+      <Link to={AppRoute.Main} className="catalog__genres-link">
         {name}
       </Link>
     </li>

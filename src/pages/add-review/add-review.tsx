@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import { FilmInfoProps } from '../../types/film-types';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
+import { AppRoute } from '../../enums/AppRoute';
 
 type AddReviewProps = {
   films: FilmInfoProps[];
@@ -15,9 +16,12 @@ type AddReviewProps = {
 export default function AddReview({
   films,
 }: AddReviewProps): React.JSX.Element {
-  const { id = 0 } = useParams();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const film = films.find((f) => f.id === Number(id))!;
+  const { id = '' } = useParams();
+  const film = films.find((f) => f.id === Number(id));
+
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -34,13 +38,16 @@ export default function AddReview({
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">
+                <Link
+                  to={`${AppRoute.Films}/${film.id}`}
+                  className="breadcrumbs__link"
+                >
                   {film.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link
-                  to={`/films/${film.id}/review`}
+                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
                   className="breadcrumbs__link"
                 >
                   Add review

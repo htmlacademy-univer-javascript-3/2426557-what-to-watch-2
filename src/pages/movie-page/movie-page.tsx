@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import FilmsList from '../../components/films-list/films-list';
 import { FilmInfoProps } from '../../types/film-types';
+import { AppRoute } from '../../enums/AppRoute';
 
 type MoviePageProps = {
   films: FilmInfoProps[];
@@ -13,10 +14,12 @@ type MoviePageProps = {
 export default function MoviePage({
   films,
 }: MoviePageProps): React.JSX.Element {
-  const { id = 1 } = useParams();
+  const { id = '' } = useParams();
+  const film = films.find((f) => f.id === Number(id));
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const film = films.find((f) => f.id === Number(id))!;
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <>
@@ -62,7 +65,7 @@ export default function MoviePage({
                   <span className="film-card__count">9</span>
                 </button>
                 <Link
-                  to={`/films/${film.id}/review`}
+                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
                   className="btn film-card__button"
                 >
                   Add review
