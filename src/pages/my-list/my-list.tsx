@@ -3,8 +3,13 @@ import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
 import Card from '../../components/card/card';
+import { FilmInfoProps } from '../../types/film-types';
 
-export default function MyList(): React.JSX.Element {
+type MyListProps = {
+  films: FilmInfoProps[];
+};
+
+export default function MyList({ films }: MyListProps): React.JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -17,8 +22,8 @@ export default function MyList(): React.JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {Array.from({ length: 9 }, (_, index) => (
-            <Card key={index} />
+          {films.map((film) => (
+            <Card film={film} key={film.name} />
           ))}
         </div>
       </section>

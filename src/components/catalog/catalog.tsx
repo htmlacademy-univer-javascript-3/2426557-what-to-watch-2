@@ -1,15 +1,20 @@
+import { FilmInfoProps } from '../../types/film-types.ts';
 import Card from '../card/card';
 import GenresList from '../genres-list/genres-list.tsx';
 import React from 'react';
 
-export default function Catalog(): React.JSX.Element {
+type CatalogProps = {
+  films: FilmInfoProps[];
+};
+
+export default function Catalog({ films }: CatalogProps): React.JSX.Element {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <GenresList/>
+      <GenresList />
       <div className="catalog__films-list">
-        {Array.from({ length: 20 }, (_, index) => (
-          <Card key={index} />
+        {films.map((film) => (
+          <Card film={film} key={film.name} />
         ))}
       </div>
       <div className="catalog__more">

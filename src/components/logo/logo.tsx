@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { AppRoute } from '../../enums/AppRoute';
 
 type Props = {
   isLight?: boolean;
@@ -10,7 +11,7 @@ export default function Logo({ isLight = false }: Props): React.JSX.Element {
 
   return (
     <div className="logo">
-      <Link to="/" className={computedClass}>
+      <Link to={AppRoute.Main} className={computedClass}>
         <span className="logo__letter logo__letter--1">W</span>
         <span className="logo__letter logo__letter--2">T</span>
         <span className="logo__letter logo__letter--3">W</span>

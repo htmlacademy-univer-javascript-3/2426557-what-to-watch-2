@@ -1,11 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import Card from '../../components/card/card';
+import FilmsList from '../../components/films-list/films-list';
+import { FilmInfoProps } from '../../types/film-types';
+import { AppRoute } from '../../enums/AppRoute';
 
-export default function MoviePage(): React.JSX.Element {
+type MoviePageProps = {
+  films: FilmInfoProps[];
+};
+
+export default function MoviePage({
+  films,
+}: MoviePageProps): React.JSX.Element {
+  const { id = '' } = useParams();
+  const film = films.find((f) => f.id === Number(id));
+
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -20,10 +35,10 @@ export default function MoviePage(): React.JSX.Element {
           <Header />
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
               <div className="film-card__buttons">
                 <button
@@ -49,7 +64,10 @@ export default function MoviePage(): React.JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to="/films/:id/review" className="btn film-card__button">
+                <Link
+                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
+                  className="btn film-card__button"
+                >
                   Add review
                 </Link>
               </div>
@@ -58,7 +76,7 @@ export default function MoviePage(): React.JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster />
+            <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
@@ -80,34 +98,19 @@ export default function MoviePage(): React.JSX.Element {
                 </ul>
               </nav>
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{film.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">240 ratings</span>
                 </p>
               </div>
               <div className="film-card__text">
-                <p>
-                  In the 1930s, the Grand Budapest Hotel is a popular European
-                  ski resort, presided over by concierge Gustave H. (Ralph
-                  Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend
-                  and protege.
-                </p>
-                <p>
-                  Gustave prides himself on providing first-class service to the
-                  hotel`s guests, including satisfying the sexual needs of the
-                  many elderly women who stay there. When one of Gustave`s
-                  lovers dies mysteriously, Gustave finds himself the recipient
-                  of a priceless painting and the chief suspect in her murder.
-                </p>
+                <p>{film.description}</p>
                 <p className="film-card__director">
-                  <strong>Director: Wes Anderson</strong>
+                  <strong>Director: {film.director}</strong>
                 </p>
                 <p className="film-card__starring">
-                  <strong>
-                    Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-                    and other
-                  </strong>
+                  <strong>Starring:{film.starring.join(', ')}</strong>
                 </p>
               </div>
             </div>
@@ -117,11 +120,7 @@ export default function MoviePage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
-            {Array.from({ length: 4 }, (_, index) => (
-              <Card key={index} />
-            ))}
-          </div>
+          <FilmsList films={films} />
         </section>
         <Footer />
       </div>
