@@ -1,0 +1,1 @@
+export const DEFAULT_AUTOPLAY_TIME = 1000;

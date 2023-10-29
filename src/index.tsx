@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { filmsList } from './mocks/fims';
+import { filmsList } from './mocks/films';
 
 const initialProps = {
   films: filmsList,

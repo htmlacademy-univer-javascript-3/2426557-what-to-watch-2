@@ -1,5 +1,5 @@
 import React from 'react';
-import { filmsList } from '../../mocks/fims';
+import { filmsList } from '../../mocks/films';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 
