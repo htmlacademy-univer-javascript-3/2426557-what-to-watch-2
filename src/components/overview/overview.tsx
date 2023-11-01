@@ -1,11 +1,12 @@
 import React from 'react';
-import {FilmInfoProps} from '../../types/film-types.ts';
+import { FilmInfoProps } from '../../types/film-types.ts';
 
 type OverviewProps = {
   film: FilmInfoProps;
-}
-export default function Overview({film}: OverviewProps): React.JSX.Element {
-
+};
+export default function OverviewComponent({
+  film,
+}: OverviewProps): React.JSX.Element {
   return (
     <>
       <div className="film-rating">

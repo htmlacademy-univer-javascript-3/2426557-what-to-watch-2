@@ -6,6 +6,7 @@ import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import FilmsList from '../../components/films-list/films-list';
 import { FilmInfoProps } from '../../types/film-types';
 import { AppRoute } from '../../enums/AppRoute';
+import Tabs from '../../components/tabs/tabs.tsx';
 
 type MoviePageProps = {
   films: FilmInfoProps[];
@@ -78,6 +79,7 @@ export default function MoviePage({
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
+            <Tabs film={film}/>
           </div>
         </div>
       </section>
