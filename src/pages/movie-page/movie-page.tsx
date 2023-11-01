@@ -19,7 +19,6 @@ export default function MoviePage({
   const film = films.find((f) => f.id === Number(id));
 
   if (!film) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return <Navigate to={AppRoute.NotFound} />;
   }
 
@@ -79,14 +78,14 @@ export default function MoviePage({
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
-            <Tabs film={film}/>
+            <Tabs film={film} />
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={films} />
+          <FilmsList films={films} length={4} genre={film.genre} />
         </section>
         <Footer />
       </div>

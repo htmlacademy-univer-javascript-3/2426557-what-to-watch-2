@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FilmInfoProps } from '../../types/film-types.ts';
-import OverviewComponent from '../overview/overview.tsx';
-import FilmDetailsComponent from '../film-details/film-details.tsx';
-import FilmReviewsComponent from '../film-review/film-reviews.tsx';
+import Overview from '../overview/overview.tsx';
+import FilmDetails from '../film-details/film-details.tsx';
+import FilmReviews from '../film-review/film-reviews.tsx';
 import { reviewsInfo } from '../../mocks/reviews.ts';
 
 const TABS = ['Overview', 'Details', 'Reviews'];
@@ -27,11 +27,11 @@ export default function Tabs({ film }: TabsProps): React.JSX.Element {
   const component = useMemo(() => {
     switch (activeTab) {
       case TABS[0]:
-        return <OverviewComponent film={film} />;
+        return <Overview film={film} />;
       case TABS[1]:
-        return <FilmDetailsComponent film={film} />;
+        return <FilmDetails film={film} />;
       case TABS[2]:
-        return <FilmReviewsComponent reviews={reviewsInfo} />;
+        return <FilmReviews reviews={reviewsInfo} />;
       default:
         return null;
     }

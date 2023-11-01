@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
@@ -63,6 +62,7 @@ export default function AddReview({
           alt={film.alt}
         />
       </div>
+      {/* eslint-disable-next-line no-console */}
       <AddReviewForm onSubmit={() => console.log('!!!!!')} />
     </section>
   );

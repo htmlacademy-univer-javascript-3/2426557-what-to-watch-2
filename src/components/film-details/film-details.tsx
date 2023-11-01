@@ -5,7 +5,7 @@ import { formatRunTime } from '../../utils/time.ts';
 type FilmDetailsProps = {
   film: FilmInfoProps;
 };
-export default function FilmDetailsComponent({
+export default function FilmDetails({
   film,
 }: FilmDetailsProps): React.JSX.Element {
   return (

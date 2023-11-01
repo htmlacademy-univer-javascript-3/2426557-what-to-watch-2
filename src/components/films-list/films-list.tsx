@@ -5,10 +5,14 @@ import { filmsList } from '../../mocks/films';
 
 type FilmsListProps = {
   films: FilmInfoProps[];
+  length?: number;
+  genre?: string;
 };
 
 export default function FilmsList({
   films = filmsList,
+  length = filmsList.length,
+  genre,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
@@ -20,9 +24,13 @@ export default function FilmsList({
     setActiveFilm(null);
   };
 
+  const filteredFilms = genre
+    ? films.filter((film) => film.genre === genre)
+    : films;
+
   return (
     <div className="catalog__films-list">
-      {films.map((film) => (
+      {filteredFilms.slice(0, length).map((film) => (
         <Card
           film={film}
           key={film.name}

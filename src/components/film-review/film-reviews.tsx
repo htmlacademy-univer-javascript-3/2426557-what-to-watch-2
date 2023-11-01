@@ -10,7 +10,7 @@ type FilmReviewProps = {
   review: ReviewProps;
 };
 
-function ReviewComponent({ review }: FilmReviewProps): React.JSX.Element {
+function Review({ review }: FilmReviewProps): React.JSX.Element {
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -26,20 +26,19 @@ function ReviewComponent({ review }: FilmReviewProps): React.JSX.Element {
     </div>
   );
 }
-export default function FilmReviewsComponent({
+export default function FilmReviews({
   reviews = reviewsInfo,
 }: FilmReviewsProps): React.JSX.Element {
-
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
         {reviews.slice(0, reviews.length / 2).map((review) => (
-          <ReviewComponent key={review.id} review={review} />
+          <Review key={review.id} review={review} />
         ))}
       </div>
       <div className="film-card__reviews-col">
         {reviews.slice(reviews.length / 2, reviews.length).map((review) => (
-          <ReviewComponent key={review.id} review={review} />
+          <Review key={review.id} review={review} />
         ))}
       </div>
     </div>
