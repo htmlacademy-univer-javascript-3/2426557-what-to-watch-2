@@ -18,7 +18,7 @@ export default function FilmDetails({
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {(film.starring || []).map(
+            {film.starring?.map(
               (star, index) =>
                 film.starring && (
                   <React.Fragment key={star}>

@@ -62,7 +62,6 @@ export default function AddReview({
           alt={film.alt}
         />
       </div>
-      {/* eslint-disable-next-line no-console */}
       <AddReviewForm onSubmit={() => console.log('!!!!!')} />
     </section>
   );

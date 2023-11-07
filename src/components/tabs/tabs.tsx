@@ -7,14 +7,16 @@ import { reviewsInfo } from '../../mocks/reviews.ts';
 
 const TABS = ['Overview', 'Details', 'Reviews'];
 
+type TTabs = (typeof TABS)[number];
+
 type TabsProps = {
   film: FilmInfoProps;
 };
 export default function Tabs({ film }: TabsProps): React.JSX.Element {
-  const [activeTab, setActiveTab] = useState(TABS[0]);
+  const [activeTab, setActiveTab] = useState<TTabs>(TABS[0]);
 
   const handleSetActiveTab = useCallback(
-    (tab: string) => () => {
+    (tab: TTabs) => () => {
       setActiveTab(tab);
     },
     []
