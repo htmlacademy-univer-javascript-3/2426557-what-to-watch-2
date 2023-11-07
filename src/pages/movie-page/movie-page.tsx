@@ -6,6 +6,7 @@ import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import FilmsList from '../../components/films-list/films-list';
 import { FilmInfoProps } from '../../types/film-types';
 import { AppRoute } from '../../enums/AppRoute';
+import Tabs from '../../components/tabs/tabs.tsx';
 
 type MoviePageProps = {
   films: FilmInfoProps[];
@@ -77,50 +78,14 @@ export default function MoviePage({
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">
-                      Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">
-                      Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">
-                      Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
-                </p>
-              </div>
-              <div className="film-card__text">
-                <p>{film.description}</p>
-                <p className="film-card__director">
-                  <strong>Director: {film.director}</strong>
-                </p>
-                <p className="film-card__starring">
-                  <strong>Starring:{film.starring.join(', ')}</strong>
-                </p>
-              </div>
-            </div>
+            <Tabs film={film} />
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={films} />
+          <FilmsList films={films} length={4} genre={film.genre} />
         </section>
         <Footer />
       </div>

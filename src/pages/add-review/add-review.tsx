@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';

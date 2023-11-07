@@ -14,9 +14,13 @@ export default function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
       videoRef.current?.play();
     }, DEFAULT_AUTOPLAY_TIME);
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, []);
 
   return (
