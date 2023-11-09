@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Card from '../../components/card/card';
-import { filmsList } from '../../mocks/films';
 import {useAppSelector} from '../../hooks/store.ts';
+import {DEFAULT_FILM_LIST_LENGTH} from '../../consts/film-list.ts';
 
 type FilmsListProps = {
-  length?: number;
+  length: number;
   genre?: string;
 };
 
 export default function FilmsList({
-  length = filmsList.length,
+  length = DEFAULT_FILM_LIST_LENGTH,
   genre,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
