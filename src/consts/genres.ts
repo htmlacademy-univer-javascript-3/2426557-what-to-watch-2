@@ -1,3 +1,5 @@
+export const ALL_GENRES = 'All genres';
+
 export const GENRES = [
   { id: 1, isActive: true, name: 'All genres' },
   { id: 2, isActive: false, name: 'Comedies' },
