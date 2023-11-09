@@ -85,7 +85,7 @@ export default function MoviePage({
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={films} length={4} genre={film.genre} />
+          <FilmsList length={4} genre={film.genre} />
         </section>
         <Footer />
       </div>

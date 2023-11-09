@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import Card from '../../components/card/card';
-import { FilmInfoProps } from '../../types/film-types';
 import { filmsList } from '../../mocks/films';
+import {useAppSelector} from '../../hooks/store.ts';
 
 type FilmsListProps = {
-  films: FilmInfoProps[];
   length?: number;
   genre?: string;
 };
 
 export default function FilmsList({
-  films = filmsList,
   length = filmsList.length,
   genre,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
+  const genreFilms = useAppSelector((state) => state.genreFilms);
+  const films = useAppSelector((state) => state.films);
   const handleCardHover = (filmId: number) => {
     setActiveFilm(filmId);
   };
@@ -26,7 +26,7 @@ export default function FilmsList({
 
   const filteredFilms = genre
     ? films.filter((film) => film.genre === genre)
-    : films;
+    : genreFilms;
 
   return (
     <div className="catalog__films-list">
