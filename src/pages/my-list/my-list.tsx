@@ -2,11 +2,11 @@ import React from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
-import { FilmInfoProps } from '../../types/film-types';
+import {FilmProps} from '../../types/film-types';
 import FilmsList from '../../components/films-list/films-list';
 
 type MyListProps = {
-  films: FilmInfoProps[];
+  films: FilmProps[];
 };
 
 export default function MyList({ films }: MyListProps): React.JSX.Element {

@@ -8,12 +8,14 @@ import { AppRoute } from '../../enums/AppRoute';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { fetchFilmById } from '../../store/api-actions.ts';
+import { Spinner } from '../../components/spinner/spinner';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   useLayoutEffect(() => {
     if (id) {
@@ -21,6 +23,9 @@ export default function MoviePage(): React.JSX.Element {
     }
   }, [id, dispatch]);
 
+  if (isLoading && !film) {
+    return <Spinner />;
+  }
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;
   }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Card from '../../components/card/card';
-import {useAppSelector} from '../../hooks/store.ts';
-import {DEFAULT_FILM_LIST_LENGTH} from '../../consts/film-list.ts';
+import { useAppSelector } from '../../hooks/store.ts';
+import { DEFAULT_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
+import { Spinner } from '../spinner/spinner.tsx';
 
 type FilmsListProps = {
   length: number;
@@ -16,6 +17,8 @@ export default function FilmsList({
 
   const genreFilms = useAppSelector((state) => state.genreFilms);
   const films = useAppSelector((state) => state.films);
+  const isLoading = useAppSelector((state) => state.isLoading);
+
   const handleCardHover = (filmId: number) => {
     setActiveFilm(filmId);
   };
@@ -30,15 +33,21 @@ export default function FilmsList({
 
   return (
     <div className="catalog__films-list">
-      {filteredFilms.slice(0, length).map((film) => (
-        <Card
-          film={film}
-          key={film.name}
-          isActive={film.id === activeFilm}
-          onMouseEnter={handleCardHover}
-          onMouseLeave={handleCardLeave}
-        />
-      ))}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        filteredFilms
+          .slice(0, length)
+          .map((film) => (
+            <Card
+              film={film}
+              key={film.name}
+              isActive={film.id === activeFilm}
+              onMouseEnter={handleCardHover}
+              onMouseLeave={handleCardLeave}
+            />
+          ))
+      )}
     </div>
   );
 }
