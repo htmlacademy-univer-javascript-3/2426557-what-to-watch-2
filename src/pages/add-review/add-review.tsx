@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import { FilmInfoProps } from '../../types/film-types';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { AppRoute } from '../../enums/AppRoute';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { fetchFilmById } from '../../store/api-actions';
 
-type AddReviewProps = {
-  films: FilmInfoProps[];
-};
-
-export default function AddReview({
-  films,
-}: AddReviewProps): React.JSX.Element {
+export default function AddReview(): React.JSX.Element {
   const { id = '' } = useParams();
-  const film = films.find((f) => f.id === Number(id));
+
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.currentFilm);
+
+  useLayoutEffect(() => {
+    if (id) {
+      dispatch(fetchFilmById(Number(id)));
+    }
+  }, [id, dispatch]);
 
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;

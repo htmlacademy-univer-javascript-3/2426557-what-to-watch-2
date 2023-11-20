@@ -1,11 +1,14 @@
 export interface FilmProps {
   id: number;
   name: string;
-  posterImage: string;
-  alt: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
+  alt?: string;
 }
 
 export interface FilmInfoProps extends FilmProps {
+  posterImage: string;
   backgroundImage: string;
   backgroundColor: string;
   videoLink: string;
@@ -15,7 +18,6 @@ export interface FilmInfoProps extends FilmProps {
   director: string;
   starring: [string];
   runTime: number;
-  genre: string;
   released: number;
   isFavorite: boolean;
 }
