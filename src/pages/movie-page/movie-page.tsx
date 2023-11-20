@@ -17,7 +17,7 @@ export default function MoviePage(): React.JSX.Element {
 
   useLayoutEffect(() => {
     if (id) {
-      dispatch(fetchFilmById(Number(id)));
+      dispatch(fetchFilmById(id));
     }
   }, [id, dispatch]);
 

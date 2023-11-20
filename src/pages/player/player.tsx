@@ -12,7 +12,7 @@ export default function Player(): React.JSX.Element {
 
   useLayoutEffect(() => {
     if (id) {
-      dispatch(fetchFilmById(Number(id)));
+      dispatch(fetchFilmById(id));
     }
   }, [id, dispatch]);
 
