@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
@@ -8,12 +8,14 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchFilmById } from '../../store/api-actions';
+import {Spinner} from '../../components/spinner/spinner.tsx';
 
 export default function AddReview(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   useLayoutEffect(() => {
     if (id) {
@@ -21,9 +23,15 @@ export default function AddReview(): React.JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (!film) {
-    return <Navigate to={AppRoute.NotFound} />;
+  if (isLoading) {
+    return <Spinner />;
   }
+
+
+  // Для потомков: надо подебажить
+  // if ((!film && !isLoading) || !id) {
+  //   return <Navigate to={AppRoute.NotFound} />;
+  // }
 
   return (
     <section className="film-card film-card--full">
@@ -41,15 +49,15 @@ export default function AddReview(): React.JSX.Element {
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
                 <Link
-                  to={`${AppRoute.Films}/${film.id}`}
+                  to={`${AppRoute.Films}/${film?.id}`}
                   className="breadcrumbs__link"
                 >
-                  {film.name}
+                  {film?.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link
-                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
+                  to={`${AppRoute.Films}/${film?.id}${AppRoute.Review}`}
                   className="breadcrumbs__link"
                 >
                   Add review
@@ -61,8 +69,8 @@ export default function AddReview(): React.JSX.Element {
         </header>
         <FilmCardPoster
           size={'small'}
-          src={film.backgroundImage}
-          alt={film.name}
+          src={film?.backgroundImage}
+          alt={film?.name}
         />
       </div>
       <AddReviewForm onSubmit={() => console.log('!!!!!')} />

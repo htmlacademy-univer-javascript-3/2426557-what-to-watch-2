@@ -34,7 +34,7 @@ export default function App(): React.JSX.Element {
               path={`:id${AppRoute.Review}`}
               element={
                 <PrivateRoute>
-                  <AddReview films={films} />
+                  <AddReview />
                 </PrivateRoute>
               }
             />

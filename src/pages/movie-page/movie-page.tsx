@@ -26,6 +26,8 @@ export default function MoviePage(): React.JSX.Element {
   if (isLoading && !film) {
     return <Spinner />;
   }
+
+  // Для потомков: надо подебажить
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;
   }
