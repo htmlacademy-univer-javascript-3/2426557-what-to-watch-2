@@ -1,13 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {ALL_GENRES} from '../consts/genres.ts';
-import {getFilmsByGenre, loadFilms, setActiveGenre, setCurrentFilm, setIsLoading, setPromoFilm} from './action.ts';
+import {
+  getFilmsByGenre,
+  loadFilms,
+  setActiveGenre,
+  setCurrentFilm,
+  setIsLoading,
+  setPromoFilm
+} from './action.ts';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 
 type initialState = {
   films: FilmProps[];
   activeGenre: string | typeof ALL_GENRES;
   genreFilms: FilmProps[];
-  currentFilm: FilmInfoProps | null;
+  currentFilm: FilmInfoProps | null ;
   promoFilm: FilmPromo | null;
   isLoading: boolean;
 }
@@ -43,6 +50,12 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setCurrentFilm, (state, action) => {
       state.currentFilm = action.payload;
     })
+    // .addCase(loadFilmReviews, (state, action) => {
+    //   state.currentFilm = {
+    //     ...state.currentFilm,
+    //     reviews: action.payload || [],
+    //   };
+    // })
     .addCase(setIsLoading, (state, action) => {
       state.isLoading = action.payload;
     });

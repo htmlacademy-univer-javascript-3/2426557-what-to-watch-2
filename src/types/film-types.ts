@@ -1,3 +1,5 @@
+import { ReviewProps } from './review-types';
+
 export interface FilmProps {
   id: number;
   name: string;
@@ -19,17 +21,16 @@ export interface FilmPromo {
 }
 
 export interface FilmInfoProps extends FilmPromo {
-  // posterImage: string;
-  // backgroundImage: string;
   backgroundColor: string;
-  // videoLink: string;
   description: string;
   rating: number;
   scoresCount: number;
   director: string;
   starring: [string];
   runTime: number;
-  // released: number;
-  // isFavorite: boolean;
+}
+
+export interface CurrentFilm extends FilmInfoProps {
+  reviews?: ReviewProps[];
 }
 

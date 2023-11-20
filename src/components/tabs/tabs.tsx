@@ -3,7 +3,6 @@ import { FilmInfoProps } from '../../types/film-types.ts';
 import Overview from '../overview/overview.tsx';
 import FilmDetails from '../film-details/film-details.tsx';
 import FilmReviews from '../film-review/film-reviews.tsx';
-// import { reviewsInfo } from '../../mocks/reviews.ts';
 
 const TABS = ['Overview', 'Details', 'Reviews'];
 

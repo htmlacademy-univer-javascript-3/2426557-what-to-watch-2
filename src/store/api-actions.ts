@@ -2,8 +2,16 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
-import {getFilmsByGenre, loadFilms, setActiveGenre, setCurrentFilm, setIsLoading, setPromoFilm} from './action.ts';
+import {
+  getFilmsByGenre, loadFilmReviews,
+  loadFilms,
+  setActiveGenre,
+  setCurrentFilm,
+  setIsLoading,
+  setPromoFilm
+} from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
+import {ReviewProps} from '../types/review-types.ts';
 
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
@@ -69,3 +77,27 @@ export const fetchFilmPromo = createAsyncThunk<
       dispatch(setPromoFilm(data));
     },
   );
+
+export const fetchFilmReviews = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+  '/comments/id',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      dispatch(setIsLoading(true));
+
+      const { data } = await api.get<ReviewProps[]>(`/comments/${id}`);
+
+      dispatch(loadFilmReviews(data));
+    } catch(e) {
+      console.log(e);
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  },
+);
