@@ -62,7 +62,7 @@ export default function AddReview(): React.JSX.Element {
         <FilmCardPoster
           size={'small'}
           src={film.backgroundImage}
-          alt={film.alt}
+          alt={film.name}
         />
       </div>
       <AddReviewForm onSubmit={() => console.log('!!!!!')} />

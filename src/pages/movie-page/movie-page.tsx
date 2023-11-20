@@ -80,7 +80,7 @@ export default function MoviePage(): React.JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster src={film.backgroundImage} alt={film.alt} />
+            <FilmCardPoster src={film.backgroundImage} alt={film.name} />
             <Tabs film={film} />
           </div>
         </div>

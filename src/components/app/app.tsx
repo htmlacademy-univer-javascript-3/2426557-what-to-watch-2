@@ -18,7 +18,7 @@ export default function App(): React.JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}>
-          <Route index element={<MainPage films={films} />} />
+          <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={<SignIn />} />
           <Route
             path={AppRoute.MyList}
