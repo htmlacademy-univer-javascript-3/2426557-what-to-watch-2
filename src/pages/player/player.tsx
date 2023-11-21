@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
@@ -10,7 +10,7 @@ export default function Player(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       dispatch(fetchFilmById(id));
     }

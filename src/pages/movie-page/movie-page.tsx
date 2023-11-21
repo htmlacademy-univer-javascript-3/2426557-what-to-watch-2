@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -17,7 +17,7 @@ export default function MoviePage(): React.JSX.Element {
   const film = useAppSelector((state) => state.currentFilm);
   const isLoading = useAppSelector((state) => state.isLoading);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       dispatch(fetchFilmById(id));
     }

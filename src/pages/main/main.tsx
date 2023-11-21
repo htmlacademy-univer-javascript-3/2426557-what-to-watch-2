@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import FilmCard from '../../components/film-card/film-card';
 import Catalog from '../../components/catalog/catalog';
@@ -9,7 +9,7 @@ export default function MainPage(): React.JSX.Element | null {
   const dispatch = useAppDispatch();
   const promoFilm = useAppSelector((state) => state.promoFilm);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(fetchFilmPromo());
   }, [dispatch]);
 

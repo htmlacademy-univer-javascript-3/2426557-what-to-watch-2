@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
@@ -8,7 +8,7 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchFilmById } from '../../store/api-actions';
-import {Spinner} from '../../components/spinner/spinner.tsx';
+import { Spinner } from '../../components/spinner/spinner.tsx';
 
 export default function AddReview(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -17,7 +17,7 @@ export default function AddReview(): React.JSX.Element {
   const film = useAppSelector((state) => state.currentFilm);
   const isLoading = useAppSelector((state) => state.isLoading);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (id) {
       dispatch(fetchFilmById(id));
     }
@@ -26,7 +26,6 @@ export default function AddReview(): React.JSX.Element {
   if (isLoading) {
     return <Spinner />;
   }
-
 
   // Для потомков: надо подебажить
   // if ((!film && !isLoading) || !id) {

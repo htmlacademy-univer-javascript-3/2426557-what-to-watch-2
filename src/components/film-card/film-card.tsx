@@ -12,10 +12,7 @@ export default function FilmCard({ film }: FilmCardProps): React.JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img
-          src="img/bg-the-grand-budapest-hotel.jpg"
-          alt="The Grand Budapest Hotel"
-        />
+        <img src={film.posterImage} alt={film.name}/>
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header />
