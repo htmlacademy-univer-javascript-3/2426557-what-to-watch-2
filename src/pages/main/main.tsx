@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import FilmCard from '../../components/film-card/film-card';
 import Catalog from '../../components/catalog/catalog';
-import { FilmInfoProps } from '../../types/film-types';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
+import { fetchFilmPromo } from '../../store/api-actions.ts';
 
-type MainProps = {
-  films: FilmInfoProps[];
-};
+export default function MainPage(): React.JSX.Element | null {
+  const dispatch = useAppDispatch();
+  const promoFilm = useAppSelector((state) => state.promoFilm);
 
-export default function MainPage({ films }: MainProps): React.JSX.Element {
+  useEffect(() => {
+    dispatch(fetchFilmPromo());
+  }, [dispatch]);
+
+  if (!promoFilm) {
+    return null;
+  }
+
   return (
     <>
-      <FilmCard film={films[0]} />
+      <FilmCard film={promoFilm} />
       <div className="page-content">
-        <Catalog films={films} />
+        <Catalog />
         <Footer />
       </div>
     </>

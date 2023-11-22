@@ -1,11 +1,20 @@
-import React from 'react';
-import { filmsList } from '../../mocks/films';
+import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { fetchFilmById } from '../../store/api-actions';
 
 export default function Player(): React.JSX.Element {
   const { id = '' } = useParams();
-  const film = filmsList.find((f) => f.id === Number(id));
+
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.currentFilm);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmById(id));
+    }
+  }, [id, dispatch]);
 
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;

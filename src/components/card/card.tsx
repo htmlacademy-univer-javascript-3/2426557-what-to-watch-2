@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import './card.css';
-import { FilmInfoProps } from '../../types/film-types';
+import {FilmProps} from '../../types/film-types';
 import { AppRoute } from '../../enums/AppRoute';
 import VideoPlayer from '../videoplayer/videoplayer';
 import { useCallback } from 'react';
 
 type CardProps = {
-  film: FilmInfoProps;
+  film: FilmProps;
   isActive?: boolean;
   isMuted?: boolean;
   onMouseEnter: (id: number) => void;
@@ -20,7 +20,7 @@ export default function Card({
   onMouseEnter,
   onMouseLeave,
 }: CardProps): React.JSX.Element {
-  const { name, posterImage, alt, id, videoLink, backgroundImage } = film;
+  const { name, previewImage, alt, id, previewVideoLink } = film;
 
   const handleMouseEnter = useCallback(() => {
     onMouseEnter(id);
@@ -36,12 +36,12 @@ export default function Card({
       <div className="small-film-card__image">
         {isActive ? (
           <VideoPlayer
-            link={videoLink}
-            posterImage={backgroundImage}
+            link={previewVideoLink}
+            posterImage={previewImage}
             isMuted={isMuted}
           />
         ) : (
-          <img src={posterImage} alt={alt} width="280" height="175" />
+          <img src={previewImage} alt={alt} width="280" height="175" />
         )}
       </div>
       <h3 className="small-film-card__title">

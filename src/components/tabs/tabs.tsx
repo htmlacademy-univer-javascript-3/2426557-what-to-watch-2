@@ -3,7 +3,6 @@ import { FilmInfoProps } from '../../types/film-types.ts';
 import Overview from '../overview/overview.tsx';
 import FilmDetails from '../film-details/film-details.tsx';
 import FilmReviews from '../film-review/film-reviews.tsx';
-import { reviewsInfo } from '../../mocks/reviews.ts';
 
 const TABS = ['Overview', 'Details', 'Reviews'];
 
@@ -33,7 +32,7 @@ export default function Tabs({ film }: TabsProps): React.JSX.Element {
       case TABS[1]:
         return <FilmDetails film={film} />;
       case TABS[2]:
-        return <FilmReviews reviews={reviewsInfo} />;
+        return <FilmReviews reviews={[]} />;
       default:
         return null;
     }
