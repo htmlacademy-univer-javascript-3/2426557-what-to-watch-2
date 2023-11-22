@@ -65,8 +65,6 @@ export const fetchFilmById = createAsyncThunk<
     } finally {
       dispatch(setIsLoadingFilm(false));
     }
-
-    // return data;
   },
 );
 
