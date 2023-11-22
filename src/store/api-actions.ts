@@ -5,7 +5,7 @@ import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {
   getFilmsByGenre,
   loadFilmReviews,
-  loadFilms,
+  loadFilms, redirectToRoute,
   setActiveGenre,
   setAuthStatus,
   setCurrentFilm,
@@ -16,6 +16,9 @@ import {
 import {ALL_GENRES} from '../consts/genres.ts';
 import {ReviewProps} from '../types/review-types.ts';
 import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
+import {AuthData, UserData} from '../types/auth.ts';
+import {AppRoute} from '../enums/AppRoute.ts';
+import {removeToken, setToken} from '../services/token.ts';
 
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
@@ -106,7 +109,7 @@ export const fetchFilmReviews = createAsyncThunk<
   },
 );
 
-export const getAuthStatus = createAsyncThunk<
+export const checkAuthStatus = createAsyncThunk<
   void,
   undefined,
   {
@@ -125,3 +128,52 @@ export const getAuthStatus = createAsyncThunk<
       }
     },
   );
+
+export const loginUser = createAsyncThunk<
+  void,
+  AuthData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  '/login',
+  async ({email, password}, { dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<UserData>(
+        '/login',
+        {
+          email,
+          password,
+        }
+      );
+      setToken(data.token);
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      dispatch(redirectToRoute(AppRoute.Main));
+    } catch (e) {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  },
+);
+
+export const logoutUser = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  '/logout',
+  async (_arg, { dispatch, extra: api}) => {
+    try {
+      await api.delete('/logout');
+      removeToken();
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    } catch (e) {
+      dispatch(setAuthStatus(AuthorizationStatus.Unknown));
+    }
+  },
+);
