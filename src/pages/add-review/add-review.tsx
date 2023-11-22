@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
@@ -15,7 +15,7 @@ export default function AddReview(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.isLoadingFilm);
 
   useEffect(() => {
     if (id) {
@@ -23,14 +23,13 @@ export default function AddReview(): React.JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (isLoading) {
+  if (isLoading && !film) {
     return <Spinner />;
   }
 
-  // Для потомков: надо подебажить
-  // if ((!film && !isLoading) || !id) {
-  //   return <Navigate to={AppRoute.NotFound} />;
-  // }
+  if (!film) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
 
   return (
     <section className="film-card film-card--full">

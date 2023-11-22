@@ -15,7 +15,7 @@ export default function MoviePage(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.isLoadingFilm);
 
   useEffect(() => {
     if (id) {
@@ -27,7 +27,6 @@ export default function MoviePage(): React.JSX.Element {
     return <Spinner />;
   }
 
-  // Для потомков: надо подебажить
   if (!film) {
     return <Navigate to={AppRoute.NotFound} />;
   }
@@ -37,10 +36,7 @@ export default function MoviePage(): React.JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img
-              src="img/bg-the-grand-budapest-hotel.jpg"
-              alt="The Grand Budapest Hotel"
-            />
+            <img src={film.posterImage} alt={film.name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <Header />

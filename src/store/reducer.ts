@@ -5,7 +5,8 @@ import {
   loadFilms,
   setActiveGenre,
   setCurrentFilm,
-  setIsLoading,
+  setIsLoadingList,
+  setIsLoadingFilm,
   setPromoFilm
 } from './action.ts';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
@@ -16,7 +17,8 @@ type initialState = {
   genreFilms: FilmProps[];
   currentFilm: FilmInfoProps | null ;
   promoFilm: FilmPromo | null;
-  isLoading: boolean;
+  isLoadingList: boolean;
+  isLoadingFilm: boolean;
 }
 
 const initialState: initialState = {
@@ -25,7 +27,8 @@ const initialState: initialState = {
   genreFilms: [],
   currentFilm: null,
   promoFilm: null,
-  isLoading: false,
+  isLoadingList: true,
+  isLoadingFilm: true,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -56,7 +59,10 @@ export const reducer = createReducer(initialState, (builder) => {
     //     reviews: action.payload || [],
     //   };
     // })
-    .addCase(setIsLoading, (state, action) => {
-      state.isLoading = action.payload;
+    .addCase(setIsLoadingList, (state, action) => {
+      state.isLoadingList = action.payload;
+    })
+    .addCase(setIsLoadingFilm, (state, action) => {
+      state.isLoadingFilm = action.payload;
     });
 });

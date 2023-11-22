@@ -11,4 +11,5 @@ export const loadFilmReviews = createAction<ReviewProps[]>('fetchFilmReviews');
 
 export const setCurrentFilm = createAction<FilmInfoProps>('fetchFilmById');
 export const setPromoFilm = createAction<FilmPromo>('fetchFilmPromo');
-export const setIsLoading = createAction<boolean>('setIsLoading');
+export const setIsLoadingList = createAction<boolean>('setIsLoadingList');
+export const setIsLoadingFilm = createAction<boolean>('setIsLoadingFilm');

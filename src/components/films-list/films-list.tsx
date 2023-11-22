@@ -17,7 +17,7 @@ export default function FilmsList({
 
   const genreFilms = useAppSelector((state) => state.genreFilms);
   const films = useAppSelector((state) => state.films);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.isLoadingList);
 
   const handleCardHover = (filmId: number) => {
     setActiveFilm(filmId);

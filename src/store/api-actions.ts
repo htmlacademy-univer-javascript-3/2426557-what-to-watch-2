@@ -7,7 +7,7 @@ import {
   loadFilms,
   setActiveGenre,
   setCurrentFilm,
-  setIsLoading,
+  setIsLoadingFilm, setIsLoadingList,
   setPromoFilm
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
@@ -22,7 +22,7 @@ export const fetchFilms = createAsyncThunk<void, undefined, {
   '/films',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoadingList(true));
 
       const { data } = await api.get<FilmProps[]>('/films');
 
@@ -32,7 +32,7 @@ export const fetchFilms = createAsyncThunk<void, undefined, {
     } catch(e) {
       console.log(e);
     } finally {
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoadingList(false));
     }
   },
 );
@@ -48,7 +48,7 @@ export const fetchFilmById = createAsyncThunk<
   '/films/id',
   async (id: string, { dispatch, extra: api}) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoadingFilm(true));
 
       const { data } = await api.get<FilmInfoProps>(`/films/${id}`);
 
@@ -56,7 +56,7 @@ export const fetchFilmById = createAsyncThunk<
     } catch (e) {
       console.log(e);
     } finally {
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoadingFilm(false));
     }
 
     // return data;
@@ -89,7 +89,7 @@ export const fetchFilmReviews = createAsyncThunk<
   '/comments/id',
   async (id, {dispatch, extra: api}) => {
     try {
-      dispatch(setIsLoading(true));
+      dispatch(setIsLoadingList(true));
 
       const { data } = await api.get<ReviewProps[]>(`/comments/${id}`);
 
@@ -97,7 +97,7 @@ export const fetchFilmReviews = createAsyncThunk<
     } catch(e) {
       console.log(e);
     } finally {
-      dispatch(setIsLoading(false));
+      dispatch(setIsLoadingList(false));
     }
   },
 );
