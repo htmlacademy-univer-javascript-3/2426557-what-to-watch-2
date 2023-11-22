@@ -3,15 +3,19 @@ import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {
-  getFilmsByGenre, loadFilmReviews,
+  getFilmsByGenre,
+  loadFilmReviews,
   loadFilms,
   setActiveGenre,
+  setAuthStatus,
   setCurrentFilm,
-  setIsLoadingFilm, setIsLoadingList,
+  setIsLoadingFilm,
+  setIsLoadingList,
   setPromoFilm
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
 import {ReviewProps} from '../types/review-types.ts';
+import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
@@ -101,3 +105,23 @@ export const fetchFilmReviews = createAsyncThunk<
     }
   },
 );
+
+export const getAuthStatus = createAsyncThunk<
+  void,
+  undefined,
+  {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+  }
+  >(
+    '/login',
+    async (_arg, { dispatch, extra: api}) => {
+      try {
+        await api.get('/login');
+        dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      } catch (e) {
+        dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      }
+    },
+  );

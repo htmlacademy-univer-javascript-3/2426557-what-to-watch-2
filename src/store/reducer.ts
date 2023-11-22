@@ -1,15 +1,17 @@
-import { createReducer } from '@reduxjs/toolkit';
+import {createReducer} from '@reduxjs/toolkit';
 import {ALL_GENRES} from '../consts/genres.ts';
 import {
   getFilmsByGenre,
   loadFilms,
   setActiveGenre,
+  setAuthStatus,
   setCurrentFilm,
-  setIsLoadingList,
   setIsLoadingFilm,
+  setIsLoadingList,
   setPromoFilm
 } from './action.ts';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
+import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 
 type initialState = {
   films: FilmProps[];
@@ -19,6 +21,7 @@ type initialState = {
   promoFilm: FilmPromo | null;
   isLoadingList: boolean;
   isLoadingFilm: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: initialState = {
@@ -29,6 +32,7 @@ const initialState: initialState = {
   promoFilm: null,
   isLoadingList: true,
   isLoadingFilm: true,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -64,5 +68,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setIsLoadingFilm, (state, action) => {
       state.isLoadingFilm = action.payload;
+    })
+    .addCase(setAuthStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
