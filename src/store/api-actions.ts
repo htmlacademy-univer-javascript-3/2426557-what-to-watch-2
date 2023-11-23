@@ -3,15 +3,22 @@ import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {
-  getFilmsByGenre, loadFilmReviews,
-  loadFilms,
+  getFilmsByGenre,
+  loadFilmReviews,
+  loadFilms, redirectToRoute,
   setActiveGenre,
+  setAuthStatus,
   setCurrentFilm,
-  setIsLoadingFilm, setIsLoadingList,
+  setIsLoadingFilm,
+  setIsLoadingList,
   setPromoFilm
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
 import {ReviewProps} from '../types/review-types.ts';
+import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
+import {AuthData, UserData} from '../types/auth.ts';
+import {AppRoute} from '../enums/AppRoute.ts';
+import {removeToken, setToken} from '../services/token.ts';
 
 
 export const fetchFilms = createAsyncThunk<void, undefined, {
@@ -58,8 +65,6 @@ export const fetchFilmById = createAsyncThunk<
     } finally {
       dispatch(setIsLoadingFilm(false));
     }
-
-    // return data;
   },
 );
 
@@ -98,6 +103,75 @@ export const fetchFilmReviews = createAsyncThunk<
       console.log(e);
     } finally {
       dispatch(setIsLoadingList(false));
+    }
+  },
+);
+
+export const checkAuthStatus = createAsyncThunk<
+  void,
+  undefined,
+  {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+  }
+  >(
+    '/login',
+    async (_arg, { dispatch, extra: api}) => {
+      try {
+        await api.get('/login');
+        dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      } catch (e) {
+        dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+      }
+    },
+  );
+
+export const loginUser = createAsyncThunk<
+  void,
+  AuthData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  '/login',
+  async ({email, password}, { dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<UserData>(
+        '/login',
+        {
+          email,
+          password,
+        }
+      );
+      setToken(data.token);
+      dispatch(setAuthStatus(AuthorizationStatus.Auth));
+      dispatch(redirectToRoute(AppRoute.Main));
+    } catch (e) {
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    }
+  },
+);
+
+export const logoutUser = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  '/logout',
+  async (_arg, { dispatch, extra: api}) => {
+    try {
+      await api.delete('/logout');
+      removeToken();
+      dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+    } catch (e) {
+      dispatch(setAuthStatus(AuthorizationStatus.Unknown));
     }
   },
 );

@@ -7,8 +7,8 @@ import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import { fetchFilmById } from '../../store/api-actions';
 import { Spinner } from '../../components/spinner/spinner.tsx';
+import {fetchFilmById} from '../../store/api-actions.ts';
 
 export default function AddReview(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -36,8 +36,8 @@ export default function AddReview(): React.JSX.Element {
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={film.backgroundImage}
+            alt={film.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
@@ -47,15 +47,15 @@ export default function AddReview(): React.JSX.Element {
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
                 <Link
-                  to={`${AppRoute.Films}/${film?.id}`}
+                  to={`${AppRoute.Films}/${film.id}`}
                   className="breadcrumbs__link"
                 >
-                  {film?.name}
+                  {film.name}
                 </Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link
-                  to={`${AppRoute.Films}/${film?.id}${AppRoute.Review}`}
+                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
                   className="breadcrumbs__link"
                 >
                   Add review
@@ -67,8 +67,8 @@ export default function AddReview(): React.JSX.Element {
         </header>
         <FilmCardPoster
           size={'small'}
-          src={film?.backgroundImage}
-          alt={film?.name}
+          src={film.backgroundImage}
+          alt={film.name}
         />
       </div>
       <AddReviewForm onSubmit={() => console.log('!!!!!')} />
