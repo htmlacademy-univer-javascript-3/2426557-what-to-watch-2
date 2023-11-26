@@ -3,7 +3,7 @@ import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {
-  getFilmsByGenre,
+  getFilmsByGenre, loadFavorites,
   loadFilmReviews,
   loadFilms, redirectToRoute,
   setActiveGenre,
@@ -11,7 +11,7 @@ import {
   setCurrentFilm,
   setIsLoadingFilm,
   setIsLoadingList,
-  setPromoFilm
+  setPromoFilm, setSimilarFilms
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
 import {ReviewProps} from '../types/review-types.ts';
@@ -67,6 +67,45 @@ export const fetchFilmById = createAsyncThunk<
     }
   },
 );
+
+export const fetchSimilarFilms = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    '/films/id/similar',
+    async (id: string, { dispatch, extra: api}) => {
+      try {
+        const { data } = await api.get<FilmProps[]>(`/films/${id}/similar`);
+
+        dispatch(setSimilarFilms(data));
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  );
+
+export const fetchFavorite = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    '/favorite',
+    async (_arg, { dispatch, extra: api}) => {
+      try {
+        const {data} = await api.get<FilmProps[]>('/favorite');
+        dispatch(loadFavorites(data));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  );
 
 export const fetchFilmPromo = createAsyncThunk<
   void,
