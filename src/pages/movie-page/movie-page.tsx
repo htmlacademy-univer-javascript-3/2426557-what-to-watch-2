@@ -7,7 +7,7 @@ import FilmsList from '../../components/films-list/films-list';
 import { AppRoute } from '../../enums/AppRoute';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
-import { fetchFilmById } from '../../store/api-actions.ts';
+import {fetchFilmById, fetchFilmReviews, fetchSimilarFilms} from '../../store/api-actions.ts';
 import { Spinner } from '../../components/spinner/spinner';
 
 export default function MoviePage(): React.JSX.Element {
@@ -20,6 +20,8 @@ export default function MoviePage(): React.JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmById(id));
+      dispatch(fetchSimilarFilms(id));
+      dispatch(fetchFilmReviews(id));
     }
   }, [id, dispatch]);
 

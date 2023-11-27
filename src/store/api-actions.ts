@@ -14,7 +14,7 @@ import {
   setPromoFilm, setSimilarFilms
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
-import {ReviewProps} from '../types/review-types.ts';
+import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
 import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 import {AuthData, UserData} from '../types/auth.ts';
 import {AppRoute} from '../enums/AppRoute.ts';
@@ -211,6 +211,22 @@ export const logoutUser = createAsyncThunk<
       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     } catch (e) {
       dispatch(setAuthStatus(AuthorizationStatus.Unknown));
+    }
+  },
+);
+
+export const addCommentAction = createAsyncThunk<void, AddUserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'addCommentAction',
+  async ({filmId, comment, rating}, {dispatch, extra: api}) => {
+    try {
+      await api.post<UserReview>(`comments/${filmId}`, {comment, rating});
+      dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}`));
+    } catch (e) {
+      console.error(e);
     }
   },
 );

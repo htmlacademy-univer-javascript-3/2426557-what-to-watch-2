@@ -19,4 +19,4 @@ export const setIsLoadingFilm = createAction<boolean>('setIsLoadingFilm');
 export const setAuthStatus = createAction<AuthorizationStatus>('checkAuthStatus');
 export const setSimilarFilms = createAction<FilmProps[]>('fetchSimilarFilms');
 
-export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
+export const redirectToRoute = createAction<AppRoute | string>('redirectToRoute');
