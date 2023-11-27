@@ -3,20 +3,20 @@ import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks/store.ts';
 import { DEFAULT_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
 import { Spinner } from '../spinner/spinner.tsx';
+import { FilmProps } from '../../types/film-types.ts';
 
 type FilmsListProps = {
   length: number;
-  genre?: string;
+  similar?: FilmProps[];
 };
 
 export default function FilmsList({
   length = DEFAULT_FILM_LIST_LENGTH,
-  genre,
+  similar,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
   const genreFilms = useAppSelector((state) => state.genreFilms);
-  const films = useAppSelector((state) => state.films);
   const isLoading = useAppSelector((state) => state.isLoadingList);
 
   const handleCardHover = (filmId: number) => {
@@ -27,9 +27,7 @@ export default function FilmsList({
     setActiveFilm(null);
   };
 
-  const filteredFilms = genre
-    ? films.filter((film) => film.genre === genre)
-    : genreFilms;
+  const filteredFilms = similar || genreFilms;
 
   return (
     <div className="catalog__films-list">

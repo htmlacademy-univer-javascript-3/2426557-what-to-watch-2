@@ -7,8 +7,13 @@ import FilmsList from '../../components/films-list/films-list';
 import { AppRoute } from '../../enums/AppRoute';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
-import {fetchFilmById, fetchFilmReviews, fetchSimilarFilms} from '../../store/api-actions.ts';
+import {
+  fetchFilmById,
+  fetchFilmReviews,
+  fetchSimilarFilms,
+} from '../../store/api-actions.ts';
 import { Spinner } from '../../components/spinner/spinner';
+import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -16,6 +21,8 @@ export default function MoviePage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.currentFilm);
   const isLoading = useAppSelector((state) => state.isLoadingFilm);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (id) {
@@ -73,12 +80,14 @@ export default function MoviePage(): React.JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link
-                  to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
-                  className="btn film-card__button"
-                >
-                  Add review
-                </Link>
+                {isAuth && (
+                  <Link
+                    to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -93,7 +102,7 @@ export default function MoviePage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList length={4} genre={film.genre} />
+          <FilmsList length={4} />
         </section>
         <Footer />
       </div>
