@@ -6,7 +6,7 @@ import { Spinner } from '../spinner/spinner.tsx';
 import { FilmProps } from '../../types/film-types.ts';
 
 type FilmsListProps = {
-  length: number;
+  length?: number;
   similar?: FilmProps[];
 };
 
