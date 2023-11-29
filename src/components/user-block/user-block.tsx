@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import './user-block.css';
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { AppRoute } from '../../enums/AppRoute';
-import {useAppDispatch, useAppSelector} from '../../hooks/store.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
-import {logoutUser} from '../../store/api-actions.ts';
+import { logoutUser } from '../../store/api-actions.ts';
 
 export default function UserBlock(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,7 +25,11 @@ export default function UserBlock(): React.JSX.Element {
       </li>
       <li className="user-block__item">
         {isAuth ? (
-          <Link to={`${AppRoute.Login}`} className="user-block__link" onClick={handleClick}>
+          <Link
+            to={`${AppRoute.Main}`}
+            className="user-block__link"
+            onClick={handleClick}
+          >
             Sign out
           </Link>
         ) : (
