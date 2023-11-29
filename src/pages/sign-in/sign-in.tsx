@@ -1,8 +1,12 @@
-import React, {FormEvent, useRef, useState} from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import {loginUser} from '../../store/api-actions.ts';
-import {useAppDispatch} from '../../hooks/store.ts';
+import { loginUser } from '../../store/api-actions.ts';
+import { useAppDispatch } from '../../hooks/store.ts';
+import {
+  EMAIL_PATTERN,
+  PASSWORD_PATTERN,
+} from '../../consts/validation-patterns.ts';
 
 export default function SignIn(): React.JSX.Element {
   const [error, setError] = useState('');
@@ -11,26 +15,28 @@ export default function SignIn(): React.JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (emailRef.current !== null && passwordRef.current !== null){
-
-      if(!emailPattern.test(emailRef.current?.value)) {
+    if (emailRef.current !== null && passwordRef.current !== null) {
+      if (!EMAIL_PATTERN.test(emailRef.current?.value)) {
         setError('Please enter a valid email address');
         return;
       }
 
-      if(!passwordPattern.test(passwordRef.current?.value)) {
-        setError('Passwords must contain: a minimum of 1 letter and a minimum of 1 numeric character');
+      if (!PASSWORD_PATTERN.test(passwordRef.current?.value)) {
+        setError(
+          'Passwords must contain: a minimum of 1 letter and a minimum of 1 numeric character'
+        );
+        return;
       }
 
-      dispatch(loginUser({
-        email: emailRef.current.value,
-        password: passwordRef.current.value
-      }));
+      dispatch(
+        loginUser({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
     }
   };
 
@@ -55,7 +61,11 @@ export default function SignIn(): React.JSX.Element {
             </p>
           </div>*/}
           <div className="sign-in__fields">
-            <div className={`sign-in__field ${error ? 'sign-in__field--error' : ''}`}>
+            <div
+              className={`sign-in__field ${
+                error ? 'sign-in__field--error' : ''
+              }`}
+            >
               <input
                 ref={emailRef}
                 className="sign-in__input"
@@ -71,7 +81,11 @@ export default function SignIn(): React.JSX.Element {
                 Email address
               </label>
             </div>
-            <div className={`sign-in__field ${error ? 'sign-in__field--error' : ''}`}>
+            <div
+              className={`sign-in__field ${
+                error ? 'sign-in__field--error' : ''
+              }`}
+            >
               <input
                 ref={passwordRef}
                 className="sign-in__input"

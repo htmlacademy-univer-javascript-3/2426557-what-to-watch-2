@@ -1,7 +1,5 @@
 export const DEFAULT_FORM_VALUE = {
-  id: '',
+  ifilmId: '',
   comment: '',
-  user: 'Kate Muir',
-  date: new Date(),
-  rating: 7.2,
+  rating: 0
 };

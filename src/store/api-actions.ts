@@ -3,7 +3,7 @@ import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {
-  getFilmsByGenre,
+  getFilmsByGenre, loadFavorites,
   loadFilmReviews,
   loadFilms, redirectToRoute,
   setActiveGenre,
@@ -11,10 +11,10 @@ import {
   setCurrentFilm,
   setIsLoadingFilm,
   setIsLoadingList,
-  setPromoFilm
+  setPromoFilm, setSimilarFilms
 } from './action.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
-import {ReviewProps} from '../types/review-types.ts';
+import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
 import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 import {AuthData, UserData} from '../types/auth.ts';
 import {AppRoute} from '../enums/AppRoute.ts';
@@ -67,6 +67,45 @@ export const fetchFilmById = createAsyncThunk<
     }
   },
 );
+
+export const fetchSimilarFilms = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    '/films/id/similar',
+    async (id: string, { dispatch, extra: api}) => {
+      try {
+        const { data } = await api.get<FilmProps[]>(`/films/${id}/similar`);
+
+        dispatch(setSimilarFilms(data));
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  );
+
+export const fetchFavorite = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    '/favorite',
+    async (_arg, { dispatch, extra: api}) => {
+      try {
+        const {data} = await api.get<FilmProps[]>('/favorite');
+        dispatch(loadFavorites(data));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  );
 
 export const fetchFilmPromo = createAsyncThunk<
   void,
@@ -172,6 +211,22 @@ export const logoutUser = createAsyncThunk<
       dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     } catch (e) {
       dispatch(setAuthStatus(AuthorizationStatus.Unknown));
+    }
+  },
+);
+
+export const addCommentAction = createAsyncThunk<void, AddUserReview, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'addCommentAction',
+  async ({filmId, comment, rating}, {dispatch, extra: api}) => {
+    try {
+      await api.post<UserReview>(`comments/${filmId}`, {comment, rating});
+      dispatch(redirectToRoute(`${AppRoute.Films}/${filmId}`));
+    } catch (e) {
+      console.error(e);
     }
   },
 );
