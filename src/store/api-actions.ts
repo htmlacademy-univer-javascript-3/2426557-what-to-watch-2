@@ -20,7 +20,6 @@ import {AuthData, UserData} from '../types/auth.ts';
 import {AppRoute} from '../enums/AppRoute.ts';
 import {removeToken, setToken} from '../services/token.ts';
 
-
 export const fetchFilms = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
