@@ -5,11 +5,12 @@ import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
 import { logoutUser } from '../../store/api-actions.ts';
+import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 
 export default function UserBlock(): React.JSX.Element {
   const dispatch = useAppDispatch();
 
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   const handleClick = useCallback(() => {

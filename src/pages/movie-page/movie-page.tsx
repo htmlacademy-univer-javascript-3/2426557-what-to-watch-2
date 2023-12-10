@@ -14,14 +14,19 @@ import {
 } from '../../store/api-actions.ts';
 import { Spinner } from '../../components/spinner/spinner';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import {
+  getFilm,
+  getIsLoadingFilm,
+} from '../../store/film-process/film-process.selector.ts';
+import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoadingFilm);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(getIsLoadingFilm);
+  const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {

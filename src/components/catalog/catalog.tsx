@@ -3,12 +3,13 @@ import GenresList from '../genres-list/genres-list.tsx';
 import React, { useCallback, useState } from 'react';
 import { useAppSelector } from '../../hooks/store.ts';
 import { DEFAULT_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
+import { getFilmsByGenreLength } from '../../store/film-process/film-process.selector.ts';
 
 export default function Catalog(): React.JSX.Element {
-  const stateGenreFilms = useAppSelector((state) => state.genreFilms);
+  const stateGenreFilmsLength = useAppSelector(getFilmsByGenreLength);
 
   const [listLength, setListLength] = useState(DEFAULT_FILM_LIST_LENGTH);
-  const isButtonVisible = stateGenreFilms.length >= listLength;
+  const isButtonVisible = stateGenreFilmsLength >= listLength;
 
   const handleClick = useCallback(() => {
     setListLength((prev) => prev + DEFAULT_FILM_LIST_LENGTH);

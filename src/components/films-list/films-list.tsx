@@ -4,6 +4,10 @@ import { useAppSelector } from '../../hooks/store.ts';
 import { DEFAULT_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
 import { Spinner } from '../spinner/spinner.tsx';
 import { FilmProps } from '../../types/film-types.ts';
+import {
+  getFilmsByGenre,
+  getIsLoadingList,
+} from '../../store/film-process/film-process.selector.ts';
 
 type FilmsListProps = {
   length?: number;
@@ -16,8 +20,8 @@ export default function FilmsList({
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
-  const genreFilms = useAppSelector((state) => state.genreFilms);
-  const isLoading = useAppSelector((state) => state.isLoadingList);
+  const genreFilms = useAppSelector(getFilmsByGenre);
+  const isLoading = useAppSelector(getIsLoadingList);
 
   const handleCardHover = (filmId: number) => {
     setActiveFilm(filmId);

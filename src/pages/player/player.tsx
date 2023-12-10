@@ -3,12 +3,13 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchFilmById } from '../../store/api-actions';
+import { getFilm } from '../../store/film-process/film-process.selector';
 
 export default function Player(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
+  const film = useAppSelector(getFilm);
 
   useEffect(() => {
     if (id) {

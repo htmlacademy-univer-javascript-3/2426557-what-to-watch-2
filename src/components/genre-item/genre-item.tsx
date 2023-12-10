@@ -1,8 +1,9 @@
-import React, {FormEvent, useCallback} from 'react';
+import React, { FormEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
-import {useAppDispatch} from '../../hooks/store.ts';
-import {getFilmsByGenre, setActiveGenre} from '../../store/action.ts';
+import { useAppDispatch } from '../../hooks/store.ts';
+import { setActiveGenre } from '../../store/action.ts';
+import { setFilmsByGenre } from '../../store/film-process/film-process.slice.ts';
 
 type GenreItemProps = {
   name: string;
@@ -18,7 +19,7 @@ export default function GenreItem({
     (event: FormEvent<HTMLAnchorElement>) => {
       event.preventDefault();
       dispatch(setActiveGenre({ genre: name }));
-      dispatch(getFilmsByGenre());
+      dispatch(setFilmsByGenre());
     },
     [dispatch, name]
   );
@@ -29,7 +30,11 @@ export default function GenreItem({
 
   return (
     <li className={computedClass}>
-      <Link to={AppRoute.Main} className="catalog__genres-link" onClick={handleClick}>
+      <Link
+        to={AppRoute.Main}
+        className="catalog__genres-link"
+        onClick={handleClick}
+      >
         {name}
       </Link>
     </li>

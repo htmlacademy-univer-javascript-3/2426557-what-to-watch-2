@@ -2,14 +2,13 @@ import React from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
-import {FilmProps} from '../../types/film-types';
 import FilmsList from '../../components/films-list/films-list';
+import { useAppSelector } from '../../hooks/store';
+import { getFilms } from '../../store/film-process/film-process.selector';
 
-type MyListProps = {
-  films: FilmProps[];
-};
+export default function MyList(): React.JSX.Element {
+  const films = useAppSelector(getFilms);
 
-export default function MyList({ films }: MyListProps): React.JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
