@@ -28,24 +28,11 @@ export const filmsReducer = createSlice({
             : state.films.filter((film) => film.genre === state.activeGenre);
     },
     setActiveGenre: (state, action) => {
-      // eslint-disable-next-line no-console
-      console.log(action.payload);
       state.activeGenre = action.payload as string;
     }
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(setActiveGenre, (state, action) => {
-      //   const {genre} = action.payload;
-      //
-      //   state.activeGenre = genre;
-      // })
-      // .addCase(getFilmsByGenre, (state) => {
-      //   state.genreFilms =
-      //     state.activeGenre === ALL_GENRES
-      //       ? state.films
-      //       : state.films.filter((film) => film.genre === state.activeGenre);
-      // })
       .addCase(fetchFilms.pending, (state) => {
         state.isLoadingList = true;
       })

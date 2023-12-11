@@ -7,6 +7,5 @@ import { filmReducer } from './film-process/film-process.slice.ts';
 export const rootReducer = combineReducers({
   [NameSpace.Film]: filmReducer.reducer,
   [NameSpace.Films]: filmsReducer.reducer,
-  // [NameSpace.Review]: reviewReducer.reducer,
   [NameSpace.User]: userReducer.reducer,
 });
