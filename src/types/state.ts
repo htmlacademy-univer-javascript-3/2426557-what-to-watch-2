@@ -10,20 +10,20 @@ export type UserProcessState = {
   user: UserData | null;
 }
 
-export type ReviewsProcessState = {
-  reviews: ReviewProps[];
-}
-
-export type FilmProcessState = {
+export type FilmsProcessState = {
   films: FilmProps[];
   activeGenre: string | typeof ALL_GENRES;
   genreFilms: FilmProps[];
-  currentFilm: FilmInfoProps | null ;
   promoFilm: FilmPromo | null;
   isLoadingList: boolean;
-  isLoadingFilm: boolean;
   favoriteFilms: FilmProps[];
+}
+
+export type FilmProcessState = {
+  currentFilm: FilmInfoProps | null ;
+  isLoadingFilm: boolean;
   similarFilms: FilmProps[];
+  reviews: ReviewProps[];
 }
 
 export type State = ReturnType<typeof store.getState>;

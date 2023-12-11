@@ -1,5 +1,6 @@
 export const enum NameSpace {
   Film = 'FILM',
-  Review = 'REVIEW',
+  Films = 'FILMS',
+  // Review = 'REVIEW',
   User = 'USER',
 }

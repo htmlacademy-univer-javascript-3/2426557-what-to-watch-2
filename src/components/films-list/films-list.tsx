@@ -7,7 +7,7 @@ import { FilmProps } from '../../types/film-types.ts';
 import {
   getFilmsByGenre,
   getIsLoadingList,
-} from '../../store/film-process/film-process.selector.ts';
+} from '../../store/films-process/films-process.selector.ts';
 
 type FilmsListProps = {
   length?: number;

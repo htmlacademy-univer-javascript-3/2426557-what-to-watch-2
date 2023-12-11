@@ -5,13 +5,18 @@ import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
 import { logoutUser } from '../../store/api-actions.ts';
-import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
+import {
+  getAuthStatus,
+  getUser,
+} from '../../store/user-process/user-process.selector.ts';
 
 export default function UserBlock(): React.JSX.Element {
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
+
+  const user = useAppSelector(getUser);
 
   const handleClick = useCallback(() => {
     dispatch(logoutUser());
@@ -21,7 +26,11 @@ export default function UserBlock(): React.JSX.Element {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" />
+          {isAuth && user ? (
+            <img src={user.avatarUrl} alt="User" />
+          ) : (
+            <img src="img/avatar.jpg" alt="User avatar" />
+          )}
         </div>
       </li>
       <li className="user-block__item">

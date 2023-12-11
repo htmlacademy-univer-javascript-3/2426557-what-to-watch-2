@@ -14,11 +14,12 @@ import {
 } from '../../store/api-actions.ts';
 import { Spinner } from '../../components/spinner/spinner';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+
+import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 import {
   getFilm,
   getIsLoadingFilm,
 } from '../../store/film-process/film-process.selector.ts';
-import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch } from '../../hooks/store.ts';
 import { setActiveGenre } from '../../store/action.ts';
-import { setFilmsByGenre } from '../../store/film-process/film-process.slice.ts';
+import { setFilmsByGenre } from '../../store/films-process/films-process.slice.ts';
 
 type GenreItemProps = {
   name: string;

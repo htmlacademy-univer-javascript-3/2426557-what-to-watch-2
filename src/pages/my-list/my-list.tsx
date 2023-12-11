@@ -4,7 +4,7 @@ import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
 import FilmsList from '../../components/films-list/films-list';
 import { useAppSelector } from '../../hooks/store';
-import { getFilms } from '../../store/film-process/film-process.selector';
+import { getFilms } from '../../store/films-process/films-process.selector';
 
 export default function MyList(): React.JSX.Element {
   const films = useAppSelector(getFilms);

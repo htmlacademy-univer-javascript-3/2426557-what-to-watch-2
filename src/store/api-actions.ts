@@ -9,6 +9,9 @@ import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
 // import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 import {AuthData, UserData} from '../types/auth.ts';
+import { AppRoute } from '../enums/AppRoute.ts';
+// import { setToken } from '../services/token.ts';
+import { redirectToRoute } from './action.ts';
 // import {AppRoute} from '../enums/AppRoute.ts';
 // import {removeToken, setToken} from '../services/token.ts';
 
@@ -176,8 +179,8 @@ export const loginUser = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  '/login',
-  async ({email, password}, { extra: api}) => {
+  'user/login',
+  async ({email, password}, { dispatch, extra: api}) => {
     // try {
     const {data} = await api.post<UserData>(
       '/login',
@@ -187,10 +190,11 @@ export const loginUser = createAsyncThunk<
       }
     );
 
+    // setToken(data.token);
+    // dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Main));
+
     return data;
-    //   setToken(data.token);
-    //   dispatch(setAuthStatus(AuthorizationStatus.Auth));
-    //   dispatch(redirectToRoute(AppRoute.Main));
     // } catch (e) {
     //   dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
     // }
@@ -206,7 +210,7 @@ export const logoutUser = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  '/logout',
+  'user/logout',
   async (_arg, { extra: api}) => {
     // try {
     await api.delete('/logout');

@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks/store.ts';
 import {
   getActiveGenre,
   getFilms,
-} from '../../store/film-process/film-process.selector.ts';
+} from '../../store/films-process/films-process.selector.ts';
 
 export default function GenresList(): React.JSX.Element {
   const activeGenre = useAppSelector(getActiveGenre);
