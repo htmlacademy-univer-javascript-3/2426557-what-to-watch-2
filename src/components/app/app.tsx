@@ -11,10 +11,12 @@ import { AppRoute } from '../../enums/AppRoute';
 import PrivateRoute from '../private-route/private-route';
 import HistoryRouter from '../history-router/history-router.tsx';
 import browserHistory from '../../browser-history.ts';
+import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
 
 export default function App(): React.JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
+      <ScrollToTop />
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
