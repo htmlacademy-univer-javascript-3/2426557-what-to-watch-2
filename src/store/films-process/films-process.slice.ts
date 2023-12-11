@@ -28,6 +28,8 @@ export const filmsReducer = createSlice({
             : state.films.filter((film) => film.genre === state.activeGenre);
     },
     setActiveGenre: (state, action) => {
+      // eslint-disable-next-line no-console
+      console.log(action.payload);
       state.activeGenre = action.payload as string;
     }
   },

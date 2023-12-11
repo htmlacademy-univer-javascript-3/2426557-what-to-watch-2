@@ -8,11 +8,11 @@ type FilmCardProps = {
   film: FilmPromo;
 };
 
-export default function FilmCard({ film }: FilmCardProps): React.JSX.Element {
+function FilmCard({ film }: FilmCardProps): React.JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={film.posterImage} alt={film.name}/>
+        <img src={film.posterImage} alt={film.name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header />
@@ -32,3 +32,7 @@ export default function FilmCard({ film }: FilmCardProps): React.JSX.Element {
     </section>
   );
 }
+
+const FilmCardMemo = React.memo(FilmCard);
+
+export default FilmCardMemo;

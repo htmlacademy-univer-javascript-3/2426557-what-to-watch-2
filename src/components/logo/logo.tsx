@@ -6,7 +6,7 @@ type Props = {
   isLight?: boolean;
 };
 
-export default function Logo({ isLight = false }: Props): React.JSX.Element {
+function Logo({ isLight = false }: Props): React.JSX.Element {
   const computedClass = `logo__link ${isLight ? 'logo__link--light' : ''}`;
 
   return (
@@ -19,3 +19,7 @@ export default function Logo({ isLight = false }: Props): React.JSX.Element {
     </div>
   );
 }
+
+const LogoMemo = React.memo(Logo);
+
+export default LogoMemo;

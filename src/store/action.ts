@@ -4,7 +4,7 @@ import {createAction} from '@reduxjs/toolkit';
 // import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 import {AppRoute} from '../enums/AppRoute.ts';
 
-export const setActiveGenre = createAction<{genre: string}>('setActiveGenre');
+// export const setActiveGenre = createAction<{genre: string}>('setActiveGenre');
 //
 // export const getFilmsByGenre = createAction('getFilmsByGenre');
 //
