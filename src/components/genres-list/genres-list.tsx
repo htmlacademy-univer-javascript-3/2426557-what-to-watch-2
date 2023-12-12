@@ -1,11 +1,15 @@
 import React from 'react';
-import {ALL_GENRES} from '../../consts/genres.ts';
+import { ALL_GENRES } from '../../consts/genres.ts';
 import GenreItem from '../genre-item/genre-item.tsx';
-import {useAppSelector} from '../../hooks/store.ts';
+import { useAppSelector } from '../../hooks/store.ts';
+import {
+  getActiveGenre,
+  getFilms,
+} from '../../store/films-process/films-process.selector.ts';
 
 export default function GenresList(): React.JSX.Element {
-  const activeGenre = useAppSelector((state) => state.activeGenre);
-  const films = useAppSelector((state)=> state.films);
+  const activeGenre = useAppSelector(getActiveGenre);
+  const films = useAppSelector(getFilms);
 
   const genreList = [ALL_GENRES, ...new Set(films.map((film) => film.genre))];
 

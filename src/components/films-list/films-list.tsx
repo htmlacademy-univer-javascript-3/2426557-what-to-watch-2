@@ -4,20 +4,24 @@ import { useAppSelector } from '../../hooks/store.ts';
 import { DEFAULT_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
 import { Spinner } from '../spinner/spinner.tsx';
 import { FilmProps } from '../../types/film-types.ts';
+import {
+  getFilmsByGenre,
+  getIsLoadingList,
+} from '../../store/films-process/films-process.selector.ts';
 
 type FilmsListProps = {
   length?: number;
   similar?: FilmProps[];
 };
 
-export default function FilmsList({
+function FilmsList({
   length = DEFAULT_FILM_LIST_LENGTH,
   similar,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
-  const genreFilms = useAppSelector((state) => state.genreFilms);
-  const isLoading = useAppSelector((state) => state.isLoadingList);
+  const genreFilms = useAppSelector(getFilmsByGenre);
+  const isLoading = useAppSelector(getIsLoadingList);
 
   const handleCardHover = (filmId: number) => {
     setActiveFilm(filmId);
@@ -49,3 +53,7 @@ export default function FilmsList({
     </div>
   );
 }
+
+const FilmsListMemo = React.memo(FilmsList);
+
+export default FilmsListMemo;

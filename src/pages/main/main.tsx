@@ -4,10 +4,11 @@ import FilmCard from '../../components/film-card/film-card';
 import Catalog from '../../components/catalog/catalog';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { fetchFilmPromo } from '../../store/api-actions.ts';
+import { getPromoFilm } from '../../store/films-process/films-process.selector.ts';
 
 export default function MainPage(): React.JSX.Element | null {
   const dispatch = useAppDispatch();
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   useEffect(() => {
     dispatch(fetchFilmPromo());

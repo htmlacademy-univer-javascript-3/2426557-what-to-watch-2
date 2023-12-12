@@ -8,14 +8,18 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { Spinner } from '../../components/spinner/spinner.tsx';
-import {fetchFilmById} from '../../store/api-actions.ts';
+import { fetchFilmById } from '../../store/api-actions.ts';
+import {
+  getFilm,
+  getIsLoadingFilm,
+} from '../../store/film-process/film-process.selector.ts';
 
 export default function AddReview(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
-  const film = useAppSelector((state) => state.currentFilm);
-  const isLoading = useAppSelector((state) => state.isLoadingFilm);
+  const film = useAppSelector(getFilm);
+  const isLoading = useAppSelector(getIsLoadingFilm);
 
   useEffect(() => {
     if (id) {
@@ -35,10 +39,7 @@ export default function AddReview(): React.JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img
-            src={film.backgroundImage}
-            alt={film.name}
-          />
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">

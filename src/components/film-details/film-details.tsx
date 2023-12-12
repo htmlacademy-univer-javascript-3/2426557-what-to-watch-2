@@ -5,9 +5,7 @@ import { formatRunTime } from '../../utils/time.ts';
 type FilmDetailsProps = {
   film: FilmInfoProps;
 };
-export default function FilmDetails({
-  film,
-}: FilmDetailsProps): React.JSX.Element {
+function FilmDetails({ film }: FilmDetailsProps): React.JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -49,3 +47,7 @@ export default function FilmDetails({
     </div>
   );
 }
+
+const FilmDetailsMemo = React.memo(FilmDetails);
+
+export default FilmDetailsMemo;

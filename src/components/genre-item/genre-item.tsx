@@ -1,24 +1,24 @@
-import React, {FormEvent, useCallback} from 'react';
+import React, { FormEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
-import {useAppDispatch} from '../../hooks/store.ts';
-import {getFilmsByGenre, setActiveGenre} from '../../store/action.ts';
+import { useAppDispatch } from '../../hooks/store.ts';
+import {
+  setActiveGenre,
+  setFilmsByGenre,
+} from '../../store/films-process/films-process.slice.ts';
 
 type GenreItemProps = {
   name: string;
   isActive: boolean;
 };
-export default function GenreItem({
-  name,
-  isActive,
-}: GenreItemProps): React.JSX.Element {
+function GenreItem({ name, isActive }: GenreItemProps): React.JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleClick = useCallback(
     (event: FormEvent<HTMLAnchorElement>) => {
       event.preventDefault();
-      dispatch(setActiveGenre({ genre: name }));
-      dispatch(getFilmsByGenre());
+      dispatch(setActiveGenre(name));
+      dispatch(setFilmsByGenre());
     },
     [dispatch, name]
   );
@@ -29,9 +29,17 @@ export default function GenreItem({
 
   return (
     <li className={computedClass}>
-      <Link to={AppRoute.Main} className="catalog__genres-link" onClick={handleClick}>
+      <Link
+        to={AppRoute.Main}
+        className="catalog__genres-link"
+        onClick={handleClick}
+      >
         {name}
       </Link>
     </li>
   );
 }
+
+const GenreItemMemo = React.memo(GenreItem);
+
+export default GenreItemMemo;

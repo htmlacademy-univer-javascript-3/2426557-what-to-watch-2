@@ -1,15 +1,23 @@
-import React, { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  Fragment,
+  useCallback,
+  useState,
+} from 'react';
 import { DEFAULT_FORM_VALUE } from '../../consts/default-form';
-import {addCommentAction} from '../../store/api-actions.ts';
-import {useAppDispatch} from '../../hooks/store.ts';
-import {Navigate} from 'react-router-dom';
-import {AppRoute} from '../../enums/AppRoute.ts';
+import { addCommentAction } from '../../store/api-actions.ts';
+import { useAppDispatch } from '../../hooks/store.ts';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../enums/AppRoute.ts';
 
 type ReviewFormProps = {
   filmId: string;
 };
 
-export default function AddReviewForm({filmId}: ReviewFormProps): React.JSX.Element {
+function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
+  const navigate = useNavigate();
+
   const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const [review, setReview] = useState({
@@ -18,30 +26,42 @@ export default function AddReviewForm({filmId}: ReviewFormProps): React.JSX.Elem
 
   const dispatch = useAppDispatch();
 
-  function handleRatingChange(evt: ChangeEvent<HTMLInputElement>) {
+  const handleRatingChange = useCallback(
+    (evt: ChangeEvent<HTMLInputElement>) => {
+      setReview((currentReview) => ({
+        ...currentReview,
+        rating: Number(evt.target.value),
+      }));
+    },
+    []
+  );
 
-    setReview({
-      ...review,
-      rating: Number(evt.target.value),
-    });
-  }
+  const handleTextAreaChange = useCallback(
+    (evt: ChangeEvent<HTMLTextAreaElement>) => {
+      setReview((currentReview) => ({
+        ...currentReview,
+        comment: evt.target.value,
+      }));
+    },
+    []
+  );
 
-  function handleTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
-    setReview({
-      ...review,
-      comment: evt.target.value,
-    });
-  }
+  const handleSubmit = useCallback(
+    (evt: FormEvent<HTMLFormElement>) => {
+      evt.preventDefault();
 
-  function handleSubmit (evt: FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-
-    dispatch(addCommentAction({
-      filmId: filmId,
-      comment: review.comment,
-      rating: review.rating
-    }));
-  }
+      dispatch(
+        addCommentAction({
+          filmId: filmId,
+          comment: review.comment,
+          rating: review.rating,
+        })
+      ).then(() => {
+        navigate(`/films/${filmId}`);
+      });
+    },
+    [dispatch, filmId, navigate, review]
+  );
 
   if (!filmId) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -80,10 +100,7 @@ export default function AddReviewForm({filmId}: ReviewFormProps): React.JSX.Elem
             onChange={handleTextAreaChange}
           />
           <div className="add-review__submit">
-            <button
-              className="add-review__btn"
-              type="submit"
-            >
+            <button className="add-review__btn" type="submit">
               Post
             </button>
           </div>
@@ -92,3 +109,7 @@ export default function AddReviewForm({filmId}: ReviewFormProps): React.JSX.Elem
     </div>
   );
 }
+
+const AddReviewFormMemo = React.memo(AddReviewForm);
+
+export default AddReviewFormMemo;

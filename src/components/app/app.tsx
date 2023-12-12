@@ -9,15 +9,14 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import Player from '../../pages/player/player';
 import { AppRoute } from '../../enums/AppRoute';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks/store.ts';
 import HistoryRouter from '../history-router/history-router.tsx';
 import browserHistory from '../../browser-history.ts';
+import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
 
 export default function App(): React.JSX.Element {
-  const films = useAppSelector((state) => state.films);
-
   return (
     <HistoryRouter history={browserHistory}>
+      <ScrollToTop />
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
@@ -26,7 +25,7 @@ export default function App(): React.JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyList films={films} />
+                <MyList />
               </PrivateRoute>
             }
           />
