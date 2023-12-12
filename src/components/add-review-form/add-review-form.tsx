@@ -28,20 +28,20 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
 
   const handleRatingChange = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) => {
-      setReview({
-        ...review,
+      setReview((currentReview) => ({
+        ...currentReview,
         rating: Number(evt.target.value),
-      });
+      }));
     },
     []
   );
 
   const handleTextAreaChange = useCallback(
     (evt: ChangeEvent<HTMLTextAreaElement>) => {
-      setReview({
-        ...review,
+      setReview((currentReview) => ({
+        ...currentReview,
         comment: evt.target.value,
-      });
+      }));
     },
     []
   );

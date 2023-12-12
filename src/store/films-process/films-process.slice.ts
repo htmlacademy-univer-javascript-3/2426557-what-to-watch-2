@@ -28,7 +28,7 @@ export const filmsReducer = createSlice({
             : state.films.filter((film) => film.genre === state.activeGenre);
     },
     setActiveGenre: (state, action) => {
-      state.activeGenre = action.payload as string;
+      state.activeGenre = String(action.payload);
     }
   },
   extraReducers: (builder) => {
