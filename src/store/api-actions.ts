@@ -12,6 +12,7 @@ import {AuthData, UserData} from '../types/auth.ts';
 import { AppRoute } from '../enums/AppRoute.ts';
 // import { setToken } from '../services/token.ts';
 import { redirectToRoute } from './action.ts';
+import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
 // import {AppRoute} from '../enums/AppRoute.ts';
 // import {removeToken, setToken} from '../services/token.ts';
 
@@ -74,6 +75,20 @@ export const fetchFavorite = createAsyncThunk<
 
       return data;
     }
+  );
+
+export const changeFavoriteStatus = createAsyncThunk<
+  void,
+  {filmId: string; status: FavoriteStatus},
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>(
+    'favorite/status',
+    async ({filmId, status}, { extra: api}) => {
+      await api.post(`/favorite/${filmId}/${status}`);
+    },
   );
 
 export const fetchFilmPromo = createAsyncThunk<

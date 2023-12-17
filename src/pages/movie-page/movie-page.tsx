@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
@@ -20,6 +20,7 @@ import {
   getFilm,
   getIsLoadingFilm,
 } from '../../store/film-process/film-process.selector.ts';
+import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -62,39 +63,12 @@ export default function MoviePage(): React.JSX.Element {
                 <span className="film-card__genre">{film.genre}</span>
                 <span className="film-card__year">{film.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width={19} height={19}>
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  {/* Для дальнейшей разработки
-                  <svg viewBox="0 0 18 14" width={18} height={14}>
-                    <use xlinkHref="#in-list" />
-                  </svg> */}
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                {isAuth && (
-                  <Link
-                    to={`${AppRoute.Films}/${film.id}${AppRoute.Review}`}
-                    className="btn film-card__button"
-                  >
-                    Add review
-                  </Link>
-                )}
-              </div>
+              <FilmCardButtons
+                isAuth={isAuth}
+                id={film.id}
+                isFavorite={film.isFavorite}
+                isReviewButtonVisible
+              />
             </div>
           </div>
         </div>

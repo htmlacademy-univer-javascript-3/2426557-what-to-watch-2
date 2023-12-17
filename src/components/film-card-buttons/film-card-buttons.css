@@ -1,0 +1,9 @@
+.film-card__link {
+  color: #EEE5B5;
+  text-decoration: none;
+}
+
+.film-card__link:hover {
+  color: #54503e;
+  text-decoration: underline;
+}

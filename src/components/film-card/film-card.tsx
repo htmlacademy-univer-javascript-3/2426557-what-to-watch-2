@@ -25,7 +25,7 @@ function FilmCard({ film }: FilmCardProps): React.JSX.Element {
               <span className="film-card__genre">{film.genre}</span>
               <span className="film-card__year">{film.released}</span>
             </p>
-            <FilmCardButtons />
+            <FilmCardButtons id={film.id} isFavorite={film.isFavorite} />
           </div>
         </div>
       </div>

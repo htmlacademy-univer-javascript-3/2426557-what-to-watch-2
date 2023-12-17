@@ -8,3 +8,5 @@ export const getFilmsByGenreLength = (state: State): number => state[NameSpace.F
 export const getIsLoadingList = (state: State): boolean => state[NameSpace.Films].isLoadingList;
 export const getActiveGenre = (state: State): string => state[NameSpace.Films].activeGenre;
 export const getPromoFilm = (state: State): FilmPromo | null => state[NameSpace.Films].promoFilm;
+export const getFavoriteFilms = (state: State): FilmProps[] => state[NameSpace.Films].favoriteFilms;
+export const getFavoriteFilmsCount = (state: State): number => state[NameSpace.Films].favoriteFilms?.length || 0;
