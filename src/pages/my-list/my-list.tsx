@@ -33,7 +33,7 @@ export default function MyList(): React.JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmsList similar={favoriteFilms} />
+        <FilmsList films={favoriteFilms} />
       </section>
       <Footer />
     </div>
