@@ -13,6 +13,8 @@ import { AppRoute } from '../enums/AppRoute.ts';
 // import { setToken } from '../services/token.ts';
 import { redirectToRoute } from './action.ts';
 import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
+import { setAuthStatus } from './user-process/user-process.slice.ts';
+import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
 // import {AppRoute} from '../enums/AppRoute.ts';
 // import {removeToken, setToken} from '../services/token.ts';
 
@@ -135,7 +137,13 @@ export const checkAuthStatus = createAsyncThunk<
   >(
     '/login',
     async (_arg, { extra: api}) => {
-      await api.get('/login');
+      try {
+
+        await api.get('/login');
+        setAuthStatus(AuthorizationStatus.Auth);
+      } catch (e) {
+        setAuthStatus(AuthorizationStatus.NoAuth);
+      }
     },
   );
 

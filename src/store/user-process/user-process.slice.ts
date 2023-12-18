@@ -1,7 +1,8 @@
+/* eslint-disable no-debugger */
 import {AuthorizationStatus} from '../../enums/AuthorizationStatus.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../consts/name-space.ts';
-import {checkAuthStatus, loginUser, logoutUser} from '../api-actions.ts';
+import {loginUser, logoutUser} from '../api-actions.ts';
 import {removeToken, setToken } from '../../services/token.ts';
 import {UserProcessState} from '../../types/state.ts';
 
@@ -13,15 +14,13 @@ const initialState: UserProcessState = {
 export const userReducer = createSlice({
   name: NameSpace.User,
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthStatus: (state, action) => {
+      state.authorizationStatus = action.payload as AuthorizationStatus;
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(checkAuthStatus.fulfilled, (state) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
-      })
-      .addCase(checkAuthStatus.rejected, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
-      })
       .addCase(logoutUser.fulfilled, (state) => {
         removeToken();
         state.user = null;
@@ -34,3 +33,5 @@ export const userReducer = createSlice({
       });
   }
 });
+
+export const {setAuthStatus} = userReducer.actions;
