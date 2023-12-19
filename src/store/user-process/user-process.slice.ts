@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import {AuthorizationStatus} from '../../enums/AuthorizationStatus.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../consts/name-space.ts';
