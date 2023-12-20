@@ -41,16 +41,16 @@ export default function Player(): React.JSX.Element {
     return <Spinner />;
   }
 
-  if (!film) {
+  if (!film && !id) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
   return (
     <div className="player">
       <video
-        src={film.videoLink}
+        src={film?.videoLink}
         className="player__video"
-        poster={film.posterImage}
+        poster={film?.backgroundImage}
         ref={videoRef}
         autoPlay
         onTimeUpdate={handleProgress}
@@ -60,39 +60,44 @@ export default function Player(): React.JSX.Element {
           Exit
         </Link>
       )}
-      <div className="player__controls-row">
-        <div
-          className="player__time"
-          ref={sliderRef}
-          onClick={(e) => {
-            handleSlider(e.clientX - PADDING);
-          }}
-        >
-          <progress className="player__progress" value={progress} max="100" />
-          <div className="player__toggler" style={{ left: `${progress}%` }}>
-            Toggler
+      <div className="player__controls">
+        <div className="player__controls-row">
+          <div
+            className="player__time"
+            ref={sliderRef}
+            onClick={(e) => {
+              handleSlider(e.clientX - PADDING);
+            }}
+          >
+            <progress className="player__progress" value={progress} max="100" />
+            <div className="player__toggler" style={{ left: `${progress}%` }}>
+              Toggler
+            </div>
+          </div>
+          <div className="player__time-value">
+            {getLeftTime(film?.runTime || 0)}
           </div>
         </div>
-        <div className="player__time-value">{getLeftTime(film.runTime)}</div>
-      </div>
-      <div className="player__controls-row">
-        <button type="button" className="player__play" onClick={togglePlay}>
-          <svg viewBox="0 0 19 19" width={19} height={19}>
-            <use xlinkHref={isPlaying ? '#pause' : '#play-s'} />
-          </svg>
-          <span>{isPlaying ? 'Pause' : 'Play'}</span>
-        </button>
-        <div className="player__name">{film.name}</div>
-        <button
-          type="button"
-          className="player__full-screen"
-          onClick={handleFullSrceen}
-        >
-          <svg viewBox="0 0 27 27" width={27} height={27}>
-            <use xlinkHref="#full-screen" />
-          </svg>
-          <span>Full screen</span>
-        </button>
+
+        <div className="player__controls-row">
+          <button type="button" className="player__play" onClick={togglePlay}>
+            <svg viewBox="0 0 19 19" width={19} height={19}>
+              <use xlinkHref={isPlaying ? '#pause' : '#play-s'} />
+            </svg>
+            <span>{isPlaying ? 'Pause' : 'Play'}</span>
+          </button>
+          <div className="player__name">{film?.name}</div>
+          <button
+            type="button"
+            className="player__full-screen"
+            onClick={handleFullSrceen}
+          >
+            <svg viewBox="0 0 27 27" width={27} height={27}>
+              <use xlinkHref="#full-screen" />
+            </svg>
+            <span>Full screen</span>
+          </button>
+        </div>
       </div>
     </div>
   );
