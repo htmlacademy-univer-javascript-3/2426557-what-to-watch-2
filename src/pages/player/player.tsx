@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchFilmById } from '../../store/api-actions';
@@ -29,6 +29,7 @@ export default function Player(): React.JSX.Element {
     handleProgress,
     handleSlider,
     handleFullSrceen,
+    handleExit,
   } = useVideoPlayer(videoRef, sliderRef);
 
   useEffect(() => {
@@ -55,11 +56,9 @@ export default function Player(): React.JSX.Element {
         autoPlay
         onTimeUpdate={handleProgress}
       />
-      {film && (
-        <Link className="player__exit" to={`${AppRoute.Films}/${film.id}`}>
-          Exit
-        </Link>
-      )}
+      <button type="button" className="player__exit" onClick={handleExit}>
+        Exit
+      </button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div

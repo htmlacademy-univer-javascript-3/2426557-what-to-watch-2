@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { DEFAULT_PERCENT } from '../consts/time';
+import { useNavigate } from 'react-router-dom';
 
 const useVideoPlayer = (
   videoRef: React.MutableRefObject<HTMLVideoElement | null>,
   sliderRef: React.MutableRefObject<HTMLDivElement | null>
 ) => {
+  const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -46,6 +48,10 @@ const useVideoPlayer = (
     videoRef.current.currentTime = videoRef.current.duration * newProgress;
   };
 
+  const handleExit = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
   return {
     isPlaying,
     progress,
@@ -53,6 +59,7 @@ const useVideoPlayer = (
     handleProgress,
     handleSlider,
     handleFullSrceen,
+    handleExit,
   };
 };
 
