@@ -19,6 +19,7 @@ import { getAuthStatus } from '../../store/user-process/user-process.selector.ts
 import {
   getFilm,
   getIsLoadingFilm,
+  getReviews,
 } from '../../store/film-process/film-process.selector.ts';
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
@@ -29,6 +30,7 @@ export default function MoviePage(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const reviews = useAppSelector(getReviews);
   const isLoading = useAppSelector(getIsLoadingFilm);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
@@ -84,7 +86,7 @@ export default function MoviePage(): React.JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <FilmCardPoster src={film.posterImage} alt={film.name} />
-            <Tabs film={film} />
+            <Tabs film={film} reviews={reviews} />
           </div>
         </div>
       </section>
