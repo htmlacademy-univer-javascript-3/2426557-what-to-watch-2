@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';

@@ -10,7 +10,6 @@ import {
 import useVideoPlayer from '../../hooks/player';
 import { Spinner } from '../../components/spinner/spinner';
 import { PADDING } from '../../consts/time';
-import { getLeftTime } from '../../utils/time';
 
 export default function Player(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -21,16 +20,19 @@ export default function Player(): React.JSX.Element {
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const togglerRef = useRef<HTMLDivElement | null>(null);
 
   const {
     isPlaying,
     progress,
+    timeLeft,
     togglePlay,
     handleProgress,
     handleSlider,
+    handleTogglerMouseDown,
     handleFullSrceen,
     handleExit,
-  } = useVideoPlayer(videoRef, sliderRef);
+  } = useVideoPlayer(videoRef, sliderRef, togglerRef);
 
   useEffect(() => {
     if (id) {
@@ -73,13 +75,16 @@ export default function Player(): React.JSX.Element {
             }}
           >
             <progress className="player__progress" value={progress} max="100" />
-            <div className="player__toggler" style={{ left: `${progress}%` }}>
+            <div
+              className="player__toggler"
+              style={{ left: `${progress}%` }}
+              ref={togglerRef}
+              onMouseDown={handleTogglerMouseDown}
+            >
               Toggler
             </div>
           </div>
-          <div className="player__time-value">
-            {getLeftTime(film?.runTime || 0)}
-          </div>
+          <div className="player__time-value">{timeLeft}</div>
         </div>
 
         <div className="player__controls-row">
