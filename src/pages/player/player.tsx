@@ -38,7 +38,11 @@ export default function Player(): React.JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (isLoading && !film) {
+  if (id && id !== film?.id) {
+    dispatch(fetchFilmById(id));
+  }
+
+  if (isLoading) {
     return <Spinner />;
   }
 

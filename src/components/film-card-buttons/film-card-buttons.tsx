@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { FavoriteStatus } from '../../enums/FavoriteStatus';
 import { getFavoriteFilmsCount } from '../../store/films-process/films-process.selector';
-import { resetFilmDependencies } from '../../store/film-process/film-process.slice';
+// import { resetFilmDependencies } from '../../store/film-process/film-process.slice';
 
 type FilmCardButtonsProps = {
   isAuth?: boolean;
@@ -57,7 +57,7 @@ export default function FilmCardButtons({
       dispatch(fetchFilmReviews(params.id));
     }
     return () => {
-      dispatch(resetFilmDependencies());
+      // dispatch(resetFilmDependencies());
     };
   }, [params.id, dispatch, id]);
 

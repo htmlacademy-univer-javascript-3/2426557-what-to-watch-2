@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
@@ -21,6 +22,7 @@ import {
   getIsLoadingFilm,
 } from '../../store/film-process/film-process.selector.ts';
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
+import PageNotFound from '../page-not-found/page-not-found.tsx';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -39,15 +41,15 @@ export default function MoviePage(): React.JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (isLoading && !film) {
+  if (isLoading) {
     return <Spinner />;
   }
 
-  if (!film) {
+  if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  return (
+  return film ? (
     <>
       <section
         className="film-card film-card--full"
@@ -55,7 +57,7 @@ export default function MoviePage(): React.JSX.Element {
       >
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.posterImage} alt={film.name} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <Header />
@@ -77,7 +79,7 @@ export default function MoviePage(): React.JSX.Element {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmCardPoster src={film.backgroundImage} alt={film.name} />
+            <FilmCardPoster src={film.posterImage} alt={film.name} />
             <Tabs film={film} />
           </div>
         </div>
@@ -90,5 +92,7 @@ export default function MoviePage(): React.JSX.Element {
         <Footer />
       </div>
     </>
+  ) : (
+    <PageNotFound />
   );
 }
