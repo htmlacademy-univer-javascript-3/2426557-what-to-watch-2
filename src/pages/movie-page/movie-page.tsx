@@ -22,6 +22,7 @@ import {
 } from '../../store/film-process/film-process.selector.ts';
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
+import { getFavoriteFilms } from '../../store/films-process/films-process.selector.ts';
 
 export default function MoviePage(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -31,6 +32,10 @@ export default function MoviePage(): React.JSX.Element {
   const isLoading = useAppSelector(getIsLoadingFilm);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const isFavorite = favoriteFilms?.find(
+    (favorite) => String(favorite.id) === String(film?.id)
+  );
 
   useEffect(() => {
     if (id) {
@@ -70,7 +75,7 @@ export default function MoviePage(): React.JSX.Element {
               <FilmCardButtons
                 isAuth={isAuth}
                 id={film.id}
-                isFavorite={film.isFavorite}
+                isFavorite={Boolean(isFavorite)}
                 isReviewButtonVisible
               />
             </div>

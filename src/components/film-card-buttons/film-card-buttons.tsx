@@ -47,7 +47,9 @@ export default function FilmCardButtons({
           : FavoriteStatus.Favorite,
         filmId: String(id),
       })
-    );
+    ).then(() => {
+      dispatch(fetchFavorite());
+    });
   };
 
   useEffect(() => {
