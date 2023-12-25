@@ -48,7 +48,7 @@ export default function MoviePage(): React.JSX.Element {
   }, [id, dispatch]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner size="large" />;
   }
 
   if (!id) {

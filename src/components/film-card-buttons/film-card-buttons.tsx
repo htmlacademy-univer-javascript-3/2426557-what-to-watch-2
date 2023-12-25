@@ -94,7 +94,13 @@ export default function FilmCardButtons({
           </svg>
         )}
         {isAuth ? (
-          <Link to={`${AppRoute.MyList}`} className="film-card__link">
+          <Link
+            to={`${AppRoute.MyList}`}
+            className="film-card__link"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             My list
           </Link>
         ) : (

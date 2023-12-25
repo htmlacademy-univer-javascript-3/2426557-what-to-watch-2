@@ -19,7 +19,7 @@ type ReviewFormProps = {
 function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
   const navigate = useNavigate();
 
-  const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
   const [review, setReview] = useState({
     ...DEFAULT_FORM_VALUE,
