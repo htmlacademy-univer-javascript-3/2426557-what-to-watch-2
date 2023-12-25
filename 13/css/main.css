@@ -1440,11 +1440,3 @@ main {
   color: #fff;
   background: #fd612ead;
   border-radius: 15px; }
-
-  .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
