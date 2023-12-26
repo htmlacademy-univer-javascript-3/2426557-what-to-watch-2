@@ -41,8 +41,6 @@ FilmInfoProps,
 }>(
   '/films/id',
   async (id: string, {extra: api}) => {
-    debugger;
-
     const { data } = await api.get<FilmInfoProps>(`/films/${id}`);
     return data;
   },
