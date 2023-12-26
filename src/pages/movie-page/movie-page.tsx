@@ -40,12 +40,12 @@ export default function MoviePage(): React.JSX.Element {
   );
 
   useEffect(() => {
-    if (id) {
+    if (id && id !== film?.id) {
       dispatch(fetchFilmById(id));
       dispatch(fetchSimilarFilms(id));
       dispatch(fetchFilmReviews(id));
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, film?.id]);
 
   if (isLoading) {
     return <Spinner size="large" />;

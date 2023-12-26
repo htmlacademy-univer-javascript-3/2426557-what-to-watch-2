@@ -35,14 +35,14 @@ export default function Player(): React.JSX.Element {
   } = useVideoPlayer(videoRef, sliderRef, togglerRef);
 
   useEffect(() => {
-    if (id) {
+    if (id && id !== film?.id) {
       dispatch(fetchFilmById(id));
     }
-  }, [id, dispatch]);
+  }, [id, dispatch, film?.id]);
 
-  if (id && id !== film?.id) {
-    dispatch(fetchFilmById(id));
-  }
+  // if (id && id !== film?.id) {
+  //   dispatch(fetchFilmById(id));
+  // }
 
   if (isLoading) {
     return <Spinner />;
