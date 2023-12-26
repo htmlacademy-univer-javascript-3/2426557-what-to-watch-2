@@ -3,16 +3,27 @@ import Header from '../header/header';
 import React from 'react';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import { FilmPromo } from '../../types/film-types';
+import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { useAppSelector } from '../../hooks/store';
+import { getAuthStatus } from '../../store/user-process/user-process.selector';
+import { getFavoriteFilms } from '../../store/films-process/films-process.selector';
 
 type FilmCardProps = {
   film: FilmPromo;
 };
 
 function FilmCard({ film }: FilmCardProps): React.JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const isFavorite = favoriteFilms?.find(
+    (favorite) => String(favorite.id) === String(film.id)
+  );
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={film.posterImage} alt={film.name} />
+        <img src={film.backgroundImage} alt={film.name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <Header />
@@ -25,7 +36,11 @@ function FilmCard({ film }: FilmCardProps): React.JSX.Element {
               <span className="film-card__genre">{film.genre}</span>
               <span className="film-card__year">{film.released}</span>
             </p>
-            <FilmCardButtons />
+            <FilmCardButtons
+              id={film.id}
+              isFavorite={Boolean(isFavorite)}
+              isAuth={isAuth}
+            />
           </div>
         </div>
       </div>

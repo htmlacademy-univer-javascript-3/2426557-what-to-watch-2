@@ -1,8 +1,13 @@
 import { InfinitySpin } from 'react-loader-spinner';
+import './spinner.css';
 
-export function Spinner(): React.JSX.Element {
+interface SpinnerProps {
+  size?: string;
+}
+
+export function Spinner({ size = 'small' }: SpinnerProps): React.JSX.Element {
   return (
-    <div className="spinner-container">
+    <div className={`spinner-container spinner-container--${size}`}>
       <InfinitySpin width="200" color="#dfcf77" />
     </div>
   );

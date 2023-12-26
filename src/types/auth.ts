@@ -10,3 +10,10 @@ export type UserData = {
   name: string;
   avatarUrl: string;
 }
+
+export type CheckUserData = {
+  email: string;
+  token: string;
+  name: string;
+  avatarUrl: string;
+}

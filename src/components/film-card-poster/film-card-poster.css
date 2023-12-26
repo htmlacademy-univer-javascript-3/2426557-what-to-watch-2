@@ -3,7 +3,7 @@
   height: 327px;
 }
 
-.film-card__poster--small img {
+.film-card__poster.film-card__poster--small img {
   width: 132px;
   height: 198px;
 }

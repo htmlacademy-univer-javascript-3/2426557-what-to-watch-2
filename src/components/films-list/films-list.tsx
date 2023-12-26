@@ -11,12 +11,12 @@ import {
 
 type FilmsListProps = {
   length?: number;
-  similar?: FilmProps[];
+  films?: FilmProps[];
 };
 
 function FilmsList({
   length = DEFAULT_FILM_LIST_LENGTH,
-  similar,
+  films,
 }: FilmsListProps): React.JSX.Element {
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
@@ -31,7 +31,7 @@ function FilmsList({
     setActiveFilm(null);
   };
 
-  const filteredFilms = similar || genreFilms;
+  const filteredFilms = films || genreFilms;
 
   return (
     <div className="catalog__films-list">

@@ -1,0 +1,7 @@
+.add-review__text--error {
+  border: 1px solid #A8421E;
+}
+
+.add-review__field--error {
+  color: #A8421E;
+}

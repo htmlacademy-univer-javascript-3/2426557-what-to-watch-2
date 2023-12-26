@@ -10,6 +10,7 @@ import { addCommentAction } from '../../store/api-actions.ts';
 import { useAppDispatch } from '../../hooks/store.ts';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute.ts';
+import './add-review-form.css';
 
 type ReviewFormProps = {
   filmId: string;
@@ -18,11 +19,13 @@ type ReviewFormProps = {
 function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
   const navigate = useNavigate();
 
-  const RATINGS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
   const [review, setReview] = useState({
     ...DEFAULT_FORM_VALUE,
   });
+
+  const [error, setError] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -49,6 +52,18 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
   const handleSubmit = useCallback(
     (evt: FormEvent<HTMLFormElement>) => {
       evt.preventDefault();
+
+      setError('');
+
+      if (review.rating < 1) {
+        setError('Rating is required');
+        return;
+      }
+
+      if (review.comment.trim().length < 50) {
+        setError('Comment must be longer than or equal to 50 characters');
+        return;
+      }
 
       dispatch(
         addCommentAction({
@@ -90,7 +105,11 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
             ))}
           </div>
         </div>
-        <div className="add-review__text">
+        <div
+          className={`add-review__text ${
+            error ? 'add-review__text--error' : ''
+          }`}
+        >
           <textarea
             className="add-review__textarea"
             name="review-text"
@@ -105,6 +124,11 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
             </button>
           </div>
         </div>
+        {error && (
+          <div className="add-review__field--error">
+            <p>{error}</p>
+          </div>
+        )}
       </form>
     </div>
   );

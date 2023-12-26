@@ -66,11 +66,7 @@ export default function AddReview(): React.JSX.Element {
           </nav>
           <UserBlock />
         </header>
-        <FilmCardPoster
-          size={'small'}
-          src={film.backgroundImage}
-          alt={film.name}
-        />
+        <FilmCardPoster size={'small'} src={film.posterImage} alt={film.name} />
       </div>
       <AddReviewForm filmId={film.id} />
     </section>

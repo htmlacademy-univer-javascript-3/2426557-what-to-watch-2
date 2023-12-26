@@ -1,5 +1,6 @@
 import React from 'react';
 import { ReviewProps } from '../../types/review-types.ts';
+import './film-reviews.css';
 
 type FilmReviewsProps = {
   reviews: ReviewProps[];

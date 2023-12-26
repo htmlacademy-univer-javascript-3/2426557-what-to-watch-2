@@ -18,6 +18,8 @@ export default function SignIn(): React.JSX.Element {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    setError('');
+
     if (emailRef.current !== null && passwordRef.current !== null) {
       if (!EMAIL_PATTERN.test(emailRef.current?.value)) {
         setError('Please enter a valid email address');

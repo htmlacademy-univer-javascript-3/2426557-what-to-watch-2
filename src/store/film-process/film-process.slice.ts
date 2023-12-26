@@ -17,7 +17,14 @@ const initialState: FilmProcessState = {
 export const filmReducer = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    resetFilmDependencies: (state) => {
+      state.currentFilm = null;
+      state.similarFilms = [];
+      state.reviews = [];
+      state.isLoadingFilm = false;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFilmById.pending, (state) => {
@@ -45,3 +52,5 @@ export const filmReducer = createSlice({
       });
   }
 });
+
+export const {resetFilmDependencies} = filmReducer.actions;
