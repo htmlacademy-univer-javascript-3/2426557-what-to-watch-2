@@ -8,13 +8,13 @@ import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 // import {ALL_GENRES} from '../consts/genres.ts';
 import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
 // import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
-import {AuthData, UserData} from '../types/auth.ts';
+import {AuthData, CheckUserData, UserData} from '../types/auth.ts';
 import { AppRoute } from '../enums/AppRoute.ts';
 // import { setToken } from '../services/token.ts';
 import { redirectToRoute } from './action.ts';
 import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
-import { setAuthStatus } from './user-process/user-process.slice.ts';
-import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
+// import { setAuthStatus } from './user-process/user-process.slice.ts';
+// import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
 // import {AppRoute} from '../enums/AppRoute.ts';
 // import {removeToken, setToken} from '../services/token.ts';
 
@@ -127,7 +127,7 @@ export const fetchFilmReviews = createAsyncThunk<
 );
 
 export const checkAuthStatus = createAsyncThunk<
-  void,
+  CheckUserData,
   undefined,
   {
   dispatch: AppDispatch;
@@ -137,15 +137,37 @@ export const checkAuthStatus = createAsyncThunk<
   >(
     '/login',
     async (_arg, { extra: api}) => {
-      try {
+      // try {
 
-        await api.get('/login');
-        setAuthStatus(AuthorizationStatus.Auth);
-      } catch (e) {
-        setAuthStatus(AuthorizationStatus.NoAuth);
-      }
+      const {data} = await api.get<CheckUserData>('/login');
+      // setAuthStatus(AuthorizationStatus.Auth);
+      return data;
+      // } catch (e) {
+      //   setAuthStatus(AuthorizationStatus.NoAuth);
+      // }
     },
   );
+
+// export const checkAuthStatus = createAsyncThunk<
+//   void,
+//   undefined,
+//   {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+//   }
+//   >(
+//     '/login',
+//     async (_arg, { extra: api}) => {
+//       try {
+
+//         await api.get('/login');
+//         setAuthStatus(AuthorizationStatus.Auth);
+//       } catch (e) {
+//         setAuthStatus(AuthorizationStatus.NoAuth);
+//       }
+//     },
+//   );
 
 export const loginUser = createAsyncThunk<
   UserData,
