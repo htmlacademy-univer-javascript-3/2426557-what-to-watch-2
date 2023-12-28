@@ -45,7 +45,7 @@ describe('User process selectors', () => {
   it('should return loading list from state', () => {
     const { isLoadingList } = state[NameSpace.Films];
     const result = getIsLoadingList(state);
-    expect(result).toEqual(isLoadingList);
+    expect(result).toBe(isLoadingList);
   });
 
   it('should return promo from state', () => {

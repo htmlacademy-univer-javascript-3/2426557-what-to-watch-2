@@ -3,13 +3,13 @@ import { UserData } from '../types/auth';
 import { FilmInfoProps, FilmPromo, FilmProps } from '../types/film-types';
 import { ReviewProps } from '../types/review-types';
 
-export const makeUser = (): UserData => ({
+export const makeUser = {
   id: datatype.number(),
   email: internet.email(),
   token: datatype.uuid(),
   name: name.title(),
   avatarUrl: internet.url(),
-} as UserData);
+} as UserData;
 
 export const makeFilm = (): FilmProps => ({
   id: datatype.uuid(),

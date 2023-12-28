@@ -1,13 +1,12 @@
 import { NameSpace } from '../../consts/name-space';
 import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
-// import { makeUser } from '../../utils/mocks';
+import { makeUser } from '../../utils/mocks';
 import { getAuthStatus, getUser } from './user-process.selector';
 
 describe('User process selectors', () => {
   const state = {
     [NameSpace.User]: {
-      // user: makeUser,
-      user: null,
+      user: makeUser,
       authorizationStatus: AuthorizationStatus.Unknown,
     }
   };

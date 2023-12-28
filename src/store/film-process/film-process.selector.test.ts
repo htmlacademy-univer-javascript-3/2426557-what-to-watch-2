@@ -25,7 +25,7 @@ describe('User process selectors', () => {
   it('should return loading film from state', () => {
     const { isLoadingFilm } = state[NameSpace.Film];
     const result = getIsLoadingFilm(state);
-    expect(result).toEqual(isLoadingFilm);
+    expect(result).toBe(isLoadingFilm);
   });
 
   it('should return reviews from state', () => {
