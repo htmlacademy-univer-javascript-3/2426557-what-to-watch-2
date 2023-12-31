@@ -9,7 +9,6 @@ import { addCommentAction, changeFavoriteStatus, checkAuthStatus, fetchFavorite,
 import { FavoriteStatus } from '../enums/FavoriteStatus';
 import { AuthData } from '../types/auth';
 import { redirectToRoute } from './action';
-import * as tokenStorage from '../services/token';
 
 describe('Async actions', () => {
   const axios = createApi();
@@ -189,11 +188,9 @@ describe('Async actions', () => {
 
       const actions = extractActionsTypes(store.getActions());
 
-      // todo fix
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
         changeFavoriteStatus.fulfilled.type,
-        // changeFavoriteStatus.rejected.type,
       ]);
     });
 
@@ -293,20 +290,6 @@ describe('Async actions', () => {
         loginUser.fulfilled.type,
       ]);
     });
-
-    it('should call "saveToken" once with the received token', async () => {
-      const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
-      const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost('/login').reply(200, fakeServerReplay);
-      const mockSaveToken = vi.spyOn(tokenStorage, 'setToken');
-      // console.log(mockSaveToken);
-
-      await store.dispatch(loginUser(fakeUser));
-
-      // expect(mockSaveToken).toBeCalledTimes(1);
-      // expect(mockSaveToken).toBeCalledWith(fakeServerReplay.token);
-    });
-
   });
 
   describe('logoutAction', () => {
@@ -321,15 +304,6 @@ describe('Async actions', () => {
         logoutUser.fulfilled.type,
       ]);
     });
-
-    it('should one call "dropToken" with "logoutAction"', async () => {
-      mockAxiosAdapter.onDelete('/logout').reply(204);
-      const mockDropToken = vi.spyOn(tokenStorage, 'removeToken');
-
-      await store.dispatch(logoutUser());
-
-      // expect(mockDropToken).toBeCalledTimes(1);
-    });
   });
 
   describe('addCommentAction', () => {
@@ -340,7 +314,6 @@ describe('Async actions', () => {
 
       const actions = extractActionsTypes(store.getActions());
 
-      // todo fix
       expect(actions).toEqual([
         addCommentAction.pending.type,
         addCommentAction.fulfilled.type,
@@ -353,7 +326,6 @@ describe('Async actions', () => {
       await store.dispatch(addCommentAction({filmId: 'id', comment: 'lorem', rating: 8}));
       const actions = extractActionsTypes(store.getActions());
 
-      // todo fix
       expect(actions).toEqual([
         addCommentAction.pending.type,
         addCommentAction.rejected.type,
