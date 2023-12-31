@@ -1,7 +1,14 @@
 import {datatype, name, internet, commerce, lorem} from 'faker';
-import { UserData } from '../types/auth';
+import { CheckUserData, UserData } from '../types/auth';
 import { FilmInfoProps, FilmPromo, FilmProps } from '../types/film-types';
 import { ReviewProps } from '../types/review-types';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { createApi } from '../services/api';
+import { State } from '../types/state';
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export const makeUser = {
   id: datatype.number(),
@@ -10,6 +17,13 @@ export const makeUser = {
   name: name.title(),
   avatarUrl: internet.url(),
 } as UserData;
+
+export const makeCheckUserStatus = () => ({
+  email: internet.email(),
+  token: datatype.uuid(),
+  name: name.title(),
+  avatarUrl: internet.url(),
+} as CheckUserData);
 
 export const makeFilm = (): FilmProps => ({
   id: datatype.uuid(),
@@ -53,7 +67,7 @@ export const makeCurrentFilm = (): FilmInfoProps => ({
 
 export const makeReview = (): ReviewProps => ({
   id: datatype.uuid(),
-  date: datatype.datetime(),
+  date: String(datatype.datetime()),
   user: name.title(),
   comment: lorem.words(10),
   rating: datatype.number(),

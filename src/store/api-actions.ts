@@ -88,7 +88,13 @@ export const changeFavoriteStatus = createAsyncThunk<
   }>(
     'favorite/status',
     async ({filmId, status}, { extra: api}) => {
-      await api.post(`/favorite/${filmId}/${status}`);
+      try {
+
+        await api.post(`/favorite/${filmId}/${status}`);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      }
     },
   );
 
