@@ -11,10 +11,16 @@ function Logo({ isLight = false }: Props): React.JSX.Element {
 
   return (
     <div className="logo">
-      <Link to={AppRoute.Main} className={computedClass}>
-        <span className="logo__letter logo__letter--1">W</span>
-        <span className="logo__letter logo__letter--2">T</span>
-        <span className="logo__letter logo__letter--3">W</span>
+      <Link to={AppRoute.Main} className={computedClass} data-testid="logo">
+        <span className="logo__letter logo__letter--1" data-testid="logo-char">
+          W
+        </span>
+        <span className="logo__letter logo__letter--2" data-testid="logo-char">
+          T
+        </span>
+        <span className="logo__letter logo__letter--3" data-testid="logo-char">
+          W
+        </span>
       </Link>
     </div>
   );

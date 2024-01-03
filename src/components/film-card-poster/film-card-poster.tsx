@@ -17,7 +17,7 @@ function FilmCardPoster({
   }`;
 
   return (
-    <div className={computedClass}>
+    <div className={computedClass} data-testid="poster">
       <img src={src} alt={alt} />
     </div>
   );

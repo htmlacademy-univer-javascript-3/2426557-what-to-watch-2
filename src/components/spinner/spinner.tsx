@@ -7,7 +7,10 @@ interface SpinnerProps {
 
 export function Spinner({ size = 'small' }: SpinnerProps): React.JSX.Element {
   return (
-    <div className={`spinner-container spinner-container--${size}`}>
+    <div
+      className={`spinner-container spinner-container--${size}`}
+      data-testid="spinner"
+    >
       <InfinitySpin width="200" color="#dfcf77" />
     </div>
   );
