@@ -1,7 +1,7 @@
 import { ReviewProps } from './review-types';
 
 export interface FilmProps {
-  id: number;
+  id: string;
   name: string;
   previewImage: string;
   previewVideoLink: string;
