@@ -1,15 +1,23 @@
 import React, { FormEvent, useRef, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import { loginUser } from '../../store/api-actions.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { EMAIL_PATTERN } from '../../consts/validation-patterns.ts';
-import { getAuthHasError } from '../../store/user-process/user-process.selector.ts';
+import {
+  getAuthHasError,
+  getAuthStatus,
+} from '../../store/user-process/user-process.selector.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 
 export default function SignIn(): React.JSX.Element {
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
   const hasError = useAppSelector(getAuthHasError);
+
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -47,6 +55,10 @@ export default function SignIn(): React.JSX.Element {
       });
     }
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="user-page">
