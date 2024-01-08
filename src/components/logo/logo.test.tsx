@@ -15,6 +15,18 @@ describe('Component: Logo', () => {
     expect(element).toBeInTheDocument();
   });
 
+  it('should render class correctly', () => {
+    render(
+      <BrowserRouter>
+        <Logo isLight />
+      </BrowserRouter>
+    );
+
+    const element = screen.getByTestId('logo');
+
+    expect(element).toHaveClass('logo__link--light');
+  });
+
   it('should render logo link correctly', () => {
     render(
       <BrowserRouter>
