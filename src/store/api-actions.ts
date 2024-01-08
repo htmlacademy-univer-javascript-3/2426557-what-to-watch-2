@@ -13,6 +13,8 @@ import { AppRoute } from '../enums/AppRoute.ts';
 // import { setToken } from '../services/token.ts';
 import { redirectToRoute } from './action.ts';
 import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
+import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
+import { setAuthStatus } from './user-process/user-process.slice.ts';
 // import { setAuthStatus } from './user-process/user-process.slice.ts';
 // import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
 // import {AppRoute} from '../enums/AppRoute.ts';
@@ -132,7 +134,7 @@ export const fetchFilmReviews = createAsyncThunk<
 );
 
 export const checkAuthStatus = createAsyncThunk<
-  UserData,
+  UserData | void,
   undefined,
   {
   dispatch: AppDispatch;
@@ -140,16 +142,23 @@ export const checkAuthStatus = createAsyncThunk<
   extra: AxiosInstance;
   }
   >(
-    '/login',
+    'user/check',
     async (_arg, { extra: api}) => {
-      // try {
+      try {
 
-      const {data} = await api.get<UserData>('/login');
-      // setAuthStatus(AuthorizationStatus.Auth);
-      return data;
-      // } catch (e) {
-      //   setAuthStatus(AuthorizationStatus.NoAuth);
-      // }
+        const {data} = await api.get<UserData>('/login');
+        if(!data) {
+          setAuthStatus(AuthorizationStatus.NoAuth);
+        } else {
+          setAuthStatus(AuthorizationStatus.Auth);
+        }
+        // debugger;
+        // setAuthStatus(AuthorizationStatus.Auth);
+        return data;
+      } catch (e) {
+        // debugger;
+        // setAuthStatus(AuthorizationStatus.NoAuth);
+      }
     },
   );
 

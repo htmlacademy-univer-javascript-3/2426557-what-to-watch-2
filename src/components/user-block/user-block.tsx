@@ -38,7 +38,7 @@ export default function UserBlock(): React.JSX.Element {
       <li className="user-block__item">
         {isAuth ? (
           <Link
-            to={`${AppRoute.Login}`}
+            to={`${AppRoute.Main}`}
             className="user-block__link"
             onClick={handleClick}
           >

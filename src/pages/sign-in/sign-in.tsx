@@ -3,10 +3,7 @@ import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import { loginUser } from '../../store/api-actions.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
-import {
-  EMAIL_PATTERN,
-  PASSWORD_PATTERN,
-} from '../../consts/validation-patterns.ts';
+import { EMAIL_PATTERN } from '../../consts/validation-patterns.ts';
 import { getAuthHasError } from '../../store/user-process/user-process.selector.ts';
 
 export default function SignIn(): React.JSX.Element {
@@ -28,7 +25,12 @@ export default function SignIn(): React.JSX.Element {
         return;
       }
 
-      if (!PASSWORD_PATTERN.test(passwordRef.current?.value)) {
+      if (
+        !(
+          /[a-z]/i.test(passwordRef.current.value) &&
+          /[0-9]/.test(passwordRef.current.value)
+        )
+      ) {
         setError(
           'Passwords must contain: a minimum of 1 letter and a minimum of 1 numeric character'
         );

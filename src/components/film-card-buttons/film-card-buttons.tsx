@@ -59,9 +59,9 @@ export default function FilmCardButtons({
     }
   }, [params.id, dispatch, id]);
 
-  // useEffect(() => {
-  //   dispatch(fetchFavorite());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchFavorite());
+  }, [dispatch]);
 
   return (
     <div className="film-card__buttons">

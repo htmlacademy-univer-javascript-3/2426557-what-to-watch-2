@@ -15,9 +15,9 @@ export const userReducer = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
-    // setAuthStatus: (state, action) => {
-    //   state.authorizationStatus = action.payload as AuthorizationStatus;
-    // }
+    setAuthStatus: (state, action) => {
+      state.authorizationStatus = action.payload as AuthorizationStatus;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -25,6 +25,7 @@ export const userReducer = createSlice({
         removeToken();
         state.user = null;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        // debugger;
         state.hasError = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -39,16 +40,17 @@ export const userReducer = createSlice({
         state.hasError = true;
       })
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
-        setToken(action.payload.token);
-        state.user = action.payload;
-        state.authorizationStatus = AuthorizationStatus.Auth;
+        // setToken(action.payload?.token ?? '');
+        // debugger;
+        state.user = action.payload ?? null;
+        // state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(checkAuthStatus.rejected, (state) => {
         removeToken();
         state.user = null;
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        // state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   }
 });
 
-// export const {setAuthStatus} = userReducer.actions;
+export const {setAuthStatus} = userReducer.actions;
