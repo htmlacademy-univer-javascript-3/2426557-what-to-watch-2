@@ -89,19 +89,7 @@ export default function FilmCardButtons({
             <use xlinkHref="#add"></use>
           </svg>
         )}
-        {isAuth ? (
-          <Link
-            to={`${AppRoute.MyList}`}
-            className="film-card__link"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            My list
-          </Link>
-        ) : (
-          <span>My list</span>
-        )}
+        <span>My list</span>
         <span className="film-card__count">{favoriteFilmsCount}</span>
       </button>
       {isAuth && isReviewButtonVisible && (

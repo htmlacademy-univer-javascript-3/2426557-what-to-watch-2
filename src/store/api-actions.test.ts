@@ -290,6 +290,18 @@ describe('Async actions', () => {
         loginUser.fulfilled.type,
       ]);
     });
+    it('should dispatch "loginUser.pending", "redirectToRoute", "loginUser.rejected" when server response 400', async() => {
+      const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
+      mockAxiosAdapter.onPost('/login').reply(400);
+
+      await store.dispatch(loginUser(fakeUser));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        loginUser.pending.type,
+        loginUser.rejected.type,
+      ]);
+    });
   });
 
   describe('logoutAction', () => {

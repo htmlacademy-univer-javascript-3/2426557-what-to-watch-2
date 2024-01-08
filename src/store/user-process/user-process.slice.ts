@@ -8,6 +8,7 @@ import {UserProcessState} from '../../types/state.ts';
 const initialState: UserProcessState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
+  hasError: false,
 };
 
 export const userReducer = createSlice({
@@ -24,11 +25,18 @@ export const userReducer = createSlice({
         removeToken();
         state.user = null;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.hasError = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         setToken(action.payload.token);
         state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.hasError = false;
+      })
+      .addCase(loginUser.rejected, (state) => {
+        state.user = null;
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.hasError = true;
       })
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
         setToken(action.payload.token);

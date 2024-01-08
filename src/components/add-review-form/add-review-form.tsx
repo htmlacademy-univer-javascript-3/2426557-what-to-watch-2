@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../hooks/store.ts';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../enums/AppRoute.ts';
 import './add-review-form.css';
+import { MAX_REVIEW, MIN_REVIEW, RATINGS } from '../../consts/review.ts';
 
 type ReviewFormProps = {
   filmId: string;
@@ -19,15 +20,20 @@ type ReviewFormProps = {
 function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
   const navigate = useNavigate();
 
-  const RATINGS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-
   const [review, setReview] = useState({
     ...DEFAULT_FORM_VALUE,
   });
 
   const [error, setError] = useState('');
+  const [serverError, setServerError] = useState('');
 
   const dispatch = useAppDispatch();
+
+  const isDisabledBtn =
+    !review.rating ||
+    !review.comment ||
+    review.comment.length < MIN_REVIEW ||
+    review.comment.length > MAX_REVIEW;
 
   const handleRatingChange = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) => {
@@ -54,14 +60,20 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
       evt.preventDefault();
 
       setError('');
+      setServerError('');
 
       if (review.rating < 1) {
         setError('Rating is required');
         return;
       }
 
-      if (review.comment.trim().length < 50) {
-        setError('Comment must be longer than or equal to 50 characters');
+      if (
+        review.comment.trim().length < MIN_REVIEW ||
+        review.comment.trim().length > MAX_REVIEW
+      ) {
+        setError(
+          'Comment must be longer than or equal to 50 and shorter than 400 characters'
+        );
         return;
       }
 
@@ -71,9 +83,13 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
           comment: review.comment,
           rating: review.rating,
         })
-      ).then(() => {
-        navigate(`/films/${filmId}`);
-      });
+      )
+        .then(() => {
+          navigate(`/films/${filmId}`);
+        })
+        .catch(() => {
+          setServerError('Ошибка сервера');
+        });
     },
     [dispatch, filmId, navigate, review]
   );
@@ -107,7 +123,7 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
         </div>
         <div
           className={`add-review__text ${
-            error ? 'add-review__text--error' : ''
+            error || serverError ? 'add-review__text--error' : ''
           }`}
         >
           <textarea
@@ -119,14 +135,18 @@ function AddReviewForm({ filmId }: ReviewFormProps): React.JSX.Element {
             onChange={handleTextAreaChange}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">
+            <button
+              className="add-review__btn"
+              type="submit"
+              disabled={isDisabledBtn}
+            >
               Post
             </button>
           </div>
         </div>
-        {error && (
+        {(error || serverError) && (
           <div className="add-review__field--error">
-            <p>{error}</p>
+            <p>{error || serverError}</p>
           </div>
         )}
       </form>

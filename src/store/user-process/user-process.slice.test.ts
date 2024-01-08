@@ -6,7 +6,8 @@ import { userReducer } from './user-process.slice';
 describe('User process slice', () => {
   const initialState = {
     authorizationStatus: AuthorizationStatus.NoAuth,
-    user: null
+    user: null,
+    hasError: false,
   };
   it('should return initial state', () => {
     const emptyAction = {type: ''};
@@ -31,6 +32,7 @@ describe('User process slice', () => {
     const expectedState = {
       user,
       authorizationStatus: AuthorizationStatus.Auth,
+      hasError: false,
     };
 
     it('should login and set user in state', () => {
@@ -44,6 +46,7 @@ describe('User process slice', () => {
     const state = {
       user,
       authorizationStatus: AuthorizationStatus.Auth,
+      hasError: false,
     };
 
     it('should logout, change status and remove user in state', () => {
@@ -56,6 +59,7 @@ describe('User process slice', () => {
     const expectedState = {
       user,
       authorizationStatus: AuthorizationStatus.Auth,
+      hasError: false,
     };
 
     it('should set user and auth status in state', () => {

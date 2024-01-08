@@ -20,7 +20,7 @@ export default function Player(): React.JSX.Element {
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const togglerRef = useRef<HTMLDivElement | null>(null);
+  // const togglerRef = useRef<HTMLDivElement | null>(null);
 
   const {
     isPlaying,
@@ -29,10 +29,10 @@ export default function Player(): React.JSX.Element {
     togglePlay,
     handleProgress,
     handleSlider,
-    handleTogglerMouseDown,
+    // handleTogglerMouseDown,
     handleFullSrceen,
     handleExit,
-  } = useVideoPlayer(videoRef, sliderRef, togglerRef);
+  } = useVideoPlayer(videoRef, sliderRef);
 
   useEffect(() => {
     if (id && id !== film?.id) {
@@ -45,7 +45,7 @@ export default function Player(): React.JSX.Element {
   // }
 
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner size="large" />;
   }
 
   if (!film && !id) {
@@ -78,8 +78,8 @@ export default function Player(): React.JSX.Element {
             <div
               className="player__toggler"
               style={{ left: `${progress}%` }}
-              ref={togglerRef}
-              onMouseDown={handleTogglerMouseDown}
+              // ref={togglerRef}
+              // onMouseDown={handleTogglerMouseDown}
             >
               Toggler
             </div>

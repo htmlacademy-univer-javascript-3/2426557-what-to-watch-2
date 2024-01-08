@@ -2,15 +2,17 @@ import React, { FormEvent, useRef, useState } from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import { loginUser } from '../../store/api-actions.ts';
-import { useAppDispatch } from '../../hooks/store.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import {
   EMAIL_PATTERN,
   PASSWORD_PATTERN,
 } from '../../consts/validation-patterns.ts';
+import { getAuthHasError } from '../../store/user-process/user-process.selector.ts';
 
 export default function SignIn(): React.JSX.Element {
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
+  const hasError = useAppSelector(getAuthHasError);
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -38,7 +40,9 @@ export default function SignIn(): React.JSX.Element {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         })
-      );
+      ).catch(() => {
+        setError('Ошибка сервера');
+      });
     }
   };
 
@@ -50,7 +54,7 @@ export default function SignIn(): React.JSX.Element {
       </header>
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
-          {error && (
+          {(error || hasError) && (
             <div className="sign-in__message">
               <p>{error}</p>
             </div>

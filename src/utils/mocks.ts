@@ -1,5 +1,5 @@
 import {datatype, name, internet, commerce, lorem} from 'faker';
-import { CheckUserData, UserData } from '../types/auth';
+import { UserData } from '../types/auth';
 import { FilmInfoProps, FilmPromo, FilmProps } from '../types/film-types';
 import { ReviewProps } from '../types/review-types';
 import { Action } from 'redux';
@@ -25,7 +25,7 @@ export const makeCheckUserStatus = () => ({
   token: datatype.uuid(),
   name: name.title(),
   avatarUrl: internet.url(),
-} as CheckUserData);
+} as UserData);
 
 export const makeFilm = (): FilmProps => ({
   id: datatype.uuid(),
@@ -76,7 +76,7 @@ export const makeReview = (): ReviewProps => ({
 } as ReviewProps);
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null },
+  USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null, hasError: false },
   FILM: {
     currentFilm: null ,
     isLoadingFilm: true,

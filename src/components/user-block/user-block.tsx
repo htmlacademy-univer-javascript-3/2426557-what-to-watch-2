@@ -27,7 +27,9 @@ export default function UserBlock(): React.JSX.Element {
       <li className="user-block__item">
         <div className="user-block__avatar">
           {isAuth && user ? (
-            <img src={user.avatarUrl} alt="User" />
+            <Link to={`${AppRoute.MyList}`} className="user-block__link">
+              <img src={user.avatarUrl} alt="User" />
+            </Link>
           ) : (
             <img src="img/avatar.jpg" alt="User avatar" />
           )}
@@ -36,7 +38,7 @@ export default function UserBlock(): React.JSX.Element {
       <li className="user-block__item">
         {isAuth ? (
           <Link
-            to={`${AppRoute.Main}`}
+            to={`${AppRoute.Login}`}
             className="user-block__link"
             onClick={handleClick}
           >

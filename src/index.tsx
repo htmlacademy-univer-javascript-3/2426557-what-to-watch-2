@@ -26,7 +26,7 @@ root.render(
     <Provider store={store}>
       <HistoryRouter history={browserHistory}>
         <App />
-        <ToastContainer />
+        <ToastContainer position="bottom-right" />
       </HistoryRouter>
     </Provider>
   </React.StrictMode>

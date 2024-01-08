@@ -8,7 +8,7 @@ import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
 // import {ALL_GENRES} from '../consts/genres.ts';
 import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
 // import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
-import {AuthData, CheckUserData, UserData} from '../types/auth.ts';
+import {AuthData, UserData} from '../types/auth.ts';
 import { AppRoute } from '../enums/AppRoute.ts';
 // import { setToken } from '../services/token.ts';
 import { redirectToRoute } from './action.ts';
@@ -132,7 +132,7 @@ export const fetchFilmReviews = createAsyncThunk<
 );
 
 export const checkAuthStatus = createAsyncThunk<
-  CheckUserData,
+  UserData,
   undefined,
   {
   dispatch: AppDispatch;
@@ -144,7 +144,7 @@ export const checkAuthStatus = createAsyncThunk<
     async (_arg, { extra: api}) => {
       // try {
 
-      const {data} = await api.get<CheckUserData>('/login');
+      const {data} = await api.get<UserData>('/login');
       // setAuthStatus(AuthorizationStatus.Auth);
       return data;
       // } catch (e) {

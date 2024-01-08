@@ -68,6 +68,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILMS: {
           films: [],
@@ -97,6 +98,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILM: {
           currentFilm: fakeFilm,
@@ -127,6 +129,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILM: {
           currentFilm: fakeFilm,

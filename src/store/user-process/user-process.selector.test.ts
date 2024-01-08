@@ -8,6 +8,7 @@ describe('User process selectors', () => {
     [NameSpace.User]: {
       user: makeUser,
       authorizationStatus: AuthorizationStatus.Unknown,
+      hasError: false,
     }
   };
 
