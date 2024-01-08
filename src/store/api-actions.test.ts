@@ -27,11 +27,12 @@ describe('Async actions', () => {
       mockAxiosAdapter.onGet('/login').reply(200);
 
       await store.dispatch(checkAuthStatus());
-      const actions = extractActionsTypes(store.getActions());
+
+      const actions = store.getActions().map((action) => action.type);
 
       expect(actions).toEqual([
         checkAuthStatus.pending.type,
-        checkAuthStatus.fulfilled.type,
+        checkAuthStatus.fulfilled.type
       ]);
     });
 
@@ -43,8 +44,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         checkAuthStatus.pending.type,
-        // checkAuthStatus.rejected.type,
-        checkAuthStatus.fulfilled.type,
+        checkAuthStatus.rejected.type,
       ]);
     });
   });
@@ -191,21 +191,19 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
-        changeFavoriteStatus.fulfilled.type,
+        changeFavoriteStatus.rejected.type,
       ]);
     });
 
     it('should dispatch "changeFavoriteStatus.pending", "changeFavoriteStatus.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onPost('/favorite/id/1').reply(400);
+      mockAxiosAdapter.onPost('/favorite/id/status').reply(400);
 
       await store.dispatch(changeFavoriteStatus({filmId: 'id', status: FavoriteStatus.Favorite}));
       const actions = extractActionsTypes(store.getActions());
 
-      // todo fix
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
-        // changeFavoriteStatus.rejected.type,
-        changeFavoriteStatus.fulfilled.type,
+        changeFavoriteStatus.rejected.type,
       ]);
     });
   });

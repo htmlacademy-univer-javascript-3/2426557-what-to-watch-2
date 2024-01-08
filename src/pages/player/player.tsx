@@ -33,9 +33,17 @@ export default function Player(): React.JSX.Element {
   } = useVideoPlayer(videoRef, sliderRef);
 
   useEffect(() => {
-    if (id && id !== film?.id) {
-      dispatch(fetchFilmById(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmById(id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, film?.id]);
 
   if (isLoading) {
@@ -69,10 +77,7 @@ export default function Player(): React.JSX.Element {
             }}
           >
             <progress className="player__progress" value={progress} max="100" />
-            <div
-              className="player__toggler"
-              style={{ left: `${progress}%` }}
-            >
+            <div className="player__toggler" style={{ left: `${progress}%` }}>
               Toggler
             </div>
           </div>

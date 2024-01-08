@@ -24,6 +24,7 @@ import {
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
 import { getFavoriteFilms } from '../../store/films-process/films-process.selector.ts';
+import { SIMILAR_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
 
 export default function FilmPage(): React.JSX.Element {
   const { id = '' } = useParams();
@@ -40,11 +41,19 @@ export default function FilmPage(): React.JSX.Element {
   );
 
   useEffect(() => {
-    if (id && id !== film?.id) {
-      dispatch(fetchFilmById(id));
-      dispatch(fetchSimilarFilms(id));
-      dispatch(fetchFilmReviews(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmById(id));
+        dispatch(fetchSimilarFilms(id));
+        dispatch(fetchFilmReviews(id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, film?.id]);
 
   if (isLoading) {
@@ -93,7 +102,7 @@ export default function FilmPage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList length={4} />
+          <FilmsList length={SIMILAR_FILM_LIST_LENGTH} />
         </section>
         <Footer />
       </div>

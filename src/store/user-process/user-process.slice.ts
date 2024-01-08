@@ -40,6 +40,7 @@ export const userReducer = createSlice({
       })
       .addCase(checkAuthStatus.fulfilled, (state, action) => {
         state.user = action.payload ?? null;
+        state.authorizationStatus = state.user ? AuthorizationStatus.Auth : AuthorizationStatus.NoAuth;
       })
       .addCase(checkAuthStatus.rejected, (state) => {
         removeToken();

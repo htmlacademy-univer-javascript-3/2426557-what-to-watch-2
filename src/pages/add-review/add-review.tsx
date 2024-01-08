@@ -22,9 +22,16 @@ export default function AddReview(): React.JSX.Element {
   const isLoading = useAppSelector(getIsLoadingFilm);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchFilmById(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id) {
+        dispatch(fetchFilmById(id));
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch]);
 
   if (isLoading && !film) {
