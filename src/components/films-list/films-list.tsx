@@ -18,12 +18,12 @@ function FilmsList({
   length = DEFAULT_FILM_LIST_LENGTH,
   films,
 }: FilmsListProps): React.JSX.Element {
-  const [activeFilm, setActiveFilm] = useState<number | null>(null);
+  const [activeFilm, setActiveFilm] = useState<string | null>(null);
 
   const genreFilms = useAppSelector(getFilmsByGenre);
   const isLoading = useAppSelector(getIsLoadingList);
 
-  const handleCardHover = (filmId: number) => {
+  const handleCardHover = (filmId: string) => {
     setActiveFilm(filmId);
   };
 

@@ -6,6 +6,8 @@ import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createApi } from '../services/api';
 import { State } from '../types/state';
+import { AuthorizationStatus } from '../enums/AuthorizationStatus';
+import { ALL_GENRES } from '../consts/genres';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
@@ -72,5 +74,24 @@ export const makeReview = (): ReviewProps => ({
   comment: lorem.words(10),
   rating: datatype.number(),
 } as ReviewProps);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null },
+  FILM: {
+    currentFilm: null ,
+    isLoadingFilm: true,
+    similarFilms: [],
+    reviews: [],
+  },
+  FILMS: {
+    films: [],
+    activeGenre: ALL_GENRES,
+    genreFilms: [],
+    promoFilm: null,
+    isLoadingList: true,
+    favoriteFilms: [],
+  },
+  ...initialState ?? {},
+});
 
 

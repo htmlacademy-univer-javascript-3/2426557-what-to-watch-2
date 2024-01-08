@@ -10,6 +10,8 @@ import {
 } from './store/api-actions.ts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import browserHistory from './browser-history.ts';
+import HistoryRouter from './components/history-router/history-router.tsx';
 
 store.dispatch(fetchFilms());
 store.dispatch(checkAuthStatus());
@@ -22,8 +24,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-      <ToastContainer />
+      <HistoryRouter history={browserHistory}>
+        <App />
+        <ToastContainer />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

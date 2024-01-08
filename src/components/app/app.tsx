@@ -9,13 +9,16 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import Player from '../../pages/player/player';
 import { AppRoute } from '../../enums/AppRoute';
 import PrivateRoute from '../private-route/private-route';
-import HistoryRouter from '../history-router/history-router.tsx';
-import browserHistory from '../../browser-history.ts';
 import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
+import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
+import { useAppSelector } from '../../hooks/store.ts';
+import { HelmetProvider } from 'react-helmet-async';
 
 export default function App(): React.JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
+
   return (
-    <HistoryRouter history={browserHistory}>
+    <HelmetProvider>
       <ScrollToTop />
       <Routes>
         <Route path={AppRoute.Main}>
@@ -24,7 +27,7 @@ export default function App(): React.JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute>
+              <PrivateRoute authStatus={authStatus}>
                 <MyList />
               </PrivateRoute>
             }
@@ -34,7 +37,7 @@ export default function App(): React.JSX.Element {
             <Route
               path={`:id${AppRoute.Review}`}
               element={
-                <PrivateRoute>
+                <PrivateRoute authStatus={authStatus}>
                   <AddReview />
                 </PrivateRoute>
               }
@@ -44,6 +47,6 @@ export default function App(): React.JSX.Element {
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </HistoryRouter>
+    </HelmetProvider>
   );
 }

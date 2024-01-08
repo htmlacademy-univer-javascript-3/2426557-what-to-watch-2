@@ -10,7 +10,7 @@ type CardProps = {
   film: FilmProps;
   isActive?: boolean;
   isMuted?: boolean;
-  onMouseEnter: (id: number) => void;
+  onMouseEnter: (id: string) => void;
   onMouseLeave: () => void;
 };
 
