@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './card.css';
 import { FilmProps } from '../../types/film-types';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import VideoPlayer from '../videoplayer/videoplayer';
 import { useCallback } from 'react';
 import React from 'react';
@@ -27,11 +27,15 @@ function Card({
     onMouseEnter(id);
   }, [id, onMouseEnter]);
 
+  const handleMouseLeave = useCallback(() => {
+    onMouseLeave();
+  }, [onMouseLeave]);
+
   return (
     <article
       className="small-film-card catalog__films-card"
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={handleMouseLeave}
       data-active={isActive}
     >
       <div className="small-film-card__image">

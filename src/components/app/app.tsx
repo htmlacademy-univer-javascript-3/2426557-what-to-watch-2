@@ -5,9 +5,9 @@ import MyList from '../../pages/my-list/my-list';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import AddReview from '../../pages/add-review/add-review';
 import SignIn from '../../pages/sign-in/sign-in';
-import MoviePage from '../../pages/movie-page/movie-page';
+import FilmPage from '../../pages/film-page/film-page.tsx';
 import Player from '../../pages/player/player';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import PrivateRoute from '../private-route/private-route';
 import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
 import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
@@ -33,7 +33,7 @@ export default function App(): React.JSX.Element {
             }
           />
           <Route path={AppRoute.Films}>
-            <Route path=":id" element={<MoviePage />} />
+            <Route path=":id" element={<FilmPage />} />
             <Route
               path={`:id${AppRoute.Review}`}
               element={

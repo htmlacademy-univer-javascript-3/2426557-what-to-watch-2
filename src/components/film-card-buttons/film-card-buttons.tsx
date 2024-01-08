@@ -1,6 +1,6 @@
 import './film-card-buttons.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { FormEvent, useEffect } from 'react';
 import {
   changeFavoriteStatus,
@@ -10,8 +10,9 @@ import {
   fetchSimilarFilms,
 } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import { FavoriteStatus } from '../../enums/FavoriteStatus';
+import { FavoriteStatus } from '../../enums/favorite-status.ts';
 import { getFavoriteFilmsCount } from '../../store/films-process/films-process.selector';
+import { ButtonSize, SmallButtonSize } from '../../enums/button-size.ts';
 
 type FilmCardButtonsProps = {
   isAuth?: boolean;
@@ -52,16 +53,31 @@ export default function FilmCardButtons({
   };
 
   useEffect(() => {
-    if (!id && params.id) {
-      dispatch(fetchFilmById(params.id));
-      dispatch(fetchSimilarFilms(params.id));
-      dispatch(fetchFilmReviews(params.id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!id && params.id) {
+        dispatch(fetchFilmById(params.id));
+        dispatch(fetchSimilarFilms(params.id));
+        dispatch(fetchFilmReviews(params.id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [params.id, dispatch, id]);
 
-  // useEffect(() => {
-  //   dispatch(fetchFavorite());
-  // }, [dispatch]);
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchFavorite());
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   return (
     <div className="film-card__buttons">
@@ -70,7 +86,11 @@ export default function FilmCardButtons({
         type="button"
         to={`${AppRoute.Player}/${id}`}
       >
-        <svg viewBox="0 0 19 19" width={19} height={19}>
+        <svg
+          viewBox="0 0 19 19"
+          width={ButtonSize.WIDTH}
+          height={ButtonSize.HEIGHT}
+        >
           <use xlinkHref="#play-s" />
         </svg>
         <span>Play</span>
@@ -81,27 +101,23 @@ export default function FilmCardButtons({
         onClick={handleChangeFavorite}
       >
         {isFavorite ? (
-          <svg viewBox="0 0 18 14" width="18" height="14">
+          <svg
+            viewBox="0 0 18 14"
+            width={SmallButtonSize.WIDTH}
+            height={SmallButtonSize.HEIGHT}
+          >
             <use xlinkHref="#in-list"></use>
           </svg>
         ) : (
-          <svg viewBox="0 0 19 20" width={19} height={20}>
+          <svg
+            viewBox="0 0 19 20"
+            width={ButtonSize.WIDTH}
+            height={ButtonSize.HEIGHT}
+          >
             <use xlinkHref="#add"></use>
           </svg>
         )}
-        {isAuth ? (
-          <Link
-            to={`${AppRoute.MyList}`}
-            className="film-card__link"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            My list
-          </Link>
-        ) : (
-          <span>My list</span>
-        )}
+        <span>My list</span>
         <span className="film-card__count">{favoriteFilmsCount}</span>
       </button>
       {isAuth && isReviewButtonVisible && (

@@ -14,16 +14,20 @@ export default function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!videoRef.current) {
-      return;
+    let isMounted = true;
+
+    if (isMounted) {
+      if (!videoRef.current) {
+        return;
+      }
+
+      setTimeout(() => {
+        videoRef.current?.play();
+      }, DEFAULT_AUTOPLAY_TIME);
     }
 
-    const timerId = setTimeout(() => {
-      videoRef.current?.play();
-    }, DEFAULT_AUTOPLAY_TIME);
-
     return () => {
-      clearTimeout(timerId);
+      isMounted = false;
     };
   }, []);
 

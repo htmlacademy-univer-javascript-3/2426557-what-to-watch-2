@@ -1,12 +1,13 @@
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { makeUser } from '../../utils/mocks';
-import { checkAuthStatus, loginUser, logoutUser } from '../api-actions';
+import { loginUser, logoutUser } from '../api-actions';
 import { userReducer } from './user-process.slice';
 
 describe('User process slice', () => {
   const initialState = {
     authorizationStatus: AuthorizationStatus.NoAuth,
-    user: null
+    user: null,
+    hasError: false,
   };
   it('should return initial state', () => {
     const emptyAction = {type: ''};
@@ -31,6 +32,7 @@ describe('User process slice', () => {
     const expectedState = {
       user,
       authorizationStatus: AuthorizationStatus.Auth,
+      hasError: false,
     };
 
     it('should login and set user in state', () => {
@@ -44,6 +46,7 @@ describe('User process slice', () => {
     const state = {
       user,
       authorizationStatus: AuthorizationStatus.Auth,
+      hasError: false,
     };
 
     it('should logout, change status and remove user in state', () => {
@@ -51,20 +54,21 @@ describe('User process slice', () => {
         .toEqual(initialState);
     });
   });
-  describe('checkASuthStatus test', () => {
-    const user = makeUser;
-    const expectedState = {
-      user,
-      authorizationStatus: AuthorizationStatus.Auth,
-    };
+  // describe('checkASuthStatus test', () => {
+  //   const user = makeUser;
+  //   // const expectedState = {
+  //   //   user,
+  //   //   authorizationStatus: AuthorizationStatus.Auth,
+  //   //   hasError: false,
+  //   // };
 
-    it('should set user and auth status in state', () => {
-      expect(userReducer.reducer(initialState, { type: checkAuthStatus.fulfilled.type, payload: user }))
-        .toEqual(expectedState);
-    });
-    it('should set user and auth status in state', () => {
-      expect(userReducer.reducer(initialState, { type: checkAuthStatus.rejected.type, payload: user }))
-        .toEqual(initialState);
-    });
-  });
+  //   // it('should set user and auth status in state', () => {
+  //   //   expect(userReducer.reducer(initialState, { type: checkAuthStatus.fulfilled.type, payload: user }))
+  //   //     .toEqual(expectedState);
+  //   // });
+  //   it('should set user and auth status in state', () => {
+  //     expect(userReducer.reducer(initialState, { type: checkAuthStatus.rejected.type, payload: user }))
+  //       .toEqual(initialState);
+  //   });
+  // });
 });

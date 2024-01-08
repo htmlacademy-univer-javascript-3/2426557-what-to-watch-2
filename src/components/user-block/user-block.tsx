@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import './user-block.css';
 import React, { useCallback } from 'react';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { logoutUser } from '../../store/api-actions.ts';
 import {
   getAuthStatus,
@@ -27,7 +27,9 @@ export default function UserBlock(): React.JSX.Element {
       <li className="user-block__item">
         <div className="user-block__avatar">
           {isAuth && user ? (
-            <img src={user.avatarUrl} alt="User" />
+            <Link to={`${AppRoute.MyList}`} className="user-block__link">
+              <img src={user.avatarUrl} alt="User" />
+            </Link>
           ) : (
             <img src="img/avatar.jpg" alt="User avatar" />
           )}

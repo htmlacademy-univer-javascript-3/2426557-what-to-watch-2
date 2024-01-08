@@ -1,16 +1,23 @@
 import React, { FormEvent, useRef, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import { loginUser } from '../../store/api-actions.ts';
-import { useAppDispatch } from '../../hooks/store.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
+import { EMAIL_PATTERN } from '../../consts/validation-patterns.ts';
 import {
-  EMAIL_PATTERN,
-  PASSWORD_PATTERN,
-} from '../../consts/validation-patterns.ts';
+  getAuthHasError,
+  getAuthStatus,
+} from '../../store/user-process/user-process.selector.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 
 export default function SignIn(): React.JSX.Element {
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
+  const hasError = useAppSelector(getAuthHasError);
+
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -26,7 +33,12 @@ export default function SignIn(): React.JSX.Element {
         return;
       }
 
-      if (!PASSWORD_PATTERN.test(passwordRef.current?.value)) {
+      if (
+        !(
+          /[a-z]/i.test(passwordRef.current.value) &&
+          /[0-9]/.test(passwordRef.current.value)
+        )
+      ) {
         setError(
           'Passwords must contain: a minimum of 1 letter and a minimum of 1 numeric character'
         );
@@ -38,9 +50,15 @@ export default function SignIn(): React.JSX.Element {
           email: emailRef.current.value,
           password: passwordRef.current.value,
         })
-      );
+      ).catch(() => {
+        setError('Ошибка сервера');
+      });
     }
   };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="user-page">
@@ -50,18 +68,11 @@ export default function SignIn(): React.JSX.Element {
       </header>
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
-          {error && (
+          {(error || hasError) && (
             <div className="sign-in__message">
               <p>{error}</p>
             </div>
           )}
-          {/* Для дальнейшей разработки страницы
-          <div className="sign-in__message">
-            <p>
-              We can’t recognize this email <br /> and password combination.
-              Please try again.
-            </p>
-          </div>*/}
           <div className="sign-in__fields">
             <div
               className={`sign-in__field ${

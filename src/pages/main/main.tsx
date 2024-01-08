@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import { fetchFavorite, fetchFilmPromo } from '../../store/api-actions.ts';
 import { getPromoFilm } from '../../store/films-process/films-process.selector.ts';
 import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 
 export default function MainPage(): React.JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -15,11 +15,19 @@ export default function MainPage(): React.JSX.Element | null {
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
-    dispatch(fetchFilmPromo());
+    let isMounted = true;
 
-    if (isAuth) {
-      dispatch(fetchFavorite());
+    if (isMounted) {
+      dispatch(fetchFilmPromo());
+
+      if (isAuth) {
+        dispatch(fetchFavorite());
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, isAuth]);
 
   if (!promoFilm) {

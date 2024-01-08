@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { Routes, Route } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { AppRoute } from '../../enums/app-route.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { withHistory } from '../../utils/mock-component';
 import PrivateRoute from './private-route';
 

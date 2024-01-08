@@ -24,7 +24,15 @@ function Tabs({ film, reviews }: TabsProps): React.JSX.Element {
   );
 
   useEffect(() => {
-    setActiveTab(TABS[0]);
+    let isMounted = true;
+
+    if (isMounted) {
+      setActiveTab(TABS[0]);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [film.id]);
 
   const component = useMemo(() => {

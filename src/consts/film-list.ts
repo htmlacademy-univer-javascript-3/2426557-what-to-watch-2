@@ -1,1 +1,3 @@
 export const DEFAULT_FILM_LIST_LENGTH = 8;
+
+export const SIMILAR_FILM_LIST_LENGTH = 4;

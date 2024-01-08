@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReviewProps } from '../../types/review-types.ts';
 import './film-reviews.css';
+import { formatDate } from '../../utils/date.ts';
 
 type FilmReviewsProps = {
   reviews: ReviewProps[];
@@ -18,7 +19,7 @@ function Review({ review }: FilmReviewProps): React.JSX.Element {
         <footer className="review__details">
           <cite className="review__author">{review.user}</cite>
           <time className="review__date" dateTime="Дата отзыва">
-            {review.date.toString()}
+            {formatDate(review.date.toString())}
           </time>
         </footer>
       </blockquote>

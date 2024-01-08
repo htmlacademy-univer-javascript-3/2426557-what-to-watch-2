@@ -6,7 +6,7 @@ import { State } from '../types/state';
 import { Action } from 'redux';
 import { AppThunkDispatch, extractActionsTypes, makeCurrentFilm, makeFilm, makePromoFilm, makeReview } from '../utils/mocks';
 import { addCommentAction, changeFavoriteStatus, checkAuthStatus, fetchFavorite, fetchFilmById, fetchFilmPromo, fetchFilmReviews, fetchFilms, fetchSimilarFilms, loginUser, logoutUser } from './api-actions';
-import { FavoriteStatus } from '../enums/FavoriteStatus';
+import { FavoriteStatus } from '../enums/favorite-status.ts';
 import { AuthData } from '../types/auth';
 import { redirectToRoute } from './action';
 
@@ -27,11 +27,12 @@ describe('Async actions', () => {
       mockAxiosAdapter.onGet('/login').reply(200);
 
       await store.dispatch(checkAuthStatus());
-      const actions = extractActionsTypes(store.getActions());
+
+      const actions = store.getActions().map((action) => action.type);
 
       expect(actions).toEqual([
         checkAuthStatus.pending.type,
-        checkAuthStatus.fulfilled.type,
+        checkAuthStatus.fulfilled.type
       ]);
     });
 
@@ -190,7 +191,7 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
-        changeFavoriteStatus.fulfilled.type,
+        changeFavoriteStatus.rejected.type,
       ]);
     });
 
@@ -200,11 +201,9 @@ describe('Async actions', () => {
       await store.dispatch(changeFavoriteStatus({filmId: 'id', status: FavoriteStatus.Favorite}));
       const actions = extractActionsTypes(store.getActions());
 
-      // todo fix
       expect(actions).toEqual([
         changeFavoriteStatus.pending.type,
-        // changeFavoriteStatus.rejected.type,
-        changeFavoriteStatus.fulfilled.type,
+        changeFavoriteStatus.rejected.type,
       ]);
     });
   });
@@ -288,6 +287,18 @@ describe('Async actions', () => {
         loginUser.pending.type,
         redirectToRoute.type,
         loginUser.fulfilled.type,
+      ]);
+    });
+    it('should dispatch "loginUser.pending", "redirectToRoute", "loginUser.rejected" when server response 400', async() => {
+      const fakeUser: AuthData = { email: 'test@test.ru', password: '123456' };
+      mockAxiosAdapter.onPost('/login').reply(400);
+
+      await store.dispatch(loginUser(fakeUser));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        loginUser.pending.type,
+        loginUser.rejected.type,
       ]);
     });
   });

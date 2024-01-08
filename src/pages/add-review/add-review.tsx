@@ -5,7 +5,7 @@ import UserBlock from '../../components/user-block/user-block';
 import './add-review.css';
 import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { Spinner } from '../../components/spinner/spinner.tsx';
 import { fetchFilmById } from '../../store/api-actions.ts';
@@ -22,9 +22,16 @@ export default function AddReview(): React.JSX.Element {
   const isLoading = useAppSelector(getIsLoadingFilm);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchFilmById(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id) {
+        dispatch(fetchFilmById(id));
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch]);
 
   if (isLoading && !film) {

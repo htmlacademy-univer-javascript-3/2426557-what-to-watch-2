@@ -1,5 +1,6 @@
 import { InfinitySpin } from 'react-loader-spinner';
 import './spinner.css';
+import React from 'react';
 
 interface SpinnerProps {
   size?: string;

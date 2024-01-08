@@ -1,12 +1,14 @@
+import { RatingValue } from '../enums/rating-value';
+
 export const useFilmRating = (rating = 0) => {
   if (rating >= 10) {
-    return 'Awesome';
+    return RatingValue.Awesome;
   } else if (rating >= 8) {
-    return 'Very good';
+    return RatingValue.VeryGood;
   } else if (rating >= 5) {
-    return 'Good';
+    return RatingValue.Good;
   } else if (rating >= 3) {
-    return 'Normal';
+    return RatingValue.Normal;
   }
-  return 'Bad';
+  return RatingValue.Bad;
 };

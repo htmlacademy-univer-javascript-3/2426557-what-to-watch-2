@@ -1,12 +1,12 @@
 import {datatype, name, internet, commerce, lorem} from 'faker';
-import { CheckUserData, UserData } from '../types/auth';
+import { UserData } from '../types/auth';
 import { FilmInfoProps, FilmPromo, FilmProps } from '../types/film-types';
 import { ReviewProps } from '../types/review-types';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createApi } from '../services/api';
 import { State } from '../types/state';
-import { AuthorizationStatus } from '../enums/AuthorizationStatus';
+import { AuthorizationStatus } from '../enums/authorization-status.ts';
 import { ALL_GENRES } from '../consts/genres';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
@@ -19,13 +19,6 @@ export const makeUser = {
   name: name.title(),
   avatarUrl: internet.url(),
 } as UserData;
-
-export const makeCheckUserStatus = () => ({
-  email: internet.email(),
-  token: datatype.uuid(),
-  name: name.title(),
-  avatarUrl: internet.url(),
-} as CheckUserData);
 
 export const makeFilm = (): FilmProps => ({
   id: datatype.uuid(),
@@ -76,7 +69,7 @@ export const makeReview = (): ReviewProps => ({
 } as ReviewProps);
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null },
+  USER: { authorizationStatus: AuthorizationStatus.NoAuth, user: null, hasError: false },
   FILM: {
     currentFilm: null ,
     isLoadingFilm: true,

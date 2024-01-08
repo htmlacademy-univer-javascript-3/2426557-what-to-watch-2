@@ -1,5 +1,5 @@
 import { ALL_GENRES } from '../../consts/genres';
-import { NameSpace } from '../../consts/name-space';
+import { NameSpace } from '../../enums/name-space.ts';
 import { makeFilm, makePromoFilm } from '../../utils/mocks';
 import { getActiveGenre, getFavoriteFilms, getFilms, getFilmsByGenre, getFilmsByGenreLength, getIsLoadingList, getPromoFilm } from './films-process.selector';
 

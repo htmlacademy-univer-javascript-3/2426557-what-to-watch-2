@@ -9,8 +9,8 @@ import {
   makePromoFilm,
   makeUser,
 } from '../../utils/mocks';
-import { AppRoute } from '../../enums/AppRoute';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { AppRoute } from '../../enums/app-route.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { ALL_GENRES } from '../../consts/genres';
 
 describe('Application Routing', () => {
@@ -68,6 +68,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILMS: {
           films: [],
@@ -97,6 +98,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILM: {
           currentFilm: fakeFilm,
@@ -127,6 +129,7 @@ describe('Application Routing', () => {
         USER: {
           authorizationStatus: AuthorizationStatus.Auth,
           user: makeUser,
+          hasError: false,
         },
         FILM: {
           currentFilm: fakeFilm,

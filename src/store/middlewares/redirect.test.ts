@@ -3,7 +3,7 @@ import { redirect } from './redirect';
 import browserHistory from '../../browser-history';
 import { AnyAction } from '@reduxjs/toolkit';
 import { redirectToRoute } from '../action';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { State } from '../../types/state';
 
 vi.mock('../../browser-history', () => ({

@@ -1,5 +1,5 @@
 export const DEFAULT_FORM_VALUE = {
-  ifilmId: '',
+  filmId: '',
   comment: '',
   rating: 0
 };

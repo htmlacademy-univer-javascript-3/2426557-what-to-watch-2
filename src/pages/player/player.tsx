@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchFilmById } from '../../store/api-actions';
 import {
@@ -20,7 +20,6 @@ export default function Player(): React.JSX.Element {
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const togglerRef = useRef<HTMLDivElement | null>(null);
 
   const {
     isPlaying,
@@ -29,23 +28,26 @@ export default function Player(): React.JSX.Element {
     togglePlay,
     handleProgress,
     handleSlider,
-    handleTogglerMouseDown,
-    handleFullSrceen,
+    handleFullScreen,
     handleExit,
-  } = useVideoPlayer(videoRef, sliderRef, togglerRef);
+  } = useVideoPlayer(videoRef, sliderRef);
 
   useEffect(() => {
-    if (id && id !== film?.id) {
-      dispatch(fetchFilmById(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmById(id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, film?.id]);
 
-  // if (id && id !== film?.id) {
-  //   dispatch(fetchFilmById(id));
-  // }
-
   if (isLoading) {
-    return <Spinner />;
+    return <Spinner size="large" />;
   }
 
   if (!film && !id) {
@@ -75,12 +77,7 @@ export default function Player(): React.JSX.Element {
             }}
           >
             <progress className="player__progress" value={progress} max="100" />
-            <div
-              className="player__toggler"
-              style={{ left: `${progress}%` }}
-              ref={togglerRef}
-              onMouseDown={handleTogglerMouseDown}
-            >
+            <div className="player__toggler" style={{ left: `${progress}%` }}>
               Toggler
             </div>
           </div>
@@ -98,7 +95,7 @@ export default function Player(): React.JSX.Element {
           <button
             type="button"
             className="player__full-screen"
-            onClick={handleFullSrceen}
+            onClick={handleFullScreen}
           >
             <svg viewBox="0 0 27 27" width={27} height={27}>
               <use xlinkHref="#full-screen" />

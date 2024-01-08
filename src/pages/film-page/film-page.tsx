@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
-import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import FilmsList from '../../components/films-list/films-list';
-import { AppRoute } from '../../enums/AppRoute';
+import Footer from '../../components/footer/footer.tsx';
+import Header from '../../components/header/header.tsx';
+import FilmCardPoster from '../../components/film-card-poster/film-card-poster.tsx';
+import FilmsList from '../../components/films-list/films-list.tsx';
+import { AppRoute } from '../../enums/app-route.ts';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import {
@@ -12,8 +12,8 @@ import {
   fetchFilmReviews,
   fetchSimilarFilms,
 } from '../../store/api-actions.ts';
-import { Spinner } from '../../components/spinner/spinner';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import { Spinner } from '../../components/spinner/spinner.tsx';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 
 import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 import {
@@ -24,8 +24,9 @@ import {
 import FilmCardButtons from '../../components/film-card-buttons/film-card-buttons.tsx';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
 import { getFavoriteFilms } from '../../store/films-process/films-process.selector.ts';
+import { SIMILAR_FILM_LIST_LENGTH } from '../../consts/film-list.ts';
 
-export default function MoviePage(): React.JSX.Element {
+export default function FilmPage(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();
@@ -40,11 +41,19 @@ export default function MoviePage(): React.JSX.Element {
   );
 
   useEffect(() => {
-    if (id && id !== film?.id) {
-      dispatch(fetchFilmById(id));
-      dispatch(fetchSimilarFilms(id));
-      dispatch(fetchFilmReviews(id));
+    let isMounted = true;
+
+    if (isMounted) {
+      if (id && id !== film?.id) {
+        dispatch(fetchFilmById(id));
+        dispatch(fetchSimilarFilms(id));
+        dispatch(fetchFilmReviews(id));
+      }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [id, dispatch, film?.id]);
 
   if (isLoading) {
@@ -93,7 +102,7 @@ export default function MoviePage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList length={4} />
+          <FilmsList length={SIMILAR_FILM_LIST_LENGTH} />
         </section>
         <Footer />
       </div>

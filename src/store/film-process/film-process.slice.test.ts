@@ -3,7 +3,7 @@ import { makeFilm, makeReview } from '../../utils/mocks';
 import { fetchFilmById, fetchFilmReviews, fetchSimilarFilms } from '../api-actions';
 import { filmReducer } from './film-process.slice';
 
-describe('Filmprocess slice', () => {
+describe('FilmProcess slice', () => {
   let initialState: FilmProcessState;
 
   beforeEach(() => {

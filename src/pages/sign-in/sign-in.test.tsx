@@ -2,12 +2,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import SignIn from './sign-in';
+import { makeFakeStore } from '../../utils/mocks';
 
 describe('Component: Sing In', () => {
   it('should render correctly', () => {
     const loginText = 'Email address';
     const passwordText = 'Password';
-    const { withStoreComponent } = withStore(<SignIn />, {});
+    const { withStoreComponent } = withStore(<SignIn />, makeFakeStore());
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
@@ -24,7 +25,7 @@ describe('Component: Sing In', () => {
     const passwordElementTestId = 'password-element';
     const expectedLoginValue = 'test';
     const expectedPasswordValue = '123456';
-    const { withStoreComponent } = withStore(<SignIn />, {});
+    const { withStoreComponent } = withStore(<SignIn />, makeFakeStore());
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

@@ -3,7 +3,7 @@ import Header from '../header/header';
 import React from 'react';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import { FilmPromo } from '../../types/film-types';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { useAppSelector } from '../../hooks/store';
 import { getAuthStatus } from '../../store/user-process/user-process.selector';
 import { getFavoriteFilms } from '../../store/films-process/films-process.selector';

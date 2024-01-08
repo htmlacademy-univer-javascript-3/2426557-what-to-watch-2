@@ -1,5 +1,5 @@
-import { NameSpace } from '../../consts/name-space';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { NameSpace } from '../../enums/name-space.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { makeUser } from '../../utils/mocks';
 import { getAuthStatus, getUser } from './user-process.selector';
 
@@ -8,6 +8,7 @@ describe('User process selectors', () => {
     [NameSpace.User]: {
       user: makeUser,
       authorizationStatus: AuthorizationStatus.Unknown,
+      hasError: false,
     }
   };
 

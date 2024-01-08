@@ -1,13 +1,14 @@
 import {store} from '../store/index.js';
-import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
-import {CheckUserData, UserData} from './auth.ts';
+import {AuthorizationStatus} from '../enums/authorization-status.ts';
+import {UserData} from './auth.ts';
 import {ReviewProps} from './review-types.ts';
 import {FilmInfoProps, FilmPromo, FilmProps} from './film-types.ts';
 import {ALL_GENRES} from '../consts/genres.ts';
 
 export type UserProcessState = {
   authorizationStatus: AuthorizationStatus;
-  user: UserData | CheckUserData | null;
+  user: UserData | null;
+  hasError: boolean;
 }
 
 export type FilmsProcessState = {

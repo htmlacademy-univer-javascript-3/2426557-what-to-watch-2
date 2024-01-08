@@ -2,28 +2,18 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
-// import {redirectToRoute,
-//   // setActiveGenre,
-// } from './action.ts';
-// import {ALL_GENRES} from '../consts/genres.ts';
 import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
-// import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
-import {AuthData, CheckUserData, UserData} from '../types/auth.ts';
-import { AppRoute } from '../enums/AppRoute.ts';
-// import { setToken } from '../services/token.ts';
+import {AuthData, UserData} from '../types/auth.ts';
+import { AppRoute } from '../enums/app-route.ts';
 import { redirectToRoute } from './action.ts';
-import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
-// import { setAuthStatus } from './user-process/user-process.slice.ts';
-// import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
-// import {AppRoute} from '../enums/AppRoute.ts';
-// import {removeToken, setToken} from '../services/token.ts';
+import { FavoriteStatus } from '../enums/favorite-status.ts';
 
 export const fetchFilms = createAsyncThunk<FilmProps[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  '/films',
+  'films/fetchFilms',
   async (_arg, {extra: api}) => {
     const { data } = await api.get<FilmProps[]>('/films');
 
@@ -39,7 +29,7 @@ FilmInfoProps,
     state: State;
     extra: AxiosInstance;
 }>(
-  '/films/id',
+  'films/fetchFilmById',
   async (id: string, {extra: api}) => {
     const { data } = await api.get<FilmInfoProps>(`/films/${id}`);
     return data;
@@ -54,7 +44,7 @@ export const fetchSimilarFilms = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }>(
-    '/films/id/similar',
+    'films/fetchSimilarFilms',
     async (id: string, { extra: api}) => {
       const { data } = await api.get<FilmProps[]>(`/films/${id}/similar`);
 
@@ -70,7 +60,7 @@ export const fetchFavorite = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }>(
-    '/favorite',
+    'films/fetchFavorite',
     async (_arg, { extra: api}) => {
       const {data} = await api.get<FilmProps[]>('/favorite');
 
@@ -86,15 +76,9 @@ export const changeFavoriteStatus = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }>(
-    'favorite/status',
+    'film/changeStatus',
     async ({filmId, status}, { extra: api}) => {
-      try {
-
-        await api.post(`/favorite/${filmId}/${status}`);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log(e);
-      }
+      await api.post(`/favorite/${filmId}/${status}`);
     },
   );
 
@@ -106,7 +90,7 @@ export const fetchFilmPromo = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }>(
-    '/promo',
+    'films/fetchFilmPromo',
     async (_arg, { extra: api}) => {
       const { data } = await api.get<FilmPromo>('/promo');
 
@@ -122,7 +106,7 @@ export const fetchFilmReviews = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
 }>(
-  '/comments/id',
+  'film/fetchFilmReviews',
   async (id, { extra: api}) => {
 
     const { data } = await api.get<ReviewProps[]>(`/comments/${id}`);
@@ -132,7 +116,7 @@ export const fetchFilmReviews = createAsyncThunk<
 );
 
 export const checkAuthStatus = createAsyncThunk<
-  CheckUserData,
+  UserData | void,
   undefined,
   {
   dispatch: AppDispatch;
@@ -140,39 +124,14 @@ export const checkAuthStatus = createAsyncThunk<
   extra: AxiosInstance;
   }
   >(
-    '/login',
+    'user/checkAuthStatus',
     async (_arg, { extra: api}) => {
-      // try {
 
-      const {data} = await api.get<CheckUserData>('/login');
-      // setAuthStatus(AuthorizationStatus.Auth);
+      const {data} = await api.get<UserData>('/login');
+
       return data;
-      // } catch (e) {
-      //   setAuthStatus(AuthorizationStatus.NoAuth);
-      // }
     },
   );
-
-// export const checkAuthStatus = createAsyncThunk<
-//   void,
-//   undefined,
-//   {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-//   }
-//   >(
-//     '/login',
-//     async (_arg, { extra: api}) => {
-//       try {
-
-//         await api.get('/login');
-//         setAuthStatus(AuthorizationStatus.Auth);
-//       } catch (e) {
-//         setAuthStatus(AuthorizationStatus.NoAuth);
-//       }
-//     },
-//   );
 
 export const loginUser = createAsyncThunk<
   UserData,
@@ -183,7 +142,7 @@ export const loginUser = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'user/login',
+  'user/loginUser',
   async ({email, password}, { dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(
       '/login',
@@ -208,7 +167,7 @@ export const logoutUser = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'user/logout',
+  'user/logoutUser',
   async (_arg, { extra: api}) => {
     await api.delete('/logout');
   },
@@ -219,7 +178,7 @@ export const addCommentAction = createAsyncThunk<void, AddUserReview, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'addCommentAction',
+  'film/addCommentAction',
   async ({filmId, comment, rating}, {extra: api}) => {
     await api.post<UserReview>(`comments/${filmId}`, {comment, rating});
   },
