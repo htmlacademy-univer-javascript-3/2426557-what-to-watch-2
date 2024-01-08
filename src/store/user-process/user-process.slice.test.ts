@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { makeUser } from '../../utils/mocks';
 import { loginUser, logoutUser } from '../api-actions';
 import { userReducer } from './user-process.slice';

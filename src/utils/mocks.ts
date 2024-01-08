@@ -6,7 +6,7 @@ import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createApi } from '../services/api';
 import { State } from '../types/state';
-import { AuthorizationStatus } from '../enums/AuthorizationStatus';
+import { AuthorizationStatus } from '../enums/authorization-status.ts';
 import { ALL_GENRES } from '../consts/genres';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
@@ -19,13 +19,6 @@ export const makeUser = {
   name: name.title(),
   avatarUrl: internet.url(),
 } as UserData;
-
-export const makeCheckUserStatus = () => ({
-  email: internet.email(),
-  token: datatype.uuid(),
-  name: name.title(),
-  avatarUrl: internet.url(),
-} as UserData);
 
 export const makeFilm = (): FilmProps => ({
   id: datatype.uuid(),

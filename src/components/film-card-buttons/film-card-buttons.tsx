@@ -1,6 +1,6 @@
 import './film-card-buttons.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { FormEvent, useEffect } from 'react';
 import {
   changeFavoriteStatus,
@@ -10,7 +10,7 @@ import {
   fetchSimilarFilms,
 } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import { FavoriteStatus } from '../../enums/FavoriteStatus';
+import { FavoriteStatus } from '../../enums/favorite-status.ts';
 import { getFavoriteFilmsCount } from '../../store/films-process/films-process.selector';
 
 type FilmCardButtonsProps = {

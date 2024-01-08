@@ -9,7 +9,7 @@ import { DEFAULT_FORM_VALUE } from '../../consts/default-form';
 import { addCommentAction } from '../../store/api-actions.ts';
 import { useAppDispatch } from '../../hooks/store.ts';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute.ts';
+import { AppRoute } from '../../enums/app-route.ts';
 import './add-review-form.css';
 import { MAX_REVIEW, MIN_REVIEW, RATINGS } from '../../consts/review.ts';
 

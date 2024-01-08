@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
-import FilmCardPoster from '../../components/film-card-poster/film-card-poster';
-import FilmsList from '../../components/films-list/films-list';
-import { AppRoute } from '../../enums/AppRoute';
+import Footer from '../../components/footer/footer.tsx';
+import Header from '../../components/header/header.tsx';
+import FilmCardPoster from '../../components/film-card-poster/film-card-poster.tsx';
+import FilmsList from '../../components/films-list/films-list.tsx';
+import { AppRoute } from '../../enums/app-route.ts';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
 import {
@@ -12,8 +12,8 @@ import {
   fetchFilmReviews,
   fetchSimilarFilms,
 } from '../../store/api-actions.ts';
-import { Spinner } from '../../components/spinner/spinner';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import { Spinner } from '../../components/spinner/spinner.tsx';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 
 import { getAuthStatus } from '../../store/user-process/user-process.selector.ts';
 import {
@@ -25,7 +25,7 @@ import FilmCardButtons from '../../components/film-card-buttons/film-card-button
 import PageNotFound from '../page-not-found/page-not-found.tsx';
 import { getFavoriteFilms } from '../../store/films-process/films-process.selector.ts';
 
-export default function MoviePage(): React.JSX.Element {
+export default function FilmPage(): React.JSX.Element {
   const { id = '' } = useParams();
 
   const dispatch = useAppDispatch();

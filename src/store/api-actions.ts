@@ -2,23 +2,13 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {FilmInfoProps, FilmPromo, FilmProps} from '../types/film-types.ts';
-// import {redirectToRoute,
-//   // setActiveGenre,
-// } from './action.ts';
-// import {ALL_GENRES} from '../consts/genres.ts';
 import {AddUserReview, ReviewProps, UserReview} from '../types/review-types.ts';
-// import {AuthorizationStatus} from '../enums/AuthorizationStatus.ts';
 import {AuthData, UserData} from '../types/auth.ts';
-import { AppRoute } from '../enums/AppRoute.ts';
-// import { setToken } from '../services/token.ts';
+import { AppRoute } from '../enums/app-route.ts';
 import { redirectToRoute } from './action.ts';
-import { FavoriteStatus } from '../enums/FavoriteStatus.ts';
-import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
+import { FavoriteStatus } from '../enums/favorite-status.ts';
+import { AuthorizationStatus } from '../enums/authorization-status.ts';
 import { setAuthStatus } from './user-process/user-process.slice.ts';
-// import { setAuthStatus } from './user-process/user-process.slice.ts';
-// import { AuthorizationStatus } from '../enums/AuthorizationStatus.ts';
-// import {AppRoute} from '../enums/AppRoute.ts';
-// import {removeToken, setToken} from '../services/token.ts';
 
 export const fetchFilms = createAsyncThunk<FilmProps[], undefined, {
   dispatch: AppDispatch;
@@ -90,13 +80,7 @@ export const changeFavoriteStatus = createAsyncThunk<
   }>(
     'favorite/status',
     async ({filmId, status}, { extra: api}) => {
-      try {
-
-        await api.post(`/favorite/${filmId}/${status}`);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log(e);
-      }
+      await api.post(`/favorite/${filmId}/${status}`);
     },
   );
 
@@ -144,44 +128,18 @@ export const checkAuthStatus = createAsyncThunk<
   >(
     'user/check',
     async (_arg, { extra: api}) => {
-      try {
 
-        const {data} = await api.get<UserData>('/login');
-        if(!data) {
-          setAuthStatus(AuthorizationStatus.NoAuth);
-        } else {
-          setAuthStatus(AuthorizationStatus.Auth);
-        }
-        // debugger;
-        // setAuthStatus(AuthorizationStatus.Auth);
-        return data;
-      } catch (e) {
-        // debugger;
-        // setAuthStatus(AuthorizationStatus.NoAuth);
+      const {data} = await api.get<UserData>('/login');
+
+      if(!data) {
+        setAuthStatus(AuthorizationStatus.NoAuth);
+      } else {
+        setAuthStatus(AuthorizationStatus.Auth);
       }
+
+      return data;
     },
   );
-
-// export const checkAuthStatus = createAsyncThunk<
-//   void,
-//   undefined,
-//   {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-//   }
-//   >(
-//     '/login',
-//     async (_arg, { extra: api}) => {
-//       try {
-
-//         await api.get('/login');
-//         setAuthStatus(AuthorizationStatus.Auth);
-//       } catch (e) {
-//         setAuthStatus(AuthorizationStatus.NoAuth);
-//       }
-//     },
-//   );
 
 export const loginUser = createAsyncThunk<
   UserData,

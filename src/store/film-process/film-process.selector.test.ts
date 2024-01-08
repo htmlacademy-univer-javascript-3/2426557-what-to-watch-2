@@ -1,4 +1,4 @@
-import { NameSpace } from '../../consts/name-space';
+import { NameSpace } from '../../enums/name-space.ts';
 import { makeCurrentFilm, makeFilm, makeReview } from '../../utils/mocks';
 import { getFilm, getIsLoadingFilm, getReviews } from './film-process.selector';
 

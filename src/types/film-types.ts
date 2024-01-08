@@ -1,5 +1,3 @@
-import { ReviewProps } from './review-types';
-
 export interface FilmProps {
   id: string;
   name: string;
@@ -30,7 +28,4 @@ export interface FilmInfoProps extends FilmPromo {
   runTime: number;
 }
 
-export interface CurrentFilm extends FilmInfoProps {
-  reviews?: ReviewProps[];
-}
 

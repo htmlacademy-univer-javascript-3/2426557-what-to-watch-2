@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import './user-block.css';
 import React, { useCallback } from 'react';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.ts';
-import { AuthorizationStatus } from '../../enums/AuthorizationStatus.ts';
+import { AuthorizationStatus } from '../../enums/authorization-status.ts';
 import { logoutUser } from '../../store/api-actions.ts';
 import {
   getAuthStatus,

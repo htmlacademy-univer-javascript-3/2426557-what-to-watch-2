@@ -6,7 +6,6 @@ import { store } from './store';
 import {
   fetchFilms,
   checkAuthStatus,
-  // fetchFavorite,
 } from './store/api-actions.ts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +14,6 @@ import HistoryRouter from './components/history-router/history-router.tsx';
 
 store.dispatch(fetchFilms());
 store.dispatch(checkAuthStatus());
-// store.dispatch(fetchFavorite());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import { useAppDispatch } from '../../hooks/store.ts';
 import {
   setActiveGenre,

@@ -6,7 +6,7 @@ import { State } from '../types/state';
 import { Action } from 'redux';
 import { AppThunkDispatch, extractActionsTypes, makeCurrentFilm, makeFilm, makePromoFilm, makeReview } from '../utils/mocks';
 import { addCommentAction, changeFavoriteStatus, checkAuthStatus, fetchFavorite, fetchFilmById, fetchFilmPromo, fetchFilmReviews, fetchFilms, fetchSimilarFilms, loginUser, logoutUser } from './api-actions';
-import { FavoriteStatus } from '../enums/FavoriteStatus';
+import { FavoriteStatus } from '../enums/favorite-status.ts';
 import { AuthData } from '../types/auth';
 import { redirectToRoute } from './action';
 

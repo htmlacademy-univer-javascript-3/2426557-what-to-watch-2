@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './card.css';
 import { FilmProps } from '../../types/film-types';
-import { AppRoute } from '../../enums/AppRoute';
+import { AppRoute } from '../../enums/app-route.ts';
 import VideoPlayer from '../videoplayer/videoplayer';
 import { useCallback } from 'react';
 import React from 'react';

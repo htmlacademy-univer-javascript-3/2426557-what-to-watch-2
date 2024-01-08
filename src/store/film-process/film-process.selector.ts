@@ -1,5 +1,5 @@
 import {State} from '../../types/state.ts';
-import {NameSpace} from '../../consts/name-space.ts';
+import {NameSpace} from '../../enums/name-space.ts';
 import {FilmInfoProps} from '../../types/film-types.ts';
 import { ReviewProps } from '../../types/review-types.ts';
 

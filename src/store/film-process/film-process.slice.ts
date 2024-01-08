@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../consts/name-space.ts';
+import {NameSpace} from '../../enums/name-space.ts';
 import {
   fetchFilmById,
   fetchFilmReviews,
