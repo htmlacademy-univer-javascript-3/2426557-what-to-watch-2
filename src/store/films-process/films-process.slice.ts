@@ -29,6 +29,9 @@ export const filmsReducer = createSlice({
     },
     setActiveGenre: (state, action) => {
       state.activeGenre = String(action.payload);
+    },
+    resetFavoriteFilms: (state) => {
+      state.favoriteFilms = [];
     }
   },
   extraReducers: (builder) => {
@@ -62,4 +65,4 @@ export const filmsReducer = createSlice({
   }
 });
 
-export const {setFilmsByGenre, setActiveGenre} = filmsReducer.actions;
+export const {setFilmsByGenre, setActiveGenre, resetFavoriteFilms} = filmsReducer.actions;

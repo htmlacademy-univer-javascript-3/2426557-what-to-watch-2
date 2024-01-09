@@ -9,6 +9,7 @@ import {
   getAuthStatus,
   getUser,
 } from '../../store/user-process/user-process.selector.ts';
+import { resetFavoriteFilms } from '../../store/films-process/films-process.slice.ts';
 
 export default function UserBlock(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,21 +21,20 @@ export default function UserBlock(): React.JSX.Element {
 
   const handleClick = useCallback(() => {
     dispatch(logoutUser());
+    dispatch(resetFavoriteFilms());
   }, [dispatch]);
 
   return (
     <ul className="user-block">
-      <li className="user-block__item">
-        <div className="user-block__avatar">
-          {isAuth && user ? (
+      {isAuth && user && (
+        <li className="user-block__item">
+          <div className="user-block__avatar">
             <Link to={`${AppRoute.MyList}`} className="user-block__link">
               <img src={user.avatarUrl} alt="User" />
             </Link>
-          ) : (
-            <img src="img/avatar.jpg" alt="User avatar" />
-          )}
-        </div>
-      </li>
+          </div>
+        </li>
+      )}
       <li className="user-block__item">
         {isAuth ? (
           <Link
