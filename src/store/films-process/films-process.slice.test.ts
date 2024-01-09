@@ -15,6 +15,7 @@ describe('Films process slice', () => {
       promoFilm: null,
       isLoadingList: false,
       favoriteFilms: [],
+      isLoadingPromo: false,
     };
   });
 
@@ -44,6 +45,7 @@ describe('Films process slice', () => {
       promoFilm: null,
       isLoadingList: true,
       favoriteFilms: [],
+      isLoadingPromo: false,
     };
     const expectedGenre = 'Drama';
 
@@ -62,6 +64,7 @@ describe('Films process slice', () => {
       promoFilm: null,
       isLoadingList: true,
       favoriteFilms: [],
+      isLoadingPromo: false,
     };
     const expectedFilms = state.films;
 
@@ -80,6 +83,7 @@ describe('Films process slice', () => {
       promoFilm: null,
       isLoadingList: true,
       favoriteFilms: [],
+      isLoadingPromo: false,
     };
     const expectedFilms = state.films;
 
@@ -98,6 +102,7 @@ describe('Films process slice', () => {
       promoFilm: null,
       isLoadingList: true,
       favoriteFilms: [],
+      isLoadingPromo: false,
     };
     const expectedFilms: unknown[] = [];
 
@@ -116,6 +121,7 @@ describe('Films process slice', () => {
         promoFilm: null,
         isLoadingList: true,
         favoriteFilms: [],
+        isLoadingPromo: false,
       };
 
       expect(filmsReducer.reducer(initialState, fetchFilms.pending))

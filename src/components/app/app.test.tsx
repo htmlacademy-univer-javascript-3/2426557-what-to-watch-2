@@ -33,6 +33,7 @@ describe('Application Routing', () => {
           promoFilm: fakeFilm,
           isLoadingList: true,
           favoriteFilms: [],
+          isLoadingPromo: false,
         },
       })
     );
@@ -77,6 +78,7 @@ describe('Application Routing', () => {
           promoFilm: null,
           isLoadingList: false,
           favoriteFilms: [fakeFilm],
+          isLoadingPromo: true,
         },
       })
     );

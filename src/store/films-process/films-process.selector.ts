@@ -8,5 +8,6 @@ export const getFilmsByGenreLength = (state: Pick<State, NameSpace.Films>): numb
 export const getIsLoadingList = (state: Pick<State, NameSpace.Films>): boolean => state[NameSpace.Films].isLoadingList;
 export const getActiveGenre = (state: Pick<State, NameSpace.Films>): string => state[NameSpace.Films].activeGenre;
 export const getPromoFilm = (state: Pick<State, NameSpace.Films>): FilmPromo | null => state[NameSpace.Films].promoFilm;
+export const getIsLoadingPromo = (state: Pick<State, NameSpace.Films>): boolean => state[NameSpace.Films].isLoadingPromo;
 export const getFavoriteFilms = (state: Pick<State, NameSpace.Films>): FilmProps[] => state[NameSpace.Films].favoriteFilms;
 export const getFavoriteFilmsCount = (state: Pick<State, NameSpace.Films>): number => state[NameSpace.Films].favoriteFilms?.length || 0;
