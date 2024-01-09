@@ -15,6 +15,7 @@ describe('User process selectors', () => {
       promoFilm: promoFilmFake,
       isLoadingList: true,
       favoriteFilms: [film],
+      isLoadingPromo: true,
     }
   };
 

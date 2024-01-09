@@ -15,6 +15,7 @@ const initialState: FilmsProcessState = {
   promoFilm: null,
   isLoadingList: true,
   favoriteFilms: [],
+  isLoadingPromo: false,
 };
 
 export const filmsReducer = createSlice({
@@ -48,19 +49,22 @@ export const filmsReducer = createSlice({
         state.films = [];
         state.isLoadingList = true;
       })
-
       .addCase(fetchFavorite.fulfilled, (state, action) => {
         state.favoriteFilms = action.payload;
       })
       .addCase(fetchFavorite.rejected, (state) => {
         state.favoriteFilms = [];
       })
-
+      .addCase(fetchFilmPromo.pending, (state) => {
+        state.isLoadingPromo = true;
+      })
       .addCase(fetchFilmPromo.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
+        state.isLoadingPromo = false;
       })
       .addCase(fetchFilmPromo.rejected, (state) => {
         state.promoFilm = null;
+        state.isLoadingPromo = false;
       });
   }
 });
